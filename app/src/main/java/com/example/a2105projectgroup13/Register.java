@@ -1,24 +1,16 @@
 package com.example.a2105projectgroup13;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Register extends AppCompatActivity {
     //Declaring instance variables for everything the user inputs on the register screen/activity.
@@ -31,16 +23,27 @@ public class Register extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseAuth firebaseAuth;
 
-
-    //onCreate is called when
+    //NOTE: OnCreate is the method that is first run when the activity starts!
+        //Treat it almost like the "main" of this Register class.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        //Initialize needed instance varaibles by calling the initializeInstanceVariables method within this class.
         this.initializeInstanceVariables();
 
+        //Let's code for what happens when the register button is clicked on by the user.
+        registerButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+            }
+
+        });
     }
 
+    //Method to initialize instance variables
     private void initializeInstanceVariables(){
         //Initialize each instance variable by finding the first view that corresponds with their id in the activity.
         editTextFirstName = findViewById(R.id.editTextFirstName);
@@ -56,10 +59,11 @@ public class Register extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
+
     //Code adapted from official Android Developers website:
-    //In the xml, we have implemented radio buttons which determine whether the user is setting up a customer account or a branch account.
-    //This method, onRadioButtonClicked, determines which radio button has been selected by the user.
-    //It will return a string indicating which button was selected; the string represents the account type.
+        //In the xml, we have implemented radio buttons which determine whether the user is setting up a customer account or a branch account.
+        //This method, onRadioButtonClicked, determines which radio button has been selected by the user.
+        //It will return a string indicating which button was selected; the string represents the account type.
     private String onRadioButtonClicked(View view){
         boolean checked = ((RadioButton) view).isChecked();
 
