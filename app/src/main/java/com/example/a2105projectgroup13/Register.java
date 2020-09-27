@@ -1,16 +1,24 @@
 package com.example.a2105projectgroup13;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Register extends AppCompatActivity {
     //Declaring instance variables for everything the user inputs on the register screen/activity.
@@ -24,66 +32,48 @@ public class Register extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
 
 
+    //onCreate is called when
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        this.initializeInstanceVariables();
 
+    }
+
+    private void initializeInstanceVariables(){
         //Initialize each instance variable by finding the first view that corresponds with their id in the activity.
         editTextFirstName = findViewById(R.id.editTextFirstName);
         editTextLastName = findViewById(R.id.editTextLastName);
         editTextUserName = findViewById(R.id.editTextUserName);
         editTextEmailAddress = findViewById(editTextEmailAddress);
         editTextPassword = findViewById(editTextPassword);
-        registerButton = findViewById(registerButton);
 
         //Initialize progress bar
         progressBar = findViewById(R.id.progressBar)
 
         //Initialize firebase authenticator by getting its instance.
         firebaseAuth = FirebaseAuth.getInstance();
+    }
 
-        //Validation of all fields where user input is required will be coded for later.
-        //Code what happens when the register button is clicked.
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Assuming validation of these fields has occurred...
-                String firstName = editTextFirstName.getText().toString().trim();
-                String lastName = editTextLastName.getText().toString().trim();
-                String userName = editTextUserName.getText().toString().trim();
-                String emailAddress = editTextEmailAddress.getText().toString().trim();
-                String password = editTextPassword.getText().toString();
-                String accountType = onRadioButtonClicked(View v);
-
-                //Make the progress bar visible to the user.
-                //The progress bar will serve as an indicator to the user that the application is "loading," as it
-                //sends the user's information to Firebase to be stored.
-                progressBar.setVisibility(View.VISIBLE);
-
-                //Now, let's send the user's information to be stored in Firebase.
-                //F
-                firebaseAuth.createUserWithEmailAndPassword(emailAddress, password);
-            }
-
-
-    //Code adapted from official Android Developers website
-    public String onRadioButtonClicked(View view) {
-        // Is the button now checked?
+    //Code adapted from official Android Developers website:
+    //In the xml, we have implemented radio buttons which determine whether the user is setting up a customer account or a branch account.
+    //This method, onRadioButtonClicked, determines which radio button has been selected by the user.
+    //It will return a string indicating which button was selected; the string represents the account type.
+    private String onRadioButtonClicked(View view){
         boolean checked = ((RadioButton) view).isChecked();
 
-        // Check which radio button was clicked
-        switch (view.getId()) {
+        switch (view.getId()){
             case R.id.customerAccountButton:
-                if (checked)
-                    return "Customer";
+                if (checked) {
+                    return "customer";
+                }
             case R.id.branchButton:
-                if (checked)
-                    return "Branch";
-            }
+                if (checked) {
+                    return "branch";
+                }
         }
     }
 
-
-
 }
+
