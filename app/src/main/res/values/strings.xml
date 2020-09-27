@@ -8,4 +8,10 @@
     <string name="password">Password</string>
     <string name="username">Username</string>
     <string name="register">REGISTER</string>
+    <string name="already_registered_sign_in">Already registered? Sign in.</string>
+    <string name="customer_account">Customer Account</string>
+    <string name="branch_account">Branch Account</string>
+    <string name="don_t_have_an_account_register">Don\'t have an account? Register.</string>
+    <string name="login_to_your_account">LOGIN TO YOUR ACCOUNT</string>
+    <string name="login">LOGIN</string>
 </resources>

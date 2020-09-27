@@ -7,11 +7,11 @@ public class User{
     private String accountType;
     private int userID;
 
-    public User(String nameNumOne, String nameNumTwo, String acType, int id){
+    public User(String nameNumOne, String nameNumTwo, String acType, int userID){
         this.firstName = nameNumOne;
         this.lastName = nameNumTwo;
         this.accountType = acType;
-        this.userID = id;
+        this.userID = userID;
     }
 
     public String getFirstName(){
