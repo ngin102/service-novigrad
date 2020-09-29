@@ -60,7 +60,7 @@ package com.example.a2105projectgroup13;
 
 import java.util.regex.Pattern; // use the Pattern library to utilize regular expressions ("regex")
 
-public class Field_Validation {
+public class ValidateString {
 
     // private class methods
     /*
