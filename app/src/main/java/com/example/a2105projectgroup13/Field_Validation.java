@@ -128,6 +128,5 @@ public class Field_Validation {
             return username;
         }
     }
-
-//    methods for convenience and clarity:
+    
 }
