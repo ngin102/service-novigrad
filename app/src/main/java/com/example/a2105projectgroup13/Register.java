@@ -122,43 +122,4 @@ public class Register extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    //Checks that the user has selected a valid first name.
-    //A first name is valid if it contains only alphabetical characters
-    //and it is between 2 and 20 characters long.
-    public boolean isValidFirstName() {
-        return false;
-    }
-    //Checks that the user has selected a valid last name.
-    //A last name is valid if it only contains alphabetical characters
-    //and it is between 2 and 20 characters long.
-    public boolean isValidLastName() {
-        return false;
-    }
-    //Checks that the user has selected a valid username.
-    //A username is valid if it contains regular characters (i.e. a-z,A-Z,0-9),
-    //it is between 6 and 18 characters long, and it is not already taken by
-    //another user.
-    public boolean isValidUsername() {
-        return false;
-    }
-
-    //Checks that a user has selected a valid email address.
-    //An email address is valid if it follows the form of:
-    //[2-20 alphanumeric chars][@][1-20 alphanumeric chars][period][1-5 alphanumeric chars]
-    public boolean isValidEmailAddress() {
-        return false;
-    }
-
-    //Checks that the user has selected a valid password.
-    //A password is valid if it contains at least 1 number,
-    //no special characters, and it is between 8 and 22 characters long.
-    public boolean isValidPassword() {
-        return false;
-    }
-
-    //Checks that all fields are filled out properly
-    public boolean allFieldsValid() {
-
-    }
-
 }
