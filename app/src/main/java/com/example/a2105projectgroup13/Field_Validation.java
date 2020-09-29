@@ -104,11 +104,28 @@ public class Field_Validation {
     Note: accented names like Bélanger will fail validation.
     */
     public static String validateLastName(String lastName) {
-        String lastNameAlpabeticalLength = "^[a-z]{2,20}$"; // regex to check that a first name has alphabetical characters and correct length
-        if (!validateField(lastNameAlpabeticalLength, lastName)) { // check if the user has given us an invalid first name
+        String lastNameAlpabeticalLength = "^[a-z]{2,20}$"; // regex to check that a first name has alphabetical characters and correct length (2-20 chars)
+        if (!validateField(lastNameAlpabeticalLength, lastName)) { // check if the user has given us an invalid last name
             return "-1"; // notify the caller that this is an invalid input
         } else { // two possibilities remain: that the user has given us a valid name like "Xing", or a technically valid name like "XING"
-            return lastName.substring(0, 1).toUpperCase() + lastName.substring(1, lastName.length()).toLowerCase()// regex has the possibility to be computationally expensive, so it's better to just return a new string with the appropriate formatting
+            // regex has the possibility to be computationally expensive, so it's less expensive in aggregate to assume the user has used bad formatting
+            // and return a new string with the appropriate formatting
+            return lastName.substring(0, 1).toUpperCase() + lastName.substring(1, lastName.length()).toLowerCase();
+        }
+    }
+
+    /*
+    Validates a username.
+    Returns "-1" if the username cannot be validated.
+    If the name can be validated (i.e. it is composed of 2-22 word characters: [a-zA-Z_0-9), then
+    return the original username.
+    */
+    public static String validateUsername(String username) {
+        String usernameCharactersLength = "?[\\w]{4,22}$"; // regex to check that a username only has word characters [a-zA-Z_0-9], and is correct length (4-22 chars)
+        if (!validateField(usernameCharactersLength, username)) { // check if the user has given us an invalid username
+            return "-1"; // notify the caller that this is an invalid input
+        } else { // if validateField() returns True, then it's safe to use the given username
+            return username;
         }
     }
 
