@@ -76,41 +76,24 @@ public class ValidateString {
     }
 
     // public class methods (intended for convenience and clarity)
+
     /*
-    Validates a first name.
+    Validates a name.
     Returns "-1" if the name cannot be validated.
     If the name can be validated (i.e. it is composed of 2-20 alphabetical characters), then
     return the validated form (Uppercase first letter, lowercase for all other letters).
 
-    Note: hyphenated names Jean-Luc will fail validation.
-    Note: accented names like Amélie will fail validation.
+    Note: hyphenated names like Robinson-Ethier and Jean-Luc would fail validation.
+    Note: accented names like Bélanger and Amélie would fail validation.
     */
-    public static String validateFirstName(String firstName) {
-        String firstNameAlpabeticalLength = "^[a-z]{2,20}$"; // regex to check that a first name has alphabetical characters and correct length (2-20 chars)
-        if (!validateField(firstNameAlpabeticalLength, firstName)) { // check if the user has given us an invalid first name
-            return "-1"; // notify the caller that this is an invalid input
-        } else { // two possibilities remain: that the user has given us a valid name like "John", or a technically valid name like "JoHN"
-            return firstName.substring(0, 1).toUpperCase() + firstName.substring(1, firstName.length()).toLowerCase()// regex has the possibility to be computationally expensive, so it's better to just return a new string with the appropriate formatting
-        }
-    }
-
-    /*
-    Validates a last name.
-    Returns "-1" if the name cannot be validated.
-    If the name can be validated (i.e. it is composed of 2-20 alphabetical characters), then
-    return the validated form (Uppercase first letter, lowercase for all other letters).
-
-    Note: hyphenated names Robinson-Ethier will fail validation.
-    Note: accented names like Bélanger will fail validation.
-    */
-    public static String validateLastName(String lastName) {
-        String lastNameAlpabeticalLength = "^[a-z]{2,20}$"; // regex to check that a first name has alphabetical characters and correct length (2-20 chars)
-        if (!validateField(lastNameAlpabeticalLength, lastName)) { // check if the user has given us an invalid last name
+    public static String validateName(String name) {
+        String nameRegex = "^[a-z]{2,20}$"; // regex to check that a name has alphabetical characters and correct length (2-20 chars)
+        if (!validateField(nameRegex, name)) { // check if the user has given us an invalid name
             return "-1"; // notify the caller that this is an invalid input
         } else { // two possibilities remain: that the user has given us a valid name like "Xing", or a technically valid name like "XING"
             // regex has the possibility to be computationally expensive, so it's less expensive in aggregate to assume the user has used bad formatting
             // and return a new string with the appropriate formatting
-            return lastName.substring(0, 1).toUpperCase() + lastName.substring(1, lastName.length()).toLowerCase();
+            return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
         }
     }
 
@@ -146,27 +129,11 @@ public class ValidateString {
 
     /*
     Validates a password.
-    Returns "-1" if the username cannot be validated.
-    If the email can be validated, then assume the email is real and return the email.
+    Returns "-1" if the password cannot be validated.
+    If the password can be validated, then the password is returned.
+    Passwords must contain 1+ numbers, 1+ uppercase letters, and 8+ characters total.
     */
-    public static String validateEmail(String email) {
-        // @CREDIT to Professor Miguel Garzon for the email validation regex below
-        String emailFormat = "^(.+)@(.+)$"; // regex to check that an email is the proper format
-        if (!validateField(emailFormat, email)) { // check if the user has given us a valid email format
-            return "-1"; // notify the caller that this is an invalid input
-        } else { // if validateField() returns True, then we assume the email is real
-            return email;
-        }
-    }
-
-    /*
-Validates a password.
-Returns "-1" if the password cannot be validated.
-If the password can be validated, then the password is returned.
-Passwords must contain 1+ numbers, 1+ uppercase letters, and 8+ characters total.
-*/
     public static String validatePassword(String password) {
-        // @CREDIT to Professor Miguel Garzon for the email validation regex below
         String passwordFormat = "^(?=.*[A-Z])(?=.*\\d)[\\w]{8,}$"; // regex to check that the password is the proper format: 1+ nums, 1+ uppercase, 8+ characters        if (!validateField(passwordFormat, password)) { // check if the user has given us a valid email format
         if (!validateField(passwordFormat, password)) { // check if the email is invalid
             return "-1"; // notify the caller that this is an invalid input
