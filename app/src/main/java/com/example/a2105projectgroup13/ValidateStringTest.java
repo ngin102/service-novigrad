@@ -30,7 +30,7 @@ public class ValidateStringTest {
         System.out.println(ValidateString.validatePassword("BOBBOBOBOBOBOBOBOBBOBOOB")); //Good! This was said to be wrong form.
         System.out.println(ValidateString.validatePassword("bBOBBOBOBOBOBOBO1343285")); //Good! This was said to be right form.
         System.out.println(ValidateString.validatePassword("bob!")); //Good! This was said to be wrong form.
-        System.out.println(ValidateString.validatePassword("bob1234!")); //Good! This was said to be wrong form.
+        System.out.println(ValidateString.validatePassword("bob1234!")); //This was said to be wrong form.
         System.out.println(ValidateString.validatePassword("bob12345@")); //This was said to be wrong form.
         System.out.println(ValidateString.validatePassword("Bob12345")); //Good! This was said to be right form.
 
