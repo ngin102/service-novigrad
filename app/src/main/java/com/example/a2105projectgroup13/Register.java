@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,14 +24,14 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 public class Register extends AppCompatActivity {
-    //Declare instance variables for everything the user inputs on the register screen/activity.
+    //Declare instance variables.
         //Each variable corresponds with their id in the xml.
 
     //Text fields that will receive user text inputs:
     private EditText editTextFirstName, editTextLastName, editTextEmailAddress, editTextPassword;
 
     //Buttons:
-    private RadioButton accountTypeButton;
+    private RadioGroup accountTypeRadioGroup; 
     private Button registerButton;
     private TextView alreadyRegistered; //While this a TextView, it the user will click on it to be redirected to the main activity.
 
@@ -80,6 +81,7 @@ public class Register extends AppCompatActivity {
         editTextEmailAddress = (EditText)findViewById(R.id.editTextEmailAddress);
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
 
+        accountTypeRadioGroup = (RadioGroup)findViewById(R.id.accountTypeRadioGroup);
         registerButton = (Button)findViewById(R.id.registerButton);
         alreadyRegistered = (TextView)findViewById(R.id.alreadyRegistered);
 
@@ -95,9 +97,6 @@ public class Register extends AppCompatActivity {
         //information is being processed to Firebase.
         progressBar.setVisibility(VISIBLE);
 
-        //Validation of proper inputs for all text fields on the register screen is to be added later.
-        //Let's say all inputs are validated...so, send the information to the Firebase database.
-
         //Convert whatever was inputted by the user into the text fields on the register page to strings.
         //Trim any potential whitespace from the inputted email address. The password is allowed to have whitespace.
         String firstName = editTextFirstName.getText().toString().trim();
@@ -105,8 +104,54 @@ public class Register extends AppCompatActivity {
         String emailAddress = editTextEmailAddress.getText().toString().trim();
         String password = editTextPassword.getText().toString();
 
-        //Implementation to change account type will be implemented soon!
-        String accountType = "Customer";
+
+        if (firstName.isEmpty() || lastName.isEmpty() || emailAddress.isEmpty() || password.isEmpty()) {
+            Toast.makeText(Register.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(INVISIBLE);
+            return;
+        }
+
+        String accountType = checkRadioButtonChoice(accountTypeRadioGroup);
+        if (accountType.equals("-1")){
+            Toast.makeText(Register.this, "Please select an account type.", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(INVISIBLE);
+            return;
+        }
+
+        String validatedFirstName = ValidateString.validateName(firstName);
+        String validatedLastName = ValidateString.validateName(lastName);
+        String validatedEmail = ValidateString.validateEmail(emailAddress);
+        String validatedPassword = ValidateString.validatePassword(password);
+
+        if (validatedFirstName.equals("-1")) {
+            Toast.makeText(Register.this, "Invalid first name. Please try again.", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(INVISIBLE);
+            return;
+        } else {
+            firstName = validatedFirstName;
+        }
+
+        if (validatedLastName.equals("-1")){
+            Toast.makeText(Register.this, "Invalid last name. Please try again.", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(INVISIBLE);
+            return;
+        } else {
+            lastName = validatedLastName;
+        }
+
+        if (validatedEmail.equals("-1")){
+            Toast.makeText(Register.this, "Invalid email address. Please try again.", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(INVISIBLE);
+        } else {
+            emailAddress = validatedEmail;
+
+        } if (validatedPassword.equals("-1")){
+            Toast.makeText(Register.this, "Passwords must contain 1+ numbers, 1+ uppercase letters, and 8+ characters total.", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(INVISIBLE);
+            return;
+        } else {
+            password = validatedPassword;
+        }
 
 
         final User userInfo = new User(firstName, lastName, accountType);
@@ -139,5 +184,18 @@ public class Register extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public String checkRadioButtonChoice(RadioGroup radioGroup){
+        int radioButtonId = radioGroup.getCheckedRadioButtonId();
+        if (radioButtonId == -1 ){
+            Toast.makeText(Register.this, "Please select an account type.", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(INVISIBLE);
+            return "-1";
+        }
+        RadioButton selection = (RadioButton)radioGroup.findViewById(radioButtonId);
+        String selectionString = (String) selection.getText().toString();
+
+        return selectionString;
     }
 }
