@@ -5,8 +5,8 @@ public class ValidateStringTest {
         //ValidateName only works when names are inputted in all lowercase.
         System.out.println("Testing validateName:");
         System.out.println(ValidateString.validateName("bob")); //This works.
-        System.out.println(ValidateString.validateName("BOB")); //This doesn't work.
-        System.out.println(ValidateString.validateName("Bob")); //This doesn't work.
+        System.out.println(ValidateString.validateName("BOB")); //This works.
+        System.out.println(ValidateString.validateName("Bob")); //This works.
         System.out.println("\n");
 
         //ValidateEmail seems to work!

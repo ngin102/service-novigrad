@@ -87,7 +87,7 @@ public class ValidateString {
     Note: accented names like Bélanger and Amélie would fail validation.
     */
     public static String validateName(String name) {
-        String nameRegex = "^[a-z]{2,20}$"; // regex to check that a name has alphabetical characters and correct length (2-20 chars)
+        String nameRegex = "^[a-zA-Z]{2,20}$"; // regex to check that a name has alphabetical characters and correct length (2-20 chars)
         if (!validateField(nameRegex, name)) { // check if the user has given us an invalid name
             return "-1"; // notify the caller that this is an invalid input
         } else { // two possibilities remain: that the user has given us a valid name like "Xing", or a technically valid name like "XING"
