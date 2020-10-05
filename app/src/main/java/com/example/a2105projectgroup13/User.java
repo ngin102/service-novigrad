@@ -12,6 +12,10 @@ public class User{
         this.accountType = accountType;
     }
 
+    public User(String userID) {
+        // empty for now
+    }
+
     public String getFirstName(){
         return firstName;
     }

@@ -4,4 +4,8 @@ public class Admin extends User{
     public Admin(String firstName, String lastName, String accountType) {
         super(firstName, lastName, accountType);
     }
+
+    public Admin(String userID) {
+        super(userID);
+    }
 }

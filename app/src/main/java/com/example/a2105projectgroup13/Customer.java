@@ -4,4 +4,8 @@ public class Customer extends User{
     public Customer(String firstName, String lastName, String accountType) {
         super(firstName, lastName, accountType);
     }
+
+    public Customer(String userID) {
+        super(userID);
+    }
 }
