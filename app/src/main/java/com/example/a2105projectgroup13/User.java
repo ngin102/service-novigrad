@@ -29,6 +29,7 @@ public class User {
     }
 
     public User(String userID) {
+        //TODO: fix this constructor..
         // initialize FirebaseAuthorization and FirebaseDatabase
         firebaseDatabase.getInstance();
         this.firstName = firebaseDatabase.getReference("Users").child(userID).child("firstName").toString();

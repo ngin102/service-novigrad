@@ -3,6 +3,7 @@ package com.example.a2105projectgroup13;
 import static com.example.a2105projectgroup13.ValidateString.*;
 import static java.lang.System.*;
 
+// TODO: convert into JUnit test
 public class ValidateStringTest {
     public static void main(String[] args){
         //ValidateName only works when names are inputted in all lowercase.
