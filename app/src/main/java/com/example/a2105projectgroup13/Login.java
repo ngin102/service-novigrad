@@ -53,7 +53,7 @@ public class Login extends AppCompatActivity {
         //When "Don't have an account? Register." is clicked, the user is moved to Register.java
         notRegistered.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 startActivity(new Intent(Login.this, Register.class));
             }
         });
@@ -72,15 +72,15 @@ public class Login extends AppCompatActivity {
      */
     private void initializeInstanceVariables() {
         //Initializes login text fields
-        editTextEmailAddress = (EditText)findViewById(R.id.editTextEmailAddress);
-        editTextPassword = (EditText)findViewById(R.id.editTextPassword);
+        editTextEmailAddress = (EditText) findViewById(R.id.editTextEmailAddress);
+        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
         //Initializes everything interacted via clicking
-        loginButton = (Button)findViewById(R.id.loginButton);
-        notRegistered = (TextView)findViewById(R.id.notRegistered);
+        loginButton = (Button) findViewById(R.id.loginButton);
+        notRegistered = (TextView) findViewById(R.id.notRegistered);
 
         //Progress bar notifies user of ongoing processes
-        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         //Variables required to store information in Firebase Authentication and Firebase Database:
         firebaseAuth = FirebaseAuth.getInstance();
@@ -95,56 +95,43 @@ public class Login extends AppCompatActivity {
         String email = editTextEmailAddress.getText().toString().trim();
         String password = editTextPassword.getText().toString();
 
-        if (email.equals("admin") && password.equals("admin")){
-            firebaseAuth.signInWithEmailAndPassword("admin@admin.ca", "AdminAdmin").addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        Toast.makeText(Login.this, "Welcome Admin!", Toast.LENGTH_SHORT).show();
-
-
-                        //Sends logged in user to the main screen.
-                        startActivity(new Intent(Login.this, MainActivity.class));
-                    } else {
-                        Toast.makeText(Login.this, "The password and/or email was incorrect.", Toast.LENGTH_SHORT).show();
-                    }
-                    progressBar.setVisibility(INVISIBLE);
-                }
-            });
-        } else {
-            //The email must be a possible email address to continue.
-            String validateEmail = ValidateString.validateEmail(email);
-            if (validateEmail.equals("-1")) {
-                Toast.makeText(Login.this, "Invalid email address. Please try again.", Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(INVISIBLE);
-                return;
-            }
-
-            //Both an email and password must be inputted by the user in order to continue.
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(Login.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(INVISIBLE);
-                return;
-            }
-
-            //Signs in using email and password authentication.
-            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        Toast.makeText(Login.this, "Welcome!", Toast.LENGTH_SHORT).show();
-
-
-                        //Sends logged in user to the main screen.
-                        startActivity(new Intent(Login.this, MainActivity.class));
-                    } else {
-                        Toast.makeText(Login.this, "The password and/or email was incorrect.", Toast.LENGTH_SHORT).show();
-                    }
-                    progressBar.setVisibility(INVISIBLE);
-                }
-            });
+        if (email.equals("admin") && password.equals("admin")) {
+            email = "admin@admin.ca";
+            password = "AdminAdmin";
         }
+
+        //The email must be a possible email address to continue.
+        String validateEmail = ValidateString.validateEmail(email);
+        if (validateEmail.equals("-1")) {
+            Toast.makeText(Login.this, "Invalid email address. Please try again.", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(INVISIBLE);
+            return;
+        }
+
+        //Both an email and password must be inputted by the user in order to continue.
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(Login.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(INVISIBLE);
+            return;
+        }
+
+        //Signs in using email and password authentication.
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    Toast.makeText(Login.this, "Welcome!", Toast.LENGTH_SHORT).show();
+
+
+                    //Sends logged in user to the main screen.
+                    startActivity(new Intent(Login.this, MainActivity.class));
+                } else {
+                    Toast.makeText(Login.this, "The password and/or email was incorrect.", Toast.LENGTH_SHORT).show();
+                }
+                progressBar.setVisibility(INVISIBLE);
+            }
+        });
+
     }
 }
