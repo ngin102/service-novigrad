@@ -260,7 +260,9 @@ public class Register extends AppCompatActivity {
                     });
                 } else {
                     //If the registration in Firebase Authentication was not successful, give the user this message prompt.
-                    Toast.makeText(Register.this, "There was a problem registering your account. Please try again.", Toast.LENGTH_SHORT).show();
+                    //Firebase Authentication will check if an email address has already been registered to an account, so if we can include this in the possible reason why the
+                    //registration process was unsuccessful.
+                    Toast.makeText(Register.this, "There was a problem registering your account. You may already be registered. Please try again.", Toast.LENGTH_SHORT).show();
                     //If he or she wants to try again to register an account, the user must click on the register button again.
                     progressBar.setVisibility(INVISIBLE);
                 }

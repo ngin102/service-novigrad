@@ -26,7 +26,7 @@ import static android.view.View.VISIBLE;
 public class Login extends AppCompatActivity {
 
     //Login text fields
-    private EditText editTextUsername, editTextPassword;
+    private EditText editTextEmailAddress, editTextPassword;
 
     //Buttons
     private Button loginButton;
@@ -72,7 +72,7 @@ public class Login extends AppCompatActivity {
      */
     private void initializeInstanceVariables() {
         //Initializes login text fields
-        editTextUsername = (EditText)findViewById(R.id.editTextUsername);
+        editTextEmailAddress = (EditText)findViewById(R.id.editTextEmailAddress);
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
 
         //Initializes everything interacted via clicking
@@ -92,7 +92,7 @@ public class Login extends AppCompatActivity {
         progressBar.setVisibility(VISIBLE);
 
         //The email must be trimmed, but the password may have whitespace.
-        String email = editTextUsername.getText().toString().trim();
+        String email = editTextEmailAddress.getText().toString().trim();
         String password = editTextPassword.getText().toString();
 
         //The email must be a possible email address to continue.
