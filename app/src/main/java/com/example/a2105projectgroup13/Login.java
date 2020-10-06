@@ -132,6 +132,5 @@ public class Login extends AppCompatActivity {
                 progressBar.setVisibility(INVISIBLE);
             }
         });
-
     }
 }
