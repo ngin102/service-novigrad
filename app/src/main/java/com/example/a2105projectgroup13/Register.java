@@ -220,7 +220,7 @@ public class Register extends AppCompatActivity {
         } else {
             emailAddress = validatedEmail;
         } if (validatedPassword.equals("-1")){
-            Toast.makeText(Register.this, "Passwords must contain 1+ numbers, 1+ uppercase letters, and 8+ characters total.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Register.this, "Passwords must be alphanumeric, and must contain 1+ numbers, 1+ uppercase letters, and 8+ characters total.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(INVISIBLE);
             return;
         } else {
