@@ -118,8 +118,7 @@ public class ValidateString {
     If the email can be validated, then assume the email is real and return the email.
     */
     public static String validateEmail(String email) {
-        // @CREDIT to Professor Miguel Garzon for the email validation regex below
-        String emailFormat = "^(.+)@(.+)$"; // regex to check that an email is the proper format
+        String emailFormat = "^[\\w]+[@][\\w]+[.][\\w]+$"; // regex to check that an email is the proper format
         if (!validateField(emailFormat, email)) { // check if the user has given us a valid email format
             return "-1"; // notify the caller that this is an invalid input
         } else { // if validateField() returns True, then we assume the email is real
