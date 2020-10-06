@@ -216,6 +216,7 @@ public class Register extends AppCompatActivity {
         } if (validatedEmail.equals("-1")){
             Toast.makeText(Register.this, "Invalid email address. Please try again.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(INVISIBLE);
+            return;
         } else {
             emailAddress = validatedEmail;
         } if (validatedPassword.equals("-1")){
