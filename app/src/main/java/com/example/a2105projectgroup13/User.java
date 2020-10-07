@@ -17,9 +17,6 @@ public class User {
     private String firstName;
     private String lastName;
     private String accountType;
-    // Variables used to access Firebase
-    private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase firebaseDatabase;
 
     // constructors
     public User(String firstName, String lastName, String accountType) {
