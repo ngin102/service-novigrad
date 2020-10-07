@@ -39,35 +39,26 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference firstName = firebaseDatabase.getReference("Users").child(uid).child("firstName");
         DatabaseReference accountType = firebaseDatabase.getReference("Users").child(uid).child("accountType");
 
-        firstName.addListenerForSingleValueEvent(new ValueEventListener() {
+        // Read from the database
+        firstName.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                firstNameString = dataSnapshot.getValue(String.class);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Toast.makeText(MainActivity.this, "First name is: " + value, Toast.LENGTH_SHORT).show();;
+                firstNameString = value;
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(MainActivity.this, "Error getting account type. Relaunch app.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        });
-
-        accountType.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
-                accountTypeString = dataSnapshot.getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(MainActivity.this, "Error getting account type. Relaunch app.", Toast.LENGTH_SHORT).show();
-                return;
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();;
             }
         });
-
 
         TextView welcomeText = (TextView) findViewById(R.id.welcomeText);
-        welcomeText.setText("Welcome "+firstNameString+" You are signed in as: "+accountTypeString);
+        welcomeText.setText("Welcome "+firstNameString+" You are signed in as: "+accountType);
     }
 
 
