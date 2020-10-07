@@ -22,20 +22,29 @@ import com.google.firebase.database.FirebaseDatabase;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-
+/**
+ * This class is the activity used to login to an account that has already been registered through the Service Novigrad app.
+ *
+ * NOTE: While testing our login activity in the Android Emulator, we noticed that in some random cases, it takes a fairly long
+ * amount of time (40 seconds+) for the user's information to be verified with Firebase and, therefore, for this user's account to be
+ * successfully logged in. However, these occurrences seem to have been caused on the server-end by Firebase and not by our app.
+ * In the majority of cases, the registration process only took a few seconds to complete (<=5 seconds).
+ * These issues did not seem to persist when we tested our app on an Android phone and an Android tablet, both of which were
+ * connected to two different Wifi networks.
+ */
 public class Login extends AppCompatActivity {
 
-    //Login text fields
+    //Login text fields that will receive user input:
     private EditText editTextEmailAddress, editTextPassword;
 
-    //Buttons
+    //Buttons:
     private Button loginButton;
     private TextView notRegistered;
 
-    //Progress bar that notifies user of processes in progress
+    //Progress bar that notifies user of processes in progress:
     private ProgressBar progressBar;
 
-    //Firebase authentication/Database
+    //Firebase authentication/Database:
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
 
@@ -87,6 +96,10 @@ public class Login extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
     }
 
+    /**
+     * Takes text from user-inputted text fields to carry out both the account login process
+     * through Firebase Authentication.
+     */
     private void loginOnClick(View view) {
         //Login process started, so the progress bar is now visible.
         progressBar.setVisibility(VISIBLE);
@@ -95,6 +108,16 @@ public class Login extends AppCompatActivity {
         String email = editTextEmailAddress.getText().toString().trim();
         String password = editTextPassword.getText().toString();
 
+        //The sole "admin" of this application can login using the username, "admin," and the password, "admin."
+        //Firebase Authentication only accepts an email address for a 'username,' so this normally would
+        //not be possible. The password, "admin," also does not meet the criteria we have laid out in terms of
+        //what is valid for password formatting.
+        //To side-step these issues, we will check to see if the user inputted "admin" into the email text field
+        //and "admin" into the password text field by the time they clicked "Login." If so, these text prompts will
+        //trigger this if statement, which will set the user's inputted email to "admin@admin.ca" and the user's
+        //inputted password to "AdminAdmin." The normal login process in this method will continue from here.
+        //The "Admin" account was created manually in Firebase Authentication and in Firebase Database using
+        //this email address and this password.
         if (email.equals("admin") && password.equals("admin")) {
             email = "admin@admin.ca";
             password = "AdminAdmin";

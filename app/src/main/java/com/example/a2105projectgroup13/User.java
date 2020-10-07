@@ -12,6 +12,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import static android.view.View.INVISIBLE;
 
+/**
+ * This class is the User class.
+ * It can be used to create instances of type "User."
+ *
+ * Please note: Admin, Customer and Branch all have unique operations that set them apart from one another
+ * and from their parent class, User. However, these operations are not implemented in this Deliverable,
+ * but they will be implemented in future Deliverables.
+ */
 public class User {
 
     private String firstName;

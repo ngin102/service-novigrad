@@ -6,6 +6,9 @@ import static com.example.a2105projectgroup13.ValidateString.validateEmail;
 import static java.lang.System.out;
 import static org.junit.Assert.*;
 
+/**
+ * Tests methods from the ValidateString class.
+ */
 public class ValidateStringTest {
 
     @Test

@@ -16,11 +16,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * This class is the main activity of the Service Novigrad app.
+ * It is the Welcome Screen.
+ */
 public class MainActivity extends AppCompatActivity {
+    //Variables required to retrieve information from Firebase Authentication and Firebase Database:
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
-
     private String uid;
+
+    //Text that appears on screen:
     private TextView firstNameText;
     private TextView accountTypeText;
 
@@ -33,10 +39,14 @@ public class MainActivity extends AppCompatActivity {
         firstNameText = (TextView) findViewById(R.id.firstNameText);
         accountTypeText = (TextView) findViewById(R.id.accountTypeText);
 
+        //The unique user uId of the user who is currently logged in to the app.
         getUid();
+
+        //Get the references to the user's first name and account type in Firebase Database based on the user's unique uId.
         DatabaseReference firstName = firebaseDatabase.getReference("Users").child(uid).child("firstName");
         DatabaseReference accountType = firebaseDatabase.getReference("Users").child(uid).child("accountType");
 
+        //Use dataSnapshot to set a TextView to display the user's first name.
         firstName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -53,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Use dataSnapshot to set a TextView to display the user's account type.
         accountType.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -71,7 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Gets (but does not return) the unique user uId of the user who
+     * is currently logged into the app via Firebase Authentication.
+     */
     private void getUid(){
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = firebaseDatabase.getInstance();

@@ -1,65 +1,63 @@
-/*
-This class is a helper class providing methods for front-end form validation. These methods (excluding the private
-method validateField return String "-1" by convention when a textField has an invalid input, or a validated String
-which may be used by the calling method if the textField follows the rules for formatting.
-
-Possible FAQ:
-!IMPORTANT Q1: So if a method in this class returns anything other than "-1", it's safe to store in the server?
-A1: NO! It only means that the input is in the proper format to *try* storing it. If a field contains
-information which should be saved on the server only once -- such as a username -- then it will still pass these tests.
-Validation that the
-
-Q2: Why return a string instead of returning True/False?
-A2: Returning a string allows us to sanitize inputs (i.e.: make it harder to inject malicious code through the textfield),
-and also for us to ensure that inputs which are *technically* correct (e.g. firstName "JoHNaTHan") are stored in a proper
-format (i.e. "Johnathan"). validateFirstName("JoHNaTHAn") will return String "Johnathan".
-
-Q3: You just said methods return a String! Why does validateField() return a boolean?
-A3: validateField() validates regex, but:
-1. It isn't meant to be called outside of this class.
-2. The meaning of the result of that validation is interpretable. Did you pass the right expression? Does failing validation mean
-that the expression is
-
-Q4: Why return *anything*? You could just change the original String!
-A4: In Java, Strings are immutable objects. Therefore this is impossible. However, even if it was possible, changing the original String
-could cause unexpected behaviour on the client's side such as changing what they have typed in a textField to "-1" if their input is invalid.
-Now that might get the point across that they messed up, but it's a little aggressive!
-
-Q5: Why is validateString() private? I need a validation method that isn't defined here.
-A5: Forcing you to make your own new validation method which calls validateField() as a helper methd makes code more maintainable
-for three reasons:
-1. Calls to validateString() are incomprehensible unless you comment your code, or name your regex appropriately and pass that
-to validateString() instead. Yes, you *could* make a comment when you use it outside of this class, but it still wont be as
-readable as calling a function with a name that has an immediate meaning.
-2. Per the reasoning of A3: validateString() returns True/False, which is interpretable based on what you pass it.
-3. Per the reasoning of A1: Methods in this class are exclusively meant to return either "-1", signifying that a String could not be validated.
-
-Q6: How should I implement a new validation method?
-A6: In general, follow these steps:
-1. Declare a method with the form "public static string [validate_____]() {...}
-2. Declare as many variables containing your regex as you need; e.g. String [YOUR_REGEX] = "[a-z]{1,10}"
-3. Make a call to validateField() such as validateField(YOUR_REGEX, [String to be validated]) and interpret the result.
-4. Return String "-1" if the validation is unsuccessful, or a String containing the validated input (i.e. it is sanitized and
-of the right format).
-
-Q7: Why don't we sanitize our inputs?
-A7: We use Firebase; SQL injections can't be used because ... well, Firebase isn't SQL. Security to prevent code injection
-into Firebase needs to be prevented using Firebase Authentication instead of sanitized inputs.
-
-@author Jared Wagner
-
-TODO: update validateFirstName() to validate hyphenated names.
-TODO: update validateFirstName() to validate accented names.
-
-TODO: update validateLastName() to validate hyphenated names.
-TODO: update validateLastName() to validate accented names.
-*/
-
-
 package com.example.a2105projectgroup13;
 
 import java.util.regex.Pattern; // use the Pattern library to utilize regular expressions ("regex")
 
+/**
+ This class is a helper class providing methods for front-end form validation. These methods (excluding the private
+ method validateField return String "-1" by convention when a textField has an invalid input, or a validated String
+ which may be used by the calling method if the textField follows the rules for formatting.
+
+ Possible FAQ:
+ !IMPORTANT Q1: So if a method in this class returns anything other than "-1", it's safe to store in the server?
+ A1: NO! It only means that the input is in the proper format to *try* storing it. If a field contains
+ information which should be saved on the server only once -- such as a username -- then it will still pass these tests.
+ Validation that the
+
+ Q2: Why return a string instead of returning True/False?
+ A2: Returning a string allows us to sanitize inputs (i.e.: make it harder to inject malicious code through the textfield),
+ and also for us to ensure that inputs which are *technically* correct (e.g. firstName "JoHNaTHan") are stored in a proper
+ format (i.e. "Johnathan"). validateFirstName("JoHNaTHAn") will return String "Johnathan".
+
+ Q3: You just said methods return a String! Why does validateField() return a boolean?
+ A3: validateField() validates regex, but:
+ 1. It isn't meant to be called outside of this class.
+ 2. The meaning of the result of that validation is interpretable. Did you pass the right expression? Does failing validation mean
+ that the expression is
+
+ Q4: Why return *anything*? You could just change the original String!
+ A4: In Java, Strings are immutable objects. Therefore this is impossible. However, even if it was possible, changing the original String
+ could cause unexpected behaviour on the client's side such as changing what they have typed in a textField to "-1" if their input is invalid.
+ Now that might get the point across that they messed up, but it's a little aggressive!
+
+ Q5: Why is validateString() private? I need a validation method that isn't defined here.
+ A5: Forcing you to make your own new validation method which calls validateField() as a helper methd makes code more maintainable
+ for three reasons:
+ 1. Calls to validateString() are incomprehensible unless you comment your code, or name your regex appropriately and pass that
+ to validateString() instead. Yes, you *could* make a comment when you use it outside of this class, but it still wont be as
+ readable as calling a function with a name that has an immediate meaning.
+ 2. Per the reasoning of A3: validateString() returns True/False, which is interpretable based on what you pass it.
+ 3. Per the reasoning of A1: Methods in this class are exclusively meant to return either "-1", signifying that a String could not be validated.
+
+ Q6: How should I implement a new validation method?
+ A6: In general, follow these steps:
+ 1. Declare a method with the form "public static string [validate_____]() {...}
+ 2. Declare as many variables containing your regex as you need; e.g. String [YOUR_REGEX] = "[a-z]{1,10}"
+ 3. Make a call to validateField() such as validateField(YOUR_REGEX, [String to be validated]) and interpret the result.
+ 4. Return String "-1" if the validation is unsuccessful, or a String containing the validated input (i.e. it is sanitized and
+ of the right format).
+
+ Q7: Why don't we sanitize our inputs?
+ A7: We use Firebase; SQL injections can't be used because ... well, Firebase isn't SQL. Security to prevent code injection
+ into Firebase needs to be prevented using Firebase Authentication instead of sanitized inputs.
+
+ @author Jared Wagner
+
+ TODO: update validateFirstName() to validate hyphenated names.
+ TODO: update validateFirstName() to validate accented names.
+
+ TODO: update validateLastName() to validate hyphenated names.
+ TODO: update validateLastName() to validate accented names.
+ */
 public class ValidateString {
 
     // private class methods
@@ -131,6 +129,7 @@ public class ValidateString {
     Returns "-1" if the password cannot be validated.
     If the password can be validated, then the password is returned.
     Passwords must contain 1+ numbers, 1+ uppercase letters, and 8+ characters total.
+    Passwords must be alphanumeric (this will change in future Deliverables).
     */
     public static String validatePassword(String password) {
         String passwordFormat = "^(?=.*[A-Z])(?=.*\\d)[\\w]{8,}$"; // regex to check that the password is the proper format: 1+ nums, 1+ uppercase, 8+ characters        if (!validateField(passwordFormat, password)) { // check if the user has given us a valid email format

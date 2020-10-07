@@ -1,38 +1,3 @@
-/**
- * This class is the activity used to register an account through the Service Novigrad app.
- * The account registration process is implemented using two Firebase services: Firebase Authentication and Firebase Database.
- * Firebase Authentication will be used to store the user's login credentials (it is the service implemented in the Login activity).
- * Firebase Database will be used to store any extra information about the user that is not stored in Firebase Authentication.
- *
- * On the registration screen (the corresponding xml to this class), the user will input text into the designated text fields that reflect
- * the information the user must provide to register an account: the user's first name, last name, email address, and account password.
- * These four pieces of information, as well as indication by the user as to whether he or she wishes to create an Branch account or
- * a regular Customer account, must be provided before the user can register an account or even send off their information to
- * any of the two Firebase services. The activity uses methods to validate this information (that each piece of information meets
- * formatting standards required to register an account – see the ValidateString class for more information) and to ensure that the user
- * has not left any of the text fields blank before the user can proceed with the registration process.
- *
- * Once the user's inputted information is validated, the account registration process via Firebase will begin.
- * The user's inputted email address and password will be stored in Firebase Authentication, alongside a unique user uId that is linked to this info.
- * THe user can now use Firebase Authentication to log into the application (as long as the next steps are successful).
- * The user's other information provided at the time of registration (first name, last name, and account type) will then be stored in
- * Firebase Database. In Firebase Database, these three pieces of information will be stored under the unique user uId that was previously generated
- * by Firebase Authentication and is currently linked to the user's email address and password in that service. The user's unique uId, as well as
- * those of other users registered into our app (their uIds are unique as well), can be found in our Firebase Database under the "Users" path.
- *
- * After all information is successfully stored in Firebase Authentication and Firebase Database, the user will be redirected to the
- * main activity/the welcome screen to start using the app.
- *
- * Returning registered users to the app can bypass this registration activity (as it is the app's launcher activity) by selecting a text prompt
- * to take them to the login activity, where they can log in using the email address and password they provided at registration and allowed to be
- * stored in Firebase Authentication.
- *
- * NOTE: While testing our registration activity in the Android Emulator, we noticed that in some random cases, it takes a fairly long
- * amount of time (40 seconds+) for the user's information to be sent to Firebase and, therefore, for this user's account to be successfully
- * registered. However, these occurrences seem to have been caused on the server-end by Firebase and not by our app.
- * In the majority of cases, the registration process only took a few seconds to complete (<=5 seconds).
- */
-
 package com.example.a2105projectgroup13;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,7 +22,42 @@ import com.google.firebase.database.FirebaseDatabase;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-
+/**
+ * This class is the activity that is used to register an account through the Service Novigrad app.
+ * The account registration process is implemented using two Firebase services: Firebase Authentication and Firebase Database.
+ * Firebase Authentication will be used to store the user's login credentials.
+ * Firebase Database will be used to store any extra information about the user that is not stored in Firebase Authentication.
+ *
+ * On the registration screen (the corresponding xml to this class), the user will input text into the designated text fields that reflect
+ * the information the user must provide to register an account: the user's first name, last name, email address, and account password.
+ * These four pieces of information, as well as indication by the user as to whether he or she wishes to create a Branch account or
+ * a regular Customer account, must be provided before the user can register an account or even send off their information to
+ * any of the two Firebase services. The activity uses methods to validate this information (that each piece of information meets
+ * formatting standards required to register an account – see the ValidateString class for more information) and to ensure that the user
+ * has not left any of the text fields blank before the user can proceed with the registration process.
+ *
+ * Once the user's inputted information is validated, the account registration process via Firebase will begin.
+ * The user's inputted email address and password will be stored in Firebase Authentication, alongside a unique user uId that is linked to this info.
+ * THe user can now use Firebase Authentication to log into the application (as long as the next steps are successful).
+ * The user's other information provided at the time of registration (first name, last name, and account type) will then be stored in
+ * Firebase Database. In Firebase Database, these three pieces of information will be stored under the unique user uId that was previously generated
+ * by Firebase Authentication and is currently linked to the user's email address and password in that service. The user's unique uId, as well as
+ * those of other users registered into our app (their uIds are unique as well), can be found in our Firebase Database under the "Users" path.
+ *
+ * After all information is successfully stored in Firebase Authentication and Firebase Database, the user will be redirected to the
+ * main activity/the welcome screen to start using the app.
+ *
+ * Returning registered users to the app can bypass this registration activity (as it is the app's launcher activity) by selecting a text prompt
+ * to take them to the login activity, where they can log in using the email address and password they provided at registration and allowed to be
+ * stored in Firebase Authentication.
+ *
+ * NOTE: While testing our registration activity in the Android Emulator, we noticed that in some random cases, it takes a fairly long
+ * amount of time (40 seconds+) for the user's information to be sent to Firebase and, therefore, for this user's account to be successfully
+ * registered. However, these occurrences seem to have been caused on the server-end by Firebase and not by our app.
+ * In the majority of cases, the registration process only took a few seconds to complete (<=5 seconds).
+ * These issues did not seem persist when we tested our app on an Android phone and an Android tablet, both of which were on connected to
+ * two different Wifi networks.
+ */
 public class Register extends AppCompatActivity {
     //Declare instance variables.
         //Each variable corresponds with its id in the xml.
@@ -69,7 +69,7 @@ public class Register extends AppCompatActivity {
     private RadioGroup accountTypeRadioGroup; //This radio group contains the two radio buttons implemented in the xml.
                                               //It will be used to see which radio button the user checked on the registration screen.
     private Button registerButton;
-    private TextView alreadyRegistered; //While this a TextView (not really a button), the user will click on it to be redirected to the Login activity.
+    private TextView alreadyRegistered; //While this is a TextView (not really a button), the user will click on it to be redirected to the Login activity.
 
     //Cosmetic details on Registration screen:
     private ProgressBar progressBar; //The progress bar serves as a visual indicator to the user that his or her information is being sent to Firebase.
@@ -232,14 +232,14 @@ public class Register extends AppCompatActivity {
         final User userInfo = new User(firstName, lastName, accountType);
         //We will now try to register an account via Firebase Authentication using the .createUserWithEmailAndPassword() method.
         //Again, only the user-inputted email address and password will be stored in Firebase Authentication.
-        //The user's unique uiD in Firebase Authentication will be generated at this time as well.
+        //The user's unique uId in Firebase Authentication will be generated at this time as well.
         firebaseAuth.createUserWithEmailAndPassword(emailAddress, password).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     //Since the account has been successfully registered through Firebase Authentication, it is now time to store the rest of the user's inputted
                     //information (first name, last name and account type) in Firebase Database.
-                    //This method will store this information under the user's unique uiD created by Firebase Authentication.
+                    //This method will store this information under the user's unique uId created by Firebase Authentication.
                     //The unique uiD itself can be found in the Database under the path "Users."
                     firebaseDatabase.getReference("Users").child(firebaseAuth.getCurrentUser().getUid()).setValue(userInfo).addOnCompleteListener(Register.this, new OnCompleteListener<Void>() {
                         @Override

@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tests methods from the User class.
+ */
 public class UserGettersTest {
     @Test
     public void testGetter1() {

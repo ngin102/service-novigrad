@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tests methods from the Branch class.
+ */
 public class BranchGettersTest {
     @Test
     public void testGetters() {
