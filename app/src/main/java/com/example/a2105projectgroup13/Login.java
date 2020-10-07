@@ -29,8 +29,8 @@ import static android.view.View.VISIBLE;
  * amount of time (40 seconds+) for the user's information to be verified with Firebase and, therefore, for this user's account to be
  * successfully logged in. However, these occurrences seem to have been caused on the server-end by Firebase and not by our app.
  * In the majority of cases, the registration process only took a few seconds to complete (<=5 seconds).
- * These issues did not seem to persist when we tested our app on an Android phone and an Android tablet, both of which were
- * connected to two different Wifi networks.
+ * These issues did not seem to persist when we tested our app on an Android phone and an Android tablet, which were connected to
+ * two different Wifi networks.
  */
 public class Login extends AppCompatActivity {
 

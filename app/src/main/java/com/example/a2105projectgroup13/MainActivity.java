@@ -50,15 +50,12 @@ public class MainActivity extends AppCompatActivity {
         firstName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
                 firstNameText.setText(value);
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Failed to read value
                 Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();;
             }
         });
@@ -67,15 +64,12 @@ public class MainActivity extends AppCompatActivity {
         accountType.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
                 accountTypeText.setText(value);
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Failed to read value
                 Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();;
             }
         });

@@ -55,7 +55,7 @@ import static android.view.View.VISIBLE;
  * amount of time (40 seconds+) for the user's information to be sent to Firebase and, therefore, for this user's account to be successfully
  * registered. However, these occurrences seem to have been caused on the server-end by Firebase and not by our app.
  * In the majority of cases, the registration process only took a few seconds to complete (<=5 seconds).
- * These issues did not seem persist when we tested our app on an Android phone and an Android tablet, both of which were on connected to
+ * These issues did not seem to persist when we tested our app on an Android phone and an Android tablet, which were connected to
  * two different Wifi networks.
  */
 public class Register extends AppCompatActivity {
@@ -202,13 +202,13 @@ public class Register extends AppCompatActivity {
         //If the methods from the ValidateString class do not return "-1," the user's text inputs have met the required formatting standards.
         //The strings initialized earlier (firstName, lastName, emailAddress and password) will be set to the outputs from the ValidateString methods.
         if (validatedFirstName.equals("-1")) {
-            Toast.makeText(Register.this, "Invalid first name. Please try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Register.this, "Invalid first name. Make sure not to use hyphens or accented characters. Please try again.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(INVISIBLE);
             return;
         } else {
             firstName = validatedFirstName;
         } if (validatedLastName.equals("-1")){
-            Toast.makeText(Register.this, "Invalid last name. Please try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Register.this, "Invalid last name. Make sure not to use hyphens or accented characters. Please try again.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(INVISIBLE);
             return;
         } else {
@@ -240,7 +240,7 @@ public class Register extends AppCompatActivity {
                     //Since the account has been successfully registered through Firebase Authentication, it is now time to store the rest of the user's inputted
                     //information (first name, last name and account type) in Firebase Database.
                     //This method will store this information under the user's unique uId created by Firebase Authentication.
-                    //The unique uiD itself can be found in the Database under the path "Users."
+                    //The unique uIc itself can be found in the Database under the path "Users."
                     firebaseDatabase.getReference("Users").child(firebaseAuth.getCurrentUser().getUid()).setValue(userInfo).addOnCompleteListener(Register.this, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -249,7 +249,7 @@ public class Register extends AppCompatActivity {
                                 Toast.makeText(Register.this, "Account registered!", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(INVISIBLE);
                                 finish();
-                                //Redirect the user to the welcome screen (the main activity).
+                                //Redirect the user to the Welcome Screen (the main activity).
                                 startActivity(new Intent(Register.this, MainActivity.class));
                             } else {
                                 //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
@@ -260,7 +260,7 @@ public class Register extends AppCompatActivity {
                     });
                 } else {
                     //If the registration in Firebase Authentication was not successful, give the user this message prompt.
-                    //Firebase Authentication will check if an email address has already been registered to an account, so if we can include this in the possible reason why the
+                    //Firebase Authentication will check if an email address has already been registered to an account, so we can include this in the possible reasons why the
                     //registration process was unsuccessful.
                     Toast.makeText(Register.this, "There was a problem registering your account. You may already be registered. Please try again.", Toast.LENGTH_SHORT).show();
                     //If he or she wants to try again to register an account, the user must click on the register button again.

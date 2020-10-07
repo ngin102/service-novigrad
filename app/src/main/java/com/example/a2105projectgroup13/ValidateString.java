@@ -52,11 +52,7 @@ import java.util.regex.Pattern; // use the Pattern library to utilize regular ex
 
  @author Jared Wagner
 
- TODO: update validateFirstName() to validate hyphenated names.
- TODO: update validateFirstName() to validate accented names.
-
- TODO: update validateLastName() to validate hyphenated names.
- TODO: update validateLastName() to validate accented names.
+ TODO: update validateName() to validate hyphenated names and accented names (next Deliverable).
  */
 public class ValidateString {
 
@@ -75,7 +71,7 @@ public class ValidateString {
 
     // public class methods (intended for convenience and clarity)
 
-    /*
+    /**
     Validates a name.
     Returns "-1" if the name cannot be validated.
     If the name can be validated (i.e. it is composed of 2-20 alphabetical characters), then
@@ -95,7 +91,7 @@ public class ValidateString {
         }
     }
 
-    /*
+    /**
     Validates a username.
     Returns "-1" if the username cannot be validated.
     If the name can be validated (i.e. it is composed of 2-22 word characters: [a-zA-Z_0-9), then
@@ -110,7 +106,7 @@ public class ValidateString {
         }
     }
 
-    /*
+    /**
     Validates an email.
     Returns "-1" if the username cannot be validated.
     If the email can be validated, then assume the email is real and return the email.
@@ -124,7 +120,7 @@ public class ValidateString {
         }
     }
 
-    /*
+    /**
     Validates a password.
     Returns "-1" if the password cannot be validated.
     If the password can be validated, then the password is returned.
