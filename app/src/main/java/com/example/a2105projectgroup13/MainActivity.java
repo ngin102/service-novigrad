@@ -20,14 +20,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
 
-    private User loggedInUser;
-
-    private String firstNameString;
-    private String lastNameString;
-    private String accountTypeString;
     private String uid;
-
-    private ValueEventListener listener;
+    private TextView firstNameText;
+    private TextView accountTypeText;
 
 
     @Override
@@ -35,19 +30,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        firstNameText = (TextView) findViewById(R.id.firstNameText);
+        accountTypeText = (TextView) findViewById(R.id.accountTypeText);
+
         getUid();
         DatabaseReference firstName = firebaseDatabase.getReference("Users").child(uid).child("firstName");
         DatabaseReference accountType = firebaseDatabase.getReference("Users").child(uid).child("accountType");
 
-        // Read from the database
         firstName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 String value = dataSnapshot.getValue(String.class);
-                Toast.makeText(MainActivity.this, "First name is: " + value, Toast.LENGTH_SHORT).show();;
-                firstNameString = value;
+                firstNameText.setText(value);
             }
 
             @Override
@@ -57,8 +53,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TextView welcomeText = (TextView) findViewById(R.id.welcomeText);
-        welcomeText.setText("Welcome "+firstNameString+" You are signed in as: "+accountType);
+        accountType.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                accountTypeText.setText(value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();;
+            }
+        });
+
     }
 
 
