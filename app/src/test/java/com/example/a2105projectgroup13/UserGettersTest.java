@@ -6,10 +6,17 @@ import static org.junit.Assert.assertEquals;
 
 public class UserGettersTest {
     @Test
-    public void testGetters() {
-        User userTest = new User("Test", "Testing", "Customer Account");
-        assertEquals("Test", userTest.getFirstName());
-        assertEquals("Testing", userTest.getLastName());
+    public void testGetter1() {
+        User userTest = new User("Yennefer", "Vengerberg", "Customer Account");
+        assertEquals("Yennefer", userTest.getFirstName());
+        assertEquals("Vengerberg", userTest.getLastName());
         assertEquals("Customer Account", userTest.getAccountType());
+    }
+    @Test
+    public void testGetter2() {
+        User userTest = new User("Sigismund", "Dijkstra", "Branch Account");
+        assertEquals("Sigismund", userTest.getFirstName());
+        assertEquals("Dijkstra", userTest.getLastName());
+        assertEquals("Branch Account", userTest.getAccountType());
     }
 }
