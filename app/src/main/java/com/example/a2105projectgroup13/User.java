@@ -28,15 +28,6 @@ public class User {
         this.accountType = accountType;
     }
 
-    public User(String userID) {
-        //TODO: fix this constructor..
-        // initialize FirebaseAuthorization and FirebaseDatabase
-        firebaseDatabase.getInstance();
-        this.firstName = firebaseDatabase.getReference("Users").child(userID).child("firstName").toString();
-        this.lastName = firebaseDatabase.getReference("Users").child(userID).child("lastName").toString();
-        this.accountType = firebaseDatabase.getReference("Users").child(userID).child("accountType").toString();
-    }
-
 // public getters
 
     public String getFirstName() {
