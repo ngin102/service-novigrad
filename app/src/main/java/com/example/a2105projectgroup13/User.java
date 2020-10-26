@@ -27,6 +27,10 @@ public class User {
     private String accountType;
 
     // constructors
+
+    public User(){
+    }
+
     public User(String firstName, String lastName, String accountType) {
         this.firstName = firstName;
         this.lastName = lastName;

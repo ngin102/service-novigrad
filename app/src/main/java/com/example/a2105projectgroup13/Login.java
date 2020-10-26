@@ -17,7 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -47,6 +51,8 @@ public class Login extends AppCompatActivity {
     //Firebase authentication/Database:
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
+
+    private String uid;
 
 
     @Override
@@ -143,17 +149,51 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
                     Toast.makeText(Login.this, "Welcome!", Toast.LENGTH_SHORT).show();
-
+                    getUid();
+                    DatabaseReference accountType = firebaseDatabase.getReference("Users").child(uid).child("accountType");
 
                     //Sends logged in user to the main screen.
-                    startActivity(new Intent(Login.this, MainActivity.class));
+                    //An Admin will go to the Admin Main Activity.
+                    //Other Users will go to the other Main Acitivty.
+                    accountType.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String value = dataSnapshot.getValue(String.class);
+
+                            if (value.equals("Branch Account") || value.equals("Customer Account")){
+                                startActivity(new Intent(Login.this, MainActivity.class));
+                            }
+
+                            else {
+                                startActivity(new Intent(Login.this, AdminWelcomeActivity.class));
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            Toast.makeText(Login.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                        }
+                    });
+
                 } else {
                     Toast.makeText(Login.this, "The password and/or email was incorrect.", Toast.LENGTH_SHORT).show();
                 }
                 progressBar.setVisibility(INVISIBLE);
             }
         });
+    }
+
+    /**
+     * Gets (but does not return) the unique user uId of the user who
+     * is currently logged into the app via Firebase Authentication.
+     */
+    private void getUid(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = firebaseDatabase.getInstance();
+
+        FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
     }
 }
