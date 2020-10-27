@@ -32,11 +32,25 @@
                 android:orientation="vertical" />
         </ScrollView>
 
-        <Button
-            android:id="@+id/addFieldButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Field" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addFieldButton"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:text="Add Field" />
+
+            <Button
+                android:id="@+id/addFormButton"
+                android:layout_width="203dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="submitFormOnClick"
+                android:text="Add Form" />
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
