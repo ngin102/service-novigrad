@@ -112,7 +112,7 @@ public class NewForm extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        DatabaseReference fieldsInFirebase = firebaseDatabase.getReference("Services").child("Service Name").child("fields");
+                        DatabaseReference fieldsInFirebase = firebaseDatabase.getReference("Services").child("Service Name").child(formName).child("fields");
                         for (int i = 0; i < fields.size(); i++) {
                             String fieldToAdd = fields.get(i);
                             fieldsInFirebase.child(Integer.toString(i)).setValue(fieldToAdd);
