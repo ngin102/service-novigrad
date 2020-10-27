@@ -24,4 +24,7 @@
     <string name="user_list">User List</string>
     <string name="all_users_are_listed_by_their_user_uid">All users are listed by their user uid.</string>
     <string name="press_and_hold_on_a_uid_to_get_the_option_to_the_delete_the_user_and_to_see_the_user_name_and_account_type">Press and hold on a uid to get the option to the delete the user, and to see the user name and account type.</string>
+    <string name="service_name">Service Name:</string>
+    <string name="add_form">Add Form</string>
+    <string name="add_doucement">Add Doucement</string>
 </resources>
