@@ -13,15 +13,17 @@
             android:layout_height="wrap_content" android:layout_weight="1"/>
     <Button
             android:text="@string/add_form"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/addForm" android:layout_weight="1"/>
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" android:id="@+id/addForm" android:layout_weight="1"
+            android:layout_gravity="center"/>
     <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:layout_weight="1"/>
     <Button
             android:text="@string/add_doucement"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/addDoucement" android:layout_weight="1"/>
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" android:id="@+id/addDoucement" android:layout_weight="1"
+            android:layout_gravity="center"/>
     <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:layout_weight="1"/>
