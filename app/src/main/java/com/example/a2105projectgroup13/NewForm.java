@@ -89,7 +89,7 @@ public class NewForm extends AppCompatActivity {
     }
 
     public void submitFormOnClick(View v) {
-        String formName = editTextFormName.getText().toString().trim();
+        final String formName = editTextFormName.getText().toString().trim();
 
         if (formName.equals("")){
             Toast.makeText(NewForm.this, "Please enter a name for the Form.", Toast.LENGTH_SHORT).show();
