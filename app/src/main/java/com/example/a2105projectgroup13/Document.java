@@ -4,7 +4,7 @@ public class Document {
     private String type;
     private String documentName;
 
-    public Document(String type, String doucementName){
+    public Document(String type, String documentName){
         this.type = type;
         this.documentName = documentName;
     }
