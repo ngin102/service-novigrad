@@ -22,6 +22,7 @@ public class AdminWelcomeActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private Button deleteUsersButton;
+    private Button tempButton1;
     private String uid;
 
     private TextView adminFirstNameText;
@@ -33,6 +34,7 @@ public class AdminWelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_welcome);
         adminFirstNameText = (TextView) findViewById(R.id.adminFirstNameText);
         deleteUsersButton = (Button) findViewById(R.id.deleteUsersButton);
+        tempButton1 = (Button) findViewById(R.id.tempButton1);
 
 
         deleteUsersButton.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +44,12 @@ public class AdminWelcomeActivity extends AppCompatActivity {
             }
         });
 
+        tempButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(AdminWelcomeActivity.this, NewForm.class));
+            }
+        });
 
 
         getUid();
