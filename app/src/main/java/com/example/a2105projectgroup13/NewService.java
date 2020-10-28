@@ -68,7 +68,9 @@ public class NewService extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Toast.makeText(NewService.this, "Service created. Now add Forms and Documents.", Toast.LENGTH_SHORT).show();
                                 finish();
-                                startActivity(new Intent(NewService.this, AddFormsAndDocuments.class));
+                                Intent moveToNextScreen = new Intent(NewService.this, AddFormsAndDocuments.class);
+                                moveToNextScreen.putExtra("serviceName", serviceName);
+                                startActivity(moveToNextScreen);
                             } else {
                                 //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
                                 Toast.makeText(NewService.this, "There was a problem creating this Service.", Toast.LENGTH_SHORT).show();

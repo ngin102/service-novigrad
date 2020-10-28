@@ -43,11 +43,16 @@
     <string name="enter_price">Enter Price: $</string>
     <string name="enter_price_only_number_values">Enter Price (only number values)</string>
     <string name="adding_a_service">Adding a Service</string>
-    <string name="let_s_begin_to_add_a_service">Let\'s begin to add a service!</string>
+    <string name="let_s_begin_to_add_a_service">Our first steps to add a service!</string>
     <string name="please_indicate_the_price_of_the_service">Please indicate the price of the service.</string>
     <string name="service_name2">Service Name</string>
     <string name="price">Price</string>
-    <string name="please_indicate_a_service_name">Please indicate a service name.</string>
     <string name="you_can_not_name_this_service_the_same_name_as_another_service_all_services_must_have_unique_names">You can not name this service the same name as another service. All services must have unique names.</string>
     <string name="continue2">continue</string>
+    <string name="add_forms_and_documents">Add Forms and Documents</string>
+    <string name="to_the_service">to the service:</string>
+    <string name="add_as_many_forms_and_documents_as_you_wish_to_the_service">Add as many Forms and Documents as you wish to the service.</string>
+    <string name="when_you_have_finished_adding_the_forms_and_documents_press_done_to_return_to_the_manage_services_screen">When you have finished adding the Forms and Documents, press "Done" to return to the Manage Services screen.</string>
+    <string name="please_indicate_a_service_name">Please indicate a service name.</string>
+    <string name="done">Done</string>
 </resources>
