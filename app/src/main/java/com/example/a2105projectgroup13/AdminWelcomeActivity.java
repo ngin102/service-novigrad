@@ -26,12 +26,13 @@ public class AdminWelcomeActivity extends AppCompatActivity {
     private String uid;
 
     private TextView adminFirstNameText;
-    private TextView accountTypeText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_welcome);
+
+        initializeInstanceVariables();
 
         deleteUsersButton.setOnClickListener(new View.OnClickListener() {
             @Override

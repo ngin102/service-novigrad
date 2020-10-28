@@ -16,8 +16,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import static android.view.View.VISIBLE;
-
 public class NewService extends AppCompatActivity {
     private EditText editTextServiceName;
     private EditText editTextNumberPrice;
