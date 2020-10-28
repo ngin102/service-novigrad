@@ -34,12 +34,7 @@ public class NewForm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_form);
 
-        editTextFormName = findViewById(R.id.editTextFormName);
-        fieldList = findViewById(R.id.fieldList);
-        addFieldButton = findViewById(R.id.addFieldButton);
-        addFormButton = findViewById(R.id.addFormButton);
-        fields = new ArrayList<>();
-        firebaseDatabase = firebaseDatabase.getInstance();
+        initializeInstanceVariables();
 
         addFieldButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +49,15 @@ public class NewForm extends AppCompatActivity {
                 submitFormOnClick(view);
             }
         });
+    }
+
+    private void initializeInstanceVariables() {
+        editTextFormName = findViewById(R.id.editTextFormName);
+        fieldList = findViewById(R.id.fieldList);
+        addFieldButton = findViewById(R.id.addFieldButton);
+        addFormButton = findViewById(R.id.addFormButton);
+        fields = new ArrayList<>();
+        firebaseDatabase = firebaseDatabase.getInstance();
     }
 
     private void addFieldToList(){
@@ -91,12 +95,17 @@ public class NewForm extends AppCompatActivity {
     public void submitFormOnClick(View v) {
         final String formName = editTextFormName.getText().toString().trim();
 
+        if (fieldList.getChildCount() == 0){
+            Toast.makeText(NewForm.this, "Please specify the fields that will be in the Form.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (formName.equals("")){
             Toast.makeText(NewForm.this, "Please enter a name for the Form.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (validateForEmptyFields() == true && (! formName.equals("") )) {
+        if (validateForEmptyFields() == true && (! formName.equals("") ) && (fieldList.getChildCount() != 0)) {
             fields.clear();
             for (int i = 0; i < fieldList.getChildCount(); i++) {
                 View selectedField = fieldList.getChildAt(i);
@@ -119,6 +128,8 @@ public class NewForm extends AppCompatActivity {
                         }
 
                         Toast.makeText(NewForm.this, "Form added to service", Toast.LENGTH_SHORT).show();
+                        finish();
+                        startActivity(new Intent(NewForm.this, AdminWelcomeActivity.class));
                     } else {
                         //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
                         Toast.makeText(NewForm.this, "There was a problem adding this Form to your service.", Toast.LENGTH_SHORT).show();

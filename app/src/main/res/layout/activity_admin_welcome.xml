@@ -28,5 +28,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Temporary Button: New Form" />
+
+        <Button
+            android:id="@+id/tempButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TEMPORARY BUTTON: NEW DOCUMENT" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
