@@ -54,7 +54,7 @@ public class NewService extends AppCompatActivity {
         String serviceName = editTextServiceName.getText().toString().trim();
         String price = editTextNumberPrice.getText().toString().trim();
 
-        firebaseDatabase.getReference("Services").child(serviceName).child(price).setValue(price).addOnCompleteListener(NewForm.this, new OnCompleteListener<Void>() {
+        firebaseDatabase.getReference("Services").child(serviceName).child(price).setValue(price).addOnCompleteListener(NewService.this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
