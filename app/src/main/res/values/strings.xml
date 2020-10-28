@@ -36,7 +36,22 @@
     <string name="add_document">Add Document</string>
     <string name="form_name">Form Name</string>
     <string name="add_field">Add Field</string>
-    <string name="add_form">Add Form</string>
     <string name="field_name">Field Name</string>
     <string name="remove_field">Remove Field</string>
+    <string name="welcome_admin">Welcome Admin!</string>
+    <string name="manage_services">Manage Services</string>
+    <string name="add_service">Add Service</string>
+    <string name="enter_service_name">Enter Service Name</string>
+    <string name="service_name">Service Name:</string>
+    <string name="enter_price">Enter Price: $</string>
+    <string name="enter_price_only_number_values">Enter Price (only number values)</string>
+    <string name="adding_a_service">Adding a Service</string>
+    <string name="let_s_begin_to_add_a_service">Let\'s begin to add a service!</string>
+    <string name="please_indicate_the_price_of_the_service">Please indicate the price of the service.</string>
+    <string name="service_name2">Service Name</string>
+    <string name="price">Price</string>
+    <string name="please_indicate_a_service_name">Please indicate a service name.</string>
+    <string name="you_can_not_name_this_service_the_same_name_as_another_service_all_services_must_have_unique_names">You can not name this service the same name as another service. All services must have unique names.</string>
+    <string name="continue">Continue</string>
+    <string name="continue2">continue</string>
 </resources>

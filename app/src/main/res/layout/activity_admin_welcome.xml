@@ -15,19 +15,22 @@
             android:id="@+id/adminFirstNameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/textview" />
+            android:text="@string/welcome_admin"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/manageServicesButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/manage_services" />
 
         <Button
             android:id="@+id/deleteUsersButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/delete_users" />
-
-        <Button
-            android:id="@+id/addServiceButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add_service" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

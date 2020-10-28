@@ -6,4 +6,84 @@
     android:layout_height="match_parent"
     tools:context=".newService">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/addingAServiceTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/adding_a_service"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/serviceInstructions1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/let_s_begin_to_add_a_service"
+            android:textAlignment="center" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="24dp" />
+
+        <TextView
+            android:id="@+id/serviceInstructions2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/please_indicate_a_service_name"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/serviceInstructions3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/you_can_not_name_this_service_the_same_name_as_another_service_all_services_must_have_unique_names"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/editTextServiceName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/service_name2"
+            android:inputType="textPersonName"
+            android:autofillHints="" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="23dp" />
+
+        <TextView
+            android:id="@+id/serviceInstructions4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/please_indicate_the_price_of_the_service"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/editTextNumberPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/price"
+            android:inputType="numberDecimal"
+            android:autofillHints="" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+        <Button
+            android:id="@+id/continueButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/continue2" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

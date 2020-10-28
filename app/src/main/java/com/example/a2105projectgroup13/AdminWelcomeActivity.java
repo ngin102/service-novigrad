@@ -22,8 +22,7 @@ public class AdminWelcomeActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private Button deleteUsersButton;
-    private Button tempButton1;
-    private Button tempButton2;
+    private Button manageServicesButton;
     private String uid;
 
     private TextView adminFirstNameText;
@@ -33,11 +32,6 @@ public class AdminWelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_welcome);
-        adminFirstNameText = (TextView) findViewById(R.id.adminFirstNameText);
-        deleteUsersButton = (Button) findViewById(R.id.deleteUsersButton);
-        tempButton1 = (Button) findViewById(R.id.tempButton1);
-        tempButton2 = (Button) findViewById(R.id.tempButton2);
-
 
         deleteUsersButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,17 +40,10 @@ public class AdminWelcomeActivity extends AppCompatActivity {
             }
         });
 
-        tempButton1.setOnClickListener(new View.OnClickListener() {
+        manageServicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(AdminWelcomeActivity.this, NewForm.class));
-            }
-        });
-
-        tempButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                startActivity(new Intent(AdminWelcomeActivity.this, NewDocument.class));
+                startActivity(new Intent(AdminWelcomeActivity.this, ManageServices.class));
             }
         });
 
@@ -79,6 +66,13 @@ public class AdminWelcomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void initializeInstanceVariables() {
+        //Initialize each instance variable by finding the first view that corresponds with its id.
+        adminFirstNameText = (TextView) findViewById(R.id.adminFirstNameText);
+        deleteUsersButton = (Button) findViewById(R.id.deleteUsersButton);
+        manageServicesButton = (Button) findViewById(R.id.manageServicesButton);
     }
 
     private void getUid(){
