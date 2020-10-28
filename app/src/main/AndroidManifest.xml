@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NewDocument"></activity>
+        <activity android:name=".newService"></activity>
+        <activity android:name=".NewDocument" />
         <activity android:name=".NewForm" />
         <activity android:name=".UserList" />
         <activity android:name=".AdminWelcomeActivity" />

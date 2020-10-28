@@ -27,4 +27,16 @@
     <string name="service_name">Service Name:</string>
     <string name="add_form">Add Form</string>
     <string name="add_doucement">Add Doucement</string>
+    <string name="textview">TextView</string>
+    <string name="add_service">Add Service</string>
+    <string name="document_name">Document Name</string>
+    <string name="choose_file_type">Choose File Type:</string>
+    <string name="png_or_jpg">.png or .jpg</string>
+    <string name="pdf">PDF</string>
+    <string name="add_document">Add Document</string>
+    <string name="form_name">Form Name</string>
+    <string name="add_field">Add Field</string>
+    <string name="add_form">Add Form</string>
+    <string name="field_name">Field Name</string>
+    <string name="remove_field">Remove Field</string>
 </resources>

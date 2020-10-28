@@ -16,8 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Document Name"
-            android:inputType="textPersonName" />
+            android:hint="@string/document_name"
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <RadioGroup
             android:id="@+id/chooseFileTypeRadioGroup"
@@ -28,19 +29,19 @@
                 android:id="@+id/chooseFileType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose File Type:" />
+                android:text="@string/choose_file_type" />
 
             <RadioButton
                 android:id="@+id/chooseImageButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=".png or .jpg" />
+                android:text="@string/png_or_jpg" />
 
             <RadioButton
                 android:id="@+id/choosePDFButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="PDF" />
+                android:text="@string/pdf" />
 
         </RadioGroup>
 
@@ -49,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="submitDocumentOnClick"
-            android:text="Add Document" />
+            android:text="@string/add_document" />
 
     </LinearLayout>
 </LinearLayout>

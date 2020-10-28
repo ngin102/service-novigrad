@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
-            android:hint="Form Name"
+            android:hint="@string/form_name"
             android:inputType="textPersonName" />
 
         <ScrollView
@@ -41,15 +41,15 @@
                 android:id="@+id/addFieldButton"
                 android:layout_width="206dp"
                 android:layout_height="wrap_content"
-                android:text="Add Field" />
+                android:text="@string/add_field" />
 
             <Button
                 android:id="@+id/addFormButton"
-                android:layout_width="203dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="submitFormOnClick"
-                android:text="Add Form" />
+                android:text="@string/add_form" />
         </LinearLayout>
 
     </LinearLayout>

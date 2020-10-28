@@ -15,7 +15,7 @@
             android:id="@+id/adminFirstNameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="@string/textview" />
 
         <Button
             android:id="@+id/deleteUsersButton"
@@ -24,15 +24,10 @@
             android:text="@string/delete_users" />
 
         <Button
-            android:id="@+id/tempButton1"
+            android:id="@+id/addServiceButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Temporary Button: New Form" />
+            android:text="@string/add_service" />
 
-        <Button
-            android:id="@+id/tempButton2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TEMPORARY BUTTON: NEW DOCUMENT" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

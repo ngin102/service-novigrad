@@ -9,13 +9,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="Field Name"
-        android:inputType="textPersonName" />
+        android:hint="@string/field_name"
+        android:inputType="textPersonName"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/removeFieldButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Remove Field" />
+        android:text="@string/remove_field" />
 </LinearLayout>
