@@ -9,14 +9,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class AddFormsAndDocuments extends AppCompatActivity {
-    Intent previousScreen;
-    String serviceName;
+    private Intent previousScreen;
+    private String serviceName;
 
-    TextView serviceNameOnScreen;
+    private TextView serviceNameOnScreen;
 
-    Button addFormButton;
-    Button addDocumentButton;
-    Button doneButton;
+    private Button addFormButton;
+    private Button addDocumentButton;
+    private Button doneButton;
 
 
 
@@ -32,14 +32,18 @@ public class AddFormsAndDocuments extends AppCompatActivity {
         addFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(AddFormsAndDocuments.this, NewForm.class));
+                Intent moveToForms = new Intent(AddFormsAndDocuments.this, NewForm.class);
+                moveToForms.putExtra("serviceName", serviceName);
+                startActivity(moveToForms);
             }
         });
 
         addDocumentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(AddFormsAndDocuments.this, NewDocument.class));
+                Intent moveToDocuments = new Intent(AddFormsAndDocuments.this, NewDocument.class);
+                moveToDocuments.putExtra("serviceName", serviceName);
+                startActivity(moveToDocuments);
             }
         });
 

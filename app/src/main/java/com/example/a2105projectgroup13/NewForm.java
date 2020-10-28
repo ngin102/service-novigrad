@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +27,11 @@ public class NewForm extends AppCompatActivity {
     private Button addFormButton;
     private FirebaseDatabase firebaseDatabase;
 
+    private String serviceName;
+    private Intent previousScreen;
+
+    private TextView serviceNameOnscreen;
+
     private ArrayList<String> fields;
 
 
@@ -35,6 +41,9 @@ public class NewForm extends AppCompatActivity {
         setContentView(R.layout.activity_new_form);
 
         initializeInstanceVariables();
+
+        serviceNameOnscreen.setText(serviceName);
+
 
         addFieldButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +67,11 @@ public class NewForm extends AppCompatActivity {
         addFormButton = findViewById(R.id.addFormButton);
         fields = new ArrayList<>();
         firebaseDatabase = firebaseDatabase.getInstance();
+
+        previousScreen = getIntent();
+        serviceName = previousScreen.getStringExtra("serviceName");
+
+        serviceNameOnscreen = (TextView) findViewById(R.id.serviceNameOnScreen2);
     }
 
     private void addFieldToList(){
@@ -117,11 +131,11 @@ public class NewForm extends AppCompatActivity {
 
             final Form formToAddToService = new Form("form", formName);
 
-            firebaseDatabase.getReference("Services").child("Service Name").child(formName).setValue(formToAddToService).addOnCompleteListener(NewForm.this, new OnCompleteListener<Void>() {
+            firebaseDatabase.getReference("Services").child(serviceName).child(formName).setValue(formToAddToService).addOnCompleteListener(NewForm.this, new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        DatabaseReference fieldsInFirebase = firebaseDatabase.getReference("Services").child("Service Name").child(formName).child("fields");
+                        DatabaseReference fieldsInFirebase = firebaseDatabase.getReference("Services").child(serviceName).child(formName).child("fields");
                         for (int i = 0; i < fields.size(); i++) {
                             String fieldToAdd = fields.get(i);
                             fieldsInFirebase.child(Integer.toString(i)).setValue(fieldToAdd);
@@ -129,7 +143,7 @@ public class NewForm extends AppCompatActivity {
 
                         Toast.makeText(NewForm.this, "Form added to service", Toast.LENGTH_SHORT).show();
                         finish();
-                        startActivity(new Intent(NewForm.this, AdminWelcomeActivity.class));
+                        startActivity(new Intent(NewForm.this, ManageServices.class));
                     } else {
                         //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
                         Toast.makeText(NewForm.this, "There was a problem adding this Form to your service.", Toast.LENGTH_SHORT).show();

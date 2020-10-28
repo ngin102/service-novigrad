@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +26,11 @@ public class NewDocument extends AppCompatActivity {
     private RadioGroup chooseFileTypeRadioGroup;
     private FirebaseDatabase firebaseDatabase;
 
+    private String serviceName;
+    private Intent previousScreen;
+
+    private TextView serviceNameOnScreen;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,8 @@ public class NewDocument extends AppCompatActivity {
         setContentView(R.layout.activity_new_document);
 
         initializeInstanceVariables();
+
+        serviceNameOnScreen.setText(serviceName);
 
         addDocumentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +57,11 @@ public class NewDocument extends AppCompatActivity {
         addDocumentButton = findViewById(R.id.addDocumentButton);
         chooseFileTypeRadioGroup = findViewById(R.id.chooseFileTypeRadioGroup);
         firebaseDatabase = firebaseDatabase.getInstance();
+
+        previousScreen = getIntent();
+        serviceName = previousScreen.getStringExtra("serviceName");
+
+        serviceNameOnScreen = findViewById(R.id.serviceNameOnScreen3);
     }
 
     /**
@@ -85,13 +98,13 @@ public class NewDocument extends AppCompatActivity {
         if ( ( ! chooseFileType.equals("-1") ) && (! documentName.equals("") )) {
             final Document documentToAddToService = new Document("document", documentName, chooseFileType);
 
-            firebaseDatabase.getReference("Services").child("Service Name").child(documentName).setValue(documentToAddToService).addOnCompleteListener(NewDocument.this, new OnCompleteListener<Void>() {
+            firebaseDatabase.getReference("Services").child(serviceName).child(documentName).setValue(documentToAddToService).addOnCompleteListener(NewDocument.this, new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(NewDocument.this, "Document added to service", Toast.LENGTH_SHORT).show();
                         finish();
-                        startActivity(new Intent(NewDocument.this, AdminWelcomeActivity.class));
+                        startActivity(new Intent(NewDocument.this, ManageServices.class));
                     } else {
                         //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
                         Toast.makeText(NewDocument.this, "There was a problem adding this Document to your service.", Toast.LENGTH_SHORT).show();

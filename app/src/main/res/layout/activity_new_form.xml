@@ -12,6 +12,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/serviceNameOnForm"
+                android:layout_width="163dp"
+                android:layout_height="wrap_content"
+                android:text="@string/service_name" />
+
+            <TextView
+                android:id="@+id/serviceNameOnScreen2"
+                android:layout_width="183dp"
+                android:layout_height="wrap_content"
+                android:text="@string/service_name2" />
+        </LinearLayout>
+
         <EditText
             android:id="@+id/editTextFormName"
             android:layout_width="match_parent"
@@ -23,7 +41,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="510dp">
+            android:layout_height="472dp">
 
             <LinearLayout
                 android:id="@+id/fieldList"
