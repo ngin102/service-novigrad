@@ -104,7 +104,7 @@ public class NewDocument extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(NewDocument.this, "Document added to service", Toast.LENGTH_SHORT).show();
                         finish();
-                        startActivity(new Intent(NewDocument.this, ManageServices.class));
+                        startActivity(new Intent(NewDocument.this, AddFormsAndDocuments.class));
                     } else {
                         //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
                         Toast.makeText(NewDocument.this, "There was a problem adding this Document to your service.", Toast.LENGTH_SHORT).show();

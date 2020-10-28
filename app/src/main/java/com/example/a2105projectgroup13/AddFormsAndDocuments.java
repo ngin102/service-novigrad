@@ -50,6 +50,7 @@ public class AddFormsAndDocuments extends AppCompatActivity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
+                finish();
                 startActivity(new Intent(AddFormsAndDocuments.this, ManageServices.class));
             }
         });

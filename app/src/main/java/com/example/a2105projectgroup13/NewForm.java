@@ -143,7 +143,7 @@ public class NewForm extends AppCompatActivity {
 
                         Toast.makeText(NewForm.this, "Form added to service", Toast.LENGTH_SHORT).show();
                         finish();
-                        startActivity(new Intent(NewForm.this, ManageServices.class));
+                        startActivity(new Intent(NewForm.this, AddFormsAndDocuments.class));
                     } else {
                         //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
                         Toast.makeText(NewForm.this, "There was a problem adding this Form to your service.", Toast.LENGTH_SHORT).show();
