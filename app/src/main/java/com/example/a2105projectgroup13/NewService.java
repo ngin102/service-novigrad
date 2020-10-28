@@ -13,8 +13,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class NewService extends AppCompatActivity {
     private EditText editTextServiceName;
@@ -49,21 +52,37 @@ public class NewService extends AppCompatActivity {
     public void continueOnClick(View v) {
         //Convert whatever was inputted by the user into the text fields on the register screen to strings.
         //Trim any potential whitespace from the inputted email address. The password is allowed to have whitespace.
-        String serviceName = editTextServiceName.getText().toString().trim();
-        String price = editTextNumberPrice.getText().toString().trim();
+        final String serviceName = editTextServiceName.getText().toString().trim();
+        final String price = editTextNumberPrice.getText().toString().trim();
 
-        firebaseDatabase.getReference("Services").child(serviceName).child(price).setValue(price).addOnCompleteListener(NewService.this, new OnCompleteListener<Void>() {
+        firebaseDatabase.getReference("Services").child(serviceName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(NewService.this, "Service created. Now add Forms and Documents.", Toast.LENGTH_SHORT).show();
-                    finish();
-                    startActivity(new Intent(NewService.this, AddFormsAndDocuments.class));
-                } else {
-                    //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
-                    Toast.makeText(NewService.this, "There was a problem creating this Service.", Toast.LENGTH_SHORT).show();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Toast.makeText(NewService.this, "A service already exists under this name. Please use a different name for your service.", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    firebaseDatabase.getReference("Services").child(serviceName).child("price").setValue(price).addOnCompleteListener(NewService.this, new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(NewService.this, "Service created. Now add Forms and Documents.", Toast.LENGTH_SHORT).show();
+                                finish();
+                                startActivity(new Intent(NewService.this, AddFormsAndDocuments.class));
+                            } else {
+                                //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
+                                Toast.makeText(NewService.this, "There was a problem creating this Service.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(NewService.this, "There was a problem creating this Service.", Toast.LENGTH_SHORT).show();
+            }
         });
+
     }
 }
