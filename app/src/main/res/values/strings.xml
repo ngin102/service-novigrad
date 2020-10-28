@@ -24,9 +24,7 @@
     <string name="user_list">User List</string>
     <string name="all_users_are_listed_by_their_user_uid">All users are listed by their user uid.</string>
     <string name="press_and_hold_on_a_uid_to_get_the_option_to_the_delete_the_user_and_to_see_the_user_name_and_account_type">Press and hold on a uid to get the option to the delete the user, and to see the user name and account type.</string>
-    <string name="service_name">Service Name:</string>
     <string name="add_form">Add Form</string>
-    <string name="add_doucement">Add Doucement</string>
     <string name="textview">TextView</string>
     <string name="add_service">Add Service</string>
     <string name="document_name">Document Name</string>
@@ -40,7 +38,6 @@
     <string name="remove_field">Remove Field</string>
     <string name="welcome_admin">Welcome Admin!</string>
     <string name="manage_services">Manage Services</string>
-    <string name="add_service">Add Service</string>
     <string name="enter_service_name">Enter Service Name</string>
     <string name="service_name">Service Name:</string>
     <string name="enter_price">Enter Price: $</string>
@@ -52,6 +49,5 @@
     <string name="price">Price</string>
     <string name="please_indicate_a_service_name">Please indicate a service name.</string>
     <string name="you_can_not_name_this_service_the_same_name_as_another_service_all_services_must_have_unique_names">You can not name this service the same name as another service. All services must have unique names.</string>
-    <string name="continue">Continue</string>
     <string name="continue2">continue</string>
 </resources>
