@@ -129,7 +129,13 @@ public class NewForm extends AppCompatActivity {
                 fields.add(fieldName);
             }
 
-            final Form formToAddToService = new Form("form", formName);
+            String[] formFields = new String[fields.size()];
+            for (int i = 0; i < fields.size(); i++){
+                formFields[i] = fields.get(i);
+            }
+
+
+            final Form formToAddToService = new Form("form", formName, formFields);
 
             firebaseDatabase.getReference("Services").child(serviceName).child(formName).setValue(formToAddToService).addOnCompleteListener(NewForm.this, new OnCompleteListener<Void>() {
                 @Override

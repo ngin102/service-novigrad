@@ -10,6 +10,7 @@ import android.widget.Button;
 public class ManageServices extends AppCompatActivity {
 
     private Button addServiceButton;
+    private Button viewServicesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +25,20 @@ public class ManageServices extends AppCompatActivity {
                 startActivity(new Intent(ManageServices.this, NewService.class));
             }
         });
+
+        viewServicesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(ManageServices.this, ServiceList.class));
+            }
+        });
     }
 
 
     private void initializeInstanceVariables() {
         //Initialize each instance variable by finding the first view that corresponds with its id.
         addServiceButton = findViewById(R.id.addServiceButton);
+        viewServicesButton = findViewById(R.id.viewServicesButton);
     }
 
 }

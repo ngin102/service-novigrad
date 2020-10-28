@@ -60,7 +60,7 @@ public class UserList extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(UserList.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -80,7 +80,7 @@ public class UserList extends AppCompatActivity {
         //Getting the specified User reference
         DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
         userReference.removeValue();
-        Toast.makeText(this, "User deleted.", Toast.LENGTH_LONG).show();
+        Toast.makeText(UserList.this, "User deleted.", Toast.LENGTH_LONG).show();
         return true;
     }
 

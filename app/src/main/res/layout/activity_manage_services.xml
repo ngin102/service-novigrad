@@ -25,5 +25,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/add_service" />
+
+        <Button
+            android:id="@+id/viewServicesButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_edit_and_delete_services" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

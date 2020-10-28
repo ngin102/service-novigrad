@@ -5,6 +5,9 @@ public class Document {
     private String documentName;
     private String fileType;
 
+    public Document(){
+    }
+
     public Document(String type, String documentName, String fileType){
         this.type = type;
         this.documentName = documentName;

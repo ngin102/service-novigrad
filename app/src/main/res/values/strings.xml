@@ -56,4 +56,7 @@
     <string name="please_indicate_a_service_name">Please indicate a service name.</string>
     <string name="done">Done</string>
     <string name="manage_and_delete_users">Manage and Delete Users</string>
+    <string name="view_edit_and_delete_services">View, Edit and Delete Services</string>
+    <string name="delete_service">Delete Service</string>
+    <string name="view_requirements">View Requirements</string>
 </resources>

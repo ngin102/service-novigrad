@@ -47,6 +47,8 @@ public class AdminWelcomeActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminWelcomeActivity.this, ManageServices.class));
             }
         });
+
+
     }
 
     private void initializeInstanceVariables() {
