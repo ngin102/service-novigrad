@@ -30,7 +30,7 @@
             android:id="@+id/deleteUsersButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/delete_users" />
+            android:text="@string/manage_and_delete_users" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,4 +55,5 @@
     <string name="when_you_have_finished_adding_the_forms_and_documents_press_done_to_return_to_the_manage_services_screen">When you have finished adding the Forms and Documents, press "Done" to return to the Manage Services screen.</string>
     <string name="please_indicate_a_service_name">Please indicate a service name.</string>
     <string name="done">Done</string>
+    <string name="manage_and_delete_users">Manage and Delete Users</string>
 </resources>
