@@ -59,9 +59,9 @@ public class NewDocument extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
 
         previousScreen = getIntent();
-        serviceName = previousScreen.getStringExtra("serviceName");
+        serviceName = previousScreen.getStringExtra("serviceName2");
 
-        serviceNameOnScreen = findViewById(R.id.serviceNameOnScreen3);
+        serviceNameOnScreen = (TextView) findViewById(R.id.serviceNameOnScreen3);
     }
 
     /**
@@ -104,7 +104,9 @@ public class NewDocument extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(NewDocument.this, "Document added to service", Toast.LENGTH_SHORT).show();
                         finish();
-                        startActivity(new Intent(NewDocument.this, AddFormsAndDocuments.class));
+                        Intent moveToAdd = new Intent(NewDocument.this, AddFormsAndDocuments.class);
+                        moveToAdd.putExtra("serviceName", serviceName);
+                        startActivity(moveToAdd);
                     } else {
                         //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
                         Toast.makeText(NewDocument.this, "There was a problem adding this Document to your service.", Toast.LENGTH_SHORT).show();

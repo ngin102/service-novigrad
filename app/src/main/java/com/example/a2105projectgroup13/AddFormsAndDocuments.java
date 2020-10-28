@@ -42,7 +42,7 @@ public class AddFormsAndDocuments extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Intent moveToDocuments = new Intent(AddFormsAndDocuments.this, NewDocument.class);
-                moveToDocuments.putExtra("serviceName", serviceName);
+                moveToDocuments.putExtra("serviceName2", serviceName);
                 startActivity(moveToDocuments);
             }
         });

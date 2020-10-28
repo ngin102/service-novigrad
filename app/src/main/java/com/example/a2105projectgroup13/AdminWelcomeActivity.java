@@ -47,26 +47,6 @@ public class AdminWelcomeActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminWelcomeActivity.this, ManageServices.class));
             }
         });
-
-
-        getUid();
-
-        DatabaseReference adminFirstName = firebaseDatabase.getReference("Users").child(uid).child("firstName");
-
-        adminFirstName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String value = snapshot.getValue(String.class);
-                adminFirstNameText.setText(value);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AdminWelcomeActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
     }
 
     private void initializeInstanceVariables() {
