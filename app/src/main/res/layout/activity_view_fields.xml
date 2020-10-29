@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="49dp"
+            android:layout_height="30dp"
             android:orientation="horizontal">
 
             <TextView
@@ -39,7 +39,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="486dp"
+            android:layout_height="0dp"
+            android:layout_weight="8"
             android:orientation="horizontal">
 
             <ListView
@@ -50,20 +51,21 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/addFieldButtonOnFields"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/add_field" />
 
             <Button
                 android:id="@+id/backToRequirementListButton"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/back_to_requirement_list"
                 android:textSize="12sp" />
@@ -71,7 +73,7 @@
             <Button
                 android:id="@+id/backToServicesButtonOnFields"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/back_to_service_list" />
         </LinearLayout>
