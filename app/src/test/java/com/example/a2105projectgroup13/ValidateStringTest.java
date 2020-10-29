@@ -110,4 +110,18 @@ public class ValidateStringTest {
         assertEquals("-1", ValidateString.validatePassword("Passoword"));
 
     }
+
+    @Test
+    public void validateServiceName() {
+        assertEquals("Apply For A Loan", ValidateString.validateServiceName("apply for a loan"));
+        assertEquals("Apply For A Loan", ValidateString.validateServiceName("APPly fOr a loan"));
+        assertEquals("Apply For A Loan", ValidateString.validateServiceName("apply for a loan "));
+        assertEquals("Apply F0r A L0an", ValidateString.validateServiceName("apply f0r a L0an "));
+
+        assertEquals("-1", ValidateString.validateServiceName("apply for 1 loan"));
+        assertEquals("-1", ValidateString.validateServiceName("apply for a  loan"));
+        assertEquals("-1", ValidateString.validateServiceName(" apply for 1 loan"));
+
+
+    }
 }
