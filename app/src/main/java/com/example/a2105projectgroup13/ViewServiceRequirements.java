@@ -188,14 +188,30 @@ public class ViewServiceRequirements extends AppCompatActivity {
         //Getting the specified service reference
         DatabaseReference priceReference = serviceInDatabase.child("price");
 
+        if (! price.contains(".")){
+            Toast.makeText(ViewServiceRequirements.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (price.endsWith(".")){
+            Toast.makeText(ViewServiceRequirements.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (price.contains(".")){
+            String[] numberOfDecimals = price.split("\\.");
+            if (numberOfDecimals[1].length() != 2) {
+                Toast.makeText(ViewServiceRequirements.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+
         priceReference.setValue(price).addOnCompleteListener(ViewServiceRequirements.this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    //Since the user's information has been successfully stored in Firebase Database, the registration process is completed!
                     Toast.makeText(ViewServiceRequirements.this, "Price updated!", Toast.LENGTH_SHORT).show();
                 } else {
-                    //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
                     Toast.makeText(ViewServiceRequirements.this, "There was a problem updating the price. Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
