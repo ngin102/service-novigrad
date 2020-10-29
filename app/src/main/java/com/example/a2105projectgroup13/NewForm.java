@@ -159,7 +159,8 @@ public class NewForm extends AppCompatActivity {
             }
 
 
-            final Form formToAddToService = new Form("form", formName);
+            Admin admin = new Admin("Admin", "Admin", "Admin Account");
+            final Form formToAddToService = admin.createForm("form", formName);
 
             firebaseDatabase.getReference("Services").child(serviceName).child(formName).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

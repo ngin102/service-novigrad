@@ -18,7 +18,6 @@ public class Form {
 
     private String type;
     private String name;;
-    private String serviceName;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference fieldsInDatabase;

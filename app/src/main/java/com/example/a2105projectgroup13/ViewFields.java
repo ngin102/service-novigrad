@@ -159,7 +159,7 @@ public class ViewFields extends AppCompatActivity {
 
 
     //Adapted from deleteProduct() method from Lab 5
-    private boolean deleteField(String specificFieldKey){
+    private boolean deleteField(final String specificFieldKey){
 
         final DatabaseReference fieldReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName).child(requirementName).child("fields").child(specificFieldKey);
 
@@ -174,6 +174,28 @@ public class ViewFields extends AppCompatActivity {
 
                 else {
                     fieldReference.removeValue();
+
+                    allFieldsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            int count = 0;
+
+                            for (DataSnapshot field : snapshot.getChildren() ) {
+                                String fieldValue = field.getValue(String.class);
+
+                                DatabaseReference specificFieldReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName).child(requirementName).child("fields").child(field.getKey());
+                                specificFieldReference.removeValue();
+                                allFieldsReference.child(Integer.toString(count)).setValue(fieldValue);
+                                count++;
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(ViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
                     Toast.makeText(ViewFields.this, "Field deleted.", Toast.LENGTH_LONG).show();
                 }
             }

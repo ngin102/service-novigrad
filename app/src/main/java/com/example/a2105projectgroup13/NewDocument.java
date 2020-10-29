@@ -99,7 +99,9 @@ public class NewDocument extends AppCompatActivity {
         }
 
         if ( ( ! chooseFileType.equals("-1") ) && (! documentName.equals("") )) {
-            final Document documentToAddToService = new Document("document", documentName, chooseFileType);
+
+            Admin admin = new Admin("Admin", "Admin", "Admin Account");
+            final Document documentToAddToService = admin.createDocument("document", documentName, chooseFileType);
 
 
             firebaseDatabase.getReference("Services").child(serviceName).child(documentName).addListenerForSingleValueEvent(new ValueEventListener() {
