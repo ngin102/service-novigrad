@@ -13,10 +13,12 @@ public class Admin extends User{
         super(firstName, lastName, accountType);
     }
 
+    public Service createService(String serviceName){
+        return new Service(serviceName);
+    }
     public Form createForm(String type, String formName){
         return new Form(type, formName);
     }
-
     public Document createDocument(String type, String documentName, String fileType){
         return new Document(type, documentName, fileType);
     }

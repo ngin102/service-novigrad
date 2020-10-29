@@ -65,7 +65,12 @@ public class NewService extends AppCompatActivity {
             return;
         }
 
-        firebaseDatabase.getReference("Services").child(serviceName).addListenerForSingleValueEvent(new ValueEventListener() {
+        Admin admin = new Admin("Admin", "Admin", "Admin Account");
+        final Service serviceToAdd = admin.createService(serviceName);
+
+        DatabaseReference referenceToService = serviceToAdd.getDatabaseReference();
+
+        referenceToService.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
