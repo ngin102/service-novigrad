@@ -11,10 +11,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceList extends AppCompatActivity {
     private DatabaseReference serviceInDatabase;
@@ -80,6 +84,56 @@ public class ServiceList extends AppCompatActivity {
         });
     }
 
+
+    private void changeKey(final DatabaseReference currentKey, final DatabaseReference newKey) {
+        //Moving reference in Firebase.
+        final String newKeyChecker = newKey.getKey();
+        final DatabaseReference serviceReference = FirebaseDatabase.getInstance().getReference("Services");
+
+        serviceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(newKeyChecker)){
+                    Toast.makeText(ServiceList.this, "There already exists a Service by this name. Choose another Service name.", Toast.LENGTH_LONG).show();
+                    return;
+                } else {
+                    //Moving reference in Firebase.
+                    currentKey.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            newKey.setValue(snapshot.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isComplete()) {
+                                        Toast.makeText(ServiceList.this, "Changed Service name.", Toast.LENGTH_LONG).show();
+
+                                    } else {
+                                        Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    
+                    deleteService(currentKey.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+
     //Adapted from deleteProduct() method from Lab 5
     private boolean deleteService(String serviceName){
         //Getting the specified service reference
@@ -89,6 +143,8 @@ public class ServiceList extends AppCompatActivity {
         return true;
     }
 
+
+
     //Adapted from showUpdateDeleteDialog() method from Lab 5
     private void showChangeDialog(final String serviceName){
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -97,6 +153,9 @@ public class ServiceList extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         final Button deleteServiceButton = (Button) dialogView.findViewById(R.id.deleteServiceButton);
+        final Button editServiceNameButton = (Button) dialogView.findViewById(R.id.editServiceNameButton);
+        final EditText editTextServiceNameOnList = (EditText) dialogView.findViewById(R.id.editTextServiceNameOnList);
+
 
         dialogBuilder.setTitle(serviceName);
         final AlertDialog alert = dialogBuilder.create();
@@ -106,6 +165,23 @@ public class ServiceList extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 deleteService(serviceName);
+                alert.dismiss();
+            }
+        });
+
+        editServiceNameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                String newKey = editTextServiceNameOnList.getText().toString().trim();
+                if (newKey.equals("")){
+                    Toast.makeText(ServiceList.this, "Please enter a Service name.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                DatabaseReference currentRequirementName = firebaseDatabase.getReference("Services").child(serviceName);
+                DatabaseReference newRequirementName = firebaseDatabase.getReference("Services").child(newKey);
+
+                changeKey(currentRequirementName, newRequirementName);
                 alert.dismiss();
             }
         });

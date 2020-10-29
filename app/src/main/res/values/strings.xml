@@ -67,4 +67,6 @@
     <string name="delete_requirement">Delete Requirement</string>
     <string name="edit_requirement_name">Edit Requirement Name</string>
     <string name="new_requirement_name">New Requirement Name</string>
+    <string name="edit_service_name">edit service name</string>
+    <string name="new_service_name">New Service Name</string>
 </resources>
