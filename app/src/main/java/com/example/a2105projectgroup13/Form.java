@@ -19,9 +19,6 @@ public class Form {
     private String type;
     private String name;;
 
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference fieldsInDatabase;
-
     public Form(){
     }
 

@@ -13,8 +13,8 @@ public class Admin extends User{
         super(firstName, lastName, accountType);
     }
 
-    public Service createService(String serviceName){
-        return new Service(serviceName);
+    public Service createService(String serviceName, String price){
+        return new Service(serviceName, price);
     }
     public Form createForm(String type, String formName){
         return new Form(type, formName);

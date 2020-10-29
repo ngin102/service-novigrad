@@ -19,7 +19,4 @@ public class Document {
     public String getName(){return name;}
 
     public String getFileType(){return fileType;}
-
-    //public int getNumberOfFields()
-
 }

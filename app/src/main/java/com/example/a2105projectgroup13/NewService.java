@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.*;
+
 public class NewService extends AppCompatActivity {
     private EditText editTextServiceName;
     private EditText editTextNumberPrice;
@@ -55,6 +57,24 @@ public class NewService extends AppCompatActivity {
         final String serviceName = editTextServiceName.getText().toString().trim();
         final String price = editTextNumberPrice.getText().toString().trim();
 
+        if (! price.contains(".")){
+            Toast.makeText(NewService.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (price.endsWith(".")){
+            Toast.makeText(NewService.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (price.contains(".")){
+            String[] numberOfDecimals = price.split("\\.");
+            if (numberOfDecimals[1].length() != 2) {
+                Toast.makeText(NewService.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
         if (serviceName.equals("")){
             Toast.makeText(NewService.this, "Please enter a service name.", Toast.LENGTH_SHORT).show();
             return;
@@ -65,10 +85,8 @@ public class NewService extends AppCompatActivity {
             return;
         }
 
-        //Admin admin = new Admin("Admin", "Admin", "Admin Account");
-        //final Service serviceToAdd = admin.createService(serviceName);
-
-        //DatabaseReference referenceToService = serviceToAdd.getDatabaseReference();
+        Admin admin = new Admin("Admin", "Admin", "Admin Account");
+        final Service serviceToAdd = admin.createService(serviceName, price);
 
         firebaseDatabase.getReference("Services").child(serviceName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -77,7 +95,7 @@ public class NewService extends AppCompatActivity {
                     Toast.makeText(NewService.this, "A service already exists under this name. Please use a different name for your service.", Toast.LENGTH_SHORT).show();
                     return;
                 }else{
-                    firebaseDatabase.getReference("Services").child(serviceName).child("price").setValue(price).addOnCompleteListener(NewService.this, new OnCompleteListener<Void>() {
+                    firebaseDatabase.getReference("Services").child(serviceToAdd.getName()).child("price").setValue( Double.toString(serviceToAdd.getPrice()) ).addOnCompleteListener(NewService.this, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {

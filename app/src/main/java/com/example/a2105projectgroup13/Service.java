@@ -1,24 +1,17 @@
 package com.example.a2105projectgroup13;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 public class Service {
     private String name;
-    //private DatabaseReference reference;
-    private FirebaseDatabase firebaseDatabase;
+    private String price;
 
-    public Service(String name) {
+    public Service(String name, String price) {
         this.name = name;
-        //this.reference = firebaseDatabase.getReference("Services").child(name).setValue();
+        this.price = price;
     }
 
     public String getName(){
         return name;
     }
-    /**
-    public DatabaseReference getDatabaseReference(){
-        return reference;
-    }
-     */
+
+    public Double getPrice() { return Double.parseDouble(price); }
 }
