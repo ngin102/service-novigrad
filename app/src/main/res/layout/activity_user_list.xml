@@ -35,9 +35,16 @@
             android:text="@string/press_and_hold_on_a_uid_to_get_the_option_to_the_delete_the_user_and_to_see_the_user_name_and_account_type"
             android:textAlignment="center" />
 
-        <ListView
-            android:id="@+id/userList"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ListView
+                android:id="@+id/userList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

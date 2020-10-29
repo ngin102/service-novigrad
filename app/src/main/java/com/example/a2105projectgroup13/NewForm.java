@@ -109,6 +109,27 @@ public class NewForm extends AppCompatActivity {
         return true;
     }
 
+    private boolean validateForDuplicateFields(){
+        for (int i = 0; i < fieldList.getChildCount(); i++){
+            for (int j = i + 1; j < fieldList.getChildCount(); j++){
+                View fieldOne = fieldList.getChildAt(i);
+                EditText fieldNameOne = (EditText) fieldOne.findViewById(R.id.editTextFieldName);
+                String stringFieldNameOne = fieldNameOne.getText().toString().trim();
+
+                View fieldTwo = fieldList.getChildAt(j);
+                EditText fieldNameTwo = (EditText) fieldTwo.findViewById(R.id.editTextFieldName);
+                String stringFieldNameTwo = fieldNameTwo.getText().toString().trim();
+
+                if (stringFieldNameOne.equals(stringFieldNameTwo)) {
+                    Toast.makeText(NewForm.this, "Please remove duplicate fields.", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     public void submitFormOnClick(View v) {
         final String formName = editTextFormName.getText().toString().trim();
 
@@ -122,7 +143,7 @@ public class NewForm extends AppCompatActivity {
             return;
         }
 
-        if (validateForEmptyFields() == true && (! formName.equals("") ) && (fieldList.getChildCount() != 0)) {
+        if (validateForDuplicateFields() == true && validateForEmptyFields() == true && (! formName.equals("") ) && (fieldList.getChildCount() != 0)) {
             fields.clear();
             for (int i = 0; i < fieldList.getChildCount(); i++) {
                 View selectedField = fieldList.getChildAt(i);

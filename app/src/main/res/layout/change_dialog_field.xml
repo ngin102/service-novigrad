@@ -10,11 +10,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTextNewRequirementName"
+                android:id="@+id/editTextFieldNameOnList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -24,7 +24,7 @@
                 android:inputType="textPersonName" />
 
             <Button
-                android:id="@+id/updateRequirementNameButton"
+                android:id="@+id/editFieldNameButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -37,11 +37,12 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/deleteRequirementButton"
+                android:id="@+id/deleteFieldButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/delete" />
         </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,7 @@
                 android:layout_weight="1"
                 android:autofillHints=""
                 android:ems="10"
-                android:hint="@string/new_service_name"
+                android:hint="@string/new_name"
                 android:inputType="textPersonName" />
 
             <Button
@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/edit_service_name" />
+                android:text="@string/edit_name" />
         </LinearLayout>
 
         <LinearLayout
@@ -41,7 +41,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/delete_service" />
+                android:text="@string/delete" />
 
         </LinearLayout>
     </LinearLayout>

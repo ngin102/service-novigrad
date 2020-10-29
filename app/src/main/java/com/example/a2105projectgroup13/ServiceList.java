@@ -119,7 +119,7 @@ public class ServiceList extends AppCompatActivity {
                             Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    
+
                     deleteService(currentKey.getKey());
                 }
             }

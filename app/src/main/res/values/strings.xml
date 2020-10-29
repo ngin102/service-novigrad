@@ -69,4 +69,11 @@
     <string name="new_requirement_name">New Requirement Name</string>
     <string name="edit_service_name">edit service name</string>
     <string name="new_service_name">New Service Name</string>
+    <string name="requirements_of">Requirements of:</string>
+    <string name="delete">Delete</string>
+    <string name="edit_name">Edit Name</string>
+    <string name="new_name">New Name</string>
+    <string name="button">Button</string>
+    <string name="fields_of">Fields of:</string>
+    <string name="requirement">Requirement</string>
 </resources>

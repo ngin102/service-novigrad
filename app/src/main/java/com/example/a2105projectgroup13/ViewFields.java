@@ -1,28 +1,32 @@
 package com.example.a2105projectgroup13;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+        import androidx.annotation.NonNull;
+        import androidx.appcompat.app.AlertDialog;
+        import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.widget.AdapterView;
+        import android.widget.ArrayAdapter;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.ListView;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+        import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.Task;
+        import com.google.firebase.database.DataSnapshot;
+        import com.google.firebase.database.DatabaseError;
+        import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
+        import com.google.firebase.database.Query;
+        import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+        import java.lang.reflect.Array;
+        import java.util.ArrayList;
 
 public class ViewFields extends AppCompatActivity {
     private DatabaseReference requirementInDatabase;
@@ -34,15 +38,19 @@ public class ViewFields extends AppCompatActivity {
     private String requirementName;
 
     private ListView fieldList;
+    private TextView requirementNameOnScreen;
     private ArrayList<String> fieldArrayList = new ArrayList<String>();
+
+
+    private ArrayList<String> fieldKeyArrayList = new ArrayList<String>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_service_requirements);
+        setContentView(R.layout.activity_view_fields);
 
-        fieldList = (ListView) findViewById(R.id.serviceRequirementList);
+        fieldList = (ListView) findViewById(R.id.fieldScrollingList);
 
         requirementScreen = getIntent();
         serviceName = requirementScreen.getStringExtra("selectedServiceName");
@@ -52,13 +60,20 @@ public class ViewFields extends AppCompatActivity {
         requirementInDatabase = firebaseDatabase.getReference("Services").child(serviceName).child(requirementName);
         fieldsInDatabase = requirementInDatabase.child("fields");
 
+        requirementNameOnScreen = (TextView) findViewById(R.id.changeableRequirementName);
+
+        requirementNameOnScreen.setText(requirementName);
+
+
         fieldsInDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 fieldArrayList.clear();
+                fieldKeyArrayList.clear();
                 for (DataSnapshot field : snapshot.getChildren() ) {
                     String fieldValue = field.getValue(String.class);
                     fieldArrayList.add(fieldValue);
+                    fieldKeyArrayList.add(field.getKey());
                 }
 
                 ArrayAdapter arrayAdapter = new ArrayAdapter(ViewFields.this, android.R.layout.simple_list_item_1, fieldArrayList);
@@ -71,5 +86,128 @@ public class ViewFields extends AppCompatActivity {
             }
         });
 
+        //Adapted from Lab 5
+        fieldList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String fieldToChange = fieldKeyArrayList.get(i);
+                showChangeDialog(fieldToChange);
+                return true;
+            }
+        });
+    }
+
+    private void changeValue(final DatabaseReference key, final String newValue) {
+        //Moving reference in Firebase.
+        final DatabaseReference fieldReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName).child(requirementName).child("fields");
+
+        fieldReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot field : snapshot.getChildren() ) {
+                    String fieldValue = field.getValue(String.class);
+
+                    if (fieldValue.equals(newValue)){
+                        Toast.makeText(ViewFields.this, "There is already a field with this name. Please choose a new field name.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+
+                key.setValue(newValue);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+    //Adapted from deleteProduct() method from Lab 5
+    private boolean deleteField(String specificFieldKey){
+
+        final DatabaseReference fieldReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName).child(requirementName).child("fields").child(specificFieldKey);
+
+        final DatabaseReference allFieldsReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName).child(requirementName).child("fields");
+        allFieldsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getChildrenCount() == 1){
+                    Toast.makeText(ViewFields.this, "Can not delete field. You must have at least one field in your Form.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                else {
+                    fieldReference.removeValue();
+                    Toast.makeText(ViewFields.this, "Field deleted.", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        return true;
+    }
+
+
+
+    //Adapted from showUpdateDeleteDialog() method from Lab 5
+    private void showChangeDialog(final String specificField){
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.change_dialog_field, null);
+        dialogBuilder.setView(dialogView);
+
+        final Button deleteFieldButton = (Button) dialogView.findViewById(R.id.deleteFieldButton);
+        final Button editFieldNameButton = (Button) dialogView.findViewById(R.id.editFieldNameButton);
+        final EditText editTextFieldNameOnList = (EditText) dialogView.findViewById(R.id.editTextFieldNameOnList);
+
+        DatabaseReference specificFieldName = fieldsInDatabase.child(specificField);
+        specificFieldName.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String fieldValue = snapshot.getValue(String.class);
+                dialogBuilder.setTitle(fieldValue);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        final AlertDialog alert = dialogBuilder.create();
+        alert.show();
+
+        deleteFieldButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                deleteField(specificField);
+                alert.dismiss();
+            }
+        });
+
+        /**
+        editFieldNameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                String newValue = editTextFieldNameOnList.getText().toString().trim();
+                if (newValue.equals("")){
+                    Toast.makeText(ViewFields.this, "Please enter a field name.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                DatabaseReference fieldReference = firebaseDatabase.getReference("Services").child(serviceName).child(requirementName).child("fields").child(specificField);
+
+                changeValue(fieldReference, newValue);
+                alert.dismiss();
+            }
+        });
+
+         */
     }
 }

@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,6 +44,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
     private Form form;
     private Document document;
 
+    private TextView requirementsListServiceName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,9 @@ public class ViewServiceRequirements extends AppCompatActivity {
 
         form = new Form();
         document = new Document();
+
+        requirementsListServiceName = (TextView) findViewById(R.id.requirementsListServiceName);
+        requirementsListServiceName.setText(serviceName);
 
 
         serviceInDatabase.addValueEventListener(new ValueEventListener() {
@@ -129,7 +134,6 @@ public class ViewServiceRequirements extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.hasChild("fields")) {
-                    Toast.makeText(ViewServiceRequirements.this, requirementToViewFields, Toast.LENGTH_LONG).show();
                     Intent moveToView = new Intent(ViewServiceRequirements.this, ViewFields.class);
                     moveToView.putExtra("selectedServiceName", serviceName);
                     moveToView.putExtra("requirementName", requirementToViewFields);
