@@ -15,8 +15,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -135,29 +138,45 @@ public class NewForm extends AppCompatActivity {
             }
 
 
-            final Form formToAddToService = new Form("form", formName, formFields);
+            final Form formToAddToService = new Form("form", formName);
 
-            firebaseDatabase.getReference("Services").child(serviceName).child(formName).setValue(formToAddToService).addOnCompleteListener(NewForm.this, new OnCompleteListener<Void>() {
+            firebaseDatabase.getReference("Services").child(serviceName).child(formName).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        DatabaseReference fieldsInFirebase = firebaseDatabase.getReference("Services").child(serviceName).child(formName).child("fields");
-                        for (int i = 0; i < fields.size(); i++) {
-                            String fieldToAdd = fields.get(i);
-                            fieldsInFirebase.child(Integer.toString(i)).setValue(fieldToAdd);
-                        }
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Toast.makeText(NewForm.this, "A requirement already exists under this name. Please use a different name for your Form.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else{
+                        firebaseDatabase.getReference("Services").child(serviceName).child(formName).setValue(formToAddToService).addOnCompleteListener(NewForm.this, new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    DatabaseReference fieldsInFirebase = firebaseDatabase.getReference("Services").child(serviceName).child(formName).child("fields");
+                                    for (int i = 0; i < fields.size(); i++) {
+                                        String fieldToAdd = fields.get(i);
+                                        fieldsInFirebase.child(Integer.toString(i)).setValue(fieldToAdd);
+                                    }
 
-                        Toast.makeText(NewForm.this, "Form added to service", Toast.LENGTH_SHORT).show();
-                        finish();
-                        Intent moveToAdd = new Intent(NewForm.this, AddFormsAndDocuments.class);
-                        moveToAdd.putExtra("serviceName", serviceName);
-                        startActivity(moveToAdd);
-                    } else {
-                        //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
-                        Toast.makeText(NewForm.this, "There was a problem adding this Form to your service.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(NewForm.this, "Form added to service", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    Intent moveToAdd = new Intent(NewForm.this, AddFormsAndDocuments.class);
+                                    moveToAdd.putExtra("serviceName", serviceName);
+                                    startActivity(moveToAdd);
+                                } else {
+                                    //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
+                                    Toast.makeText(NewForm.this, "There was a problem adding this Form to your service.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
                 }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(NewForm.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
+                }
             });
+
         }
     }
 }

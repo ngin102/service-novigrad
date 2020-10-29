@@ -59,4 +59,12 @@
     <string name="view_edit_and_delete_services">View, Edit and Delete Services</string>
     <string name="delete_service">Delete Service</string>
     <string name="view_requirements">View Requirements</string>
+    <string name="service_list">Service List</string>
+    <string name="update_price">Update Price</string>
+    <string name="all_services_must_have_a_price_you_can_delete_a_price_but_you_can_update_it">All services must have a price. You can not delete a price, but you can update it.</string>
+    <string name="new_price">New Price</string>
+    <string name="add_requirements_forms_and_documents">Add Requirements (Forms and Documents)</string>
+    <string name="delete_requirement">Delete Requirement</string>
+    <string name="edit_requirement_name">Edit Requirement Name</string>
+    <string name="new_requirement_name">New Requirement Name</string>
 </resources>

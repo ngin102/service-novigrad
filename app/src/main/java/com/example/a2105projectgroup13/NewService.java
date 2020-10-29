@@ -55,6 +55,16 @@ public class NewService extends AppCompatActivity {
         final String serviceName = editTextServiceName.getText().toString().trim();
         final String price = editTextNumberPrice.getText().toString().trim();
 
+        if (serviceName.equals("")){
+            Toast.makeText(NewService.this, "Please enter a service name.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (price.equals("")){
+            Toast.makeText(NewService.this, "Please enter a price.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         firebaseDatabase.getReference("Services").child(serviceName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -11,9 +11,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/serviceListTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/service_list"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <ListView
             android:id="@+id/serviceList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="583dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

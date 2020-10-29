@@ -17,33 +17,26 @@ import java.util.ArrayList;
 public class Form {
 
     private String type;
-    private String formName;;
-    private String[] formFields;
+    private String name;;
     private String serviceName;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference fieldsInDatabase;
-    private ArrayList<String> fieldArrayList = new ArrayList<String>();
 
     public Form(){
     }
 
-    public Form(String type, String formName, String[] formFields){
+    public Form(String type, String formName){
         this.type = type;
-        this.formName = formName;
-        this.formFields = formFields;
+        this.name = formName;
     }
 
     public String getType (){
         return type;
     }
 
-    public String getFormName(){
-        return formName;
-    }
-
-    public String[] getFormFields() {
-        return formFields;
+    public String getName(){
+        return name;
     }
 
 }

@@ -68,6 +68,16 @@ public class ServiceList extends AppCompatActivity {
                 return true;
             }
         });
+
+        serviceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String serviceToViewRequirements = serviceArrayList.get(i);
+                Intent moveToView = new Intent(ServiceList.this, ViewServiceRequirements.class);
+                moveToView.putExtra("serviceName", serviceToViewRequirements);
+                startActivity(moveToView);
+            }
+        });
     }
 
     //Adapted from deleteProduct() method from Lab 5
@@ -87,7 +97,6 @@ public class ServiceList extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         final Button deleteServiceButton = (Button) dialogView.findViewById(R.id.deleteServiceButton);
-        final Button viewRequirementsButton = (Button) dialogView.findViewById(R.id.viewRequirementsButton);
 
         dialogBuilder.setTitle(serviceName);
         final AlertDialog alert = dialogBuilder.create();
@@ -98,15 +107,6 @@ public class ServiceList extends AppCompatActivity {
             public void onClick(View view){
                 deleteService(serviceName);
                 alert.dismiss();
-            }
-        });
-
-        viewRequirementsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent moveToView = new Intent(ServiceList.this, ViewServiceRequirements.class);
-                moveToView.putExtra("serviceName", serviceName);
-                startActivity(moveToView);
             }
         });
     }

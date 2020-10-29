@@ -20,12 +20,6 @@
                 android:layout_weight="1"
                 android:text="@string/delete_service" />
 
-            <Button
-                android:id="@+id/viewRequirementsButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/view_requirements" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

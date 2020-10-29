@@ -15,7 +15,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class NewDocument extends AppCompatActivity {
@@ -98,19 +101,35 @@ public class NewDocument extends AppCompatActivity {
         if ( ( ! chooseFileType.equals("-1") ) && (! documentName.equals("") )) {
             final Document documentToAddToService = new Document("document", documentName, chooseFileType);
 
-            firebaseDatabase.getReference("Services").child(serviceName).child(documentName).setValue(documentToAddToService).addOnCompleteListener(NewDocument.this, new OnCompleteListener<Void>() {
+
+            firebaseDatabase.getReference("Services").child(serviceName).child(documentName).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(NewDocument.this, "Document added to service", Toast.LENGTH_SHORT).show();
-                        finish();
-                        Intent moveToAdd = new Intent(NewDocument.this, AddFormsAndDocuments.class);
-                        moveToAdd.putExtra("serviceName", serviceName);
-                        startActivity(moveToAdd);
-                    } else {
-                        //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
-                        Toast.makeText(NewDocument.this, "There was a problem adding this Document to your service.", Toast.LENGTH_SHORT).show();
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Toast.makeText(NewDocument.this, "A requirement already exists under this name. Please use a different name for your Document.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else{
+                        firebaseDatabase.getReference("Services").child(serviceName).child(documentName).setValue(documentToAddToService).addOnCompleteListener(NewDocument.this, new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(NewDocument.this, "Document added to service", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    Intent moveToAdd = new Intent(NewDocument.this, AddFormsAndDocuments.class);
+                                    moveToAdd.putExtra("serviceName", serviceName);
+                                    startActivity(moveToAdd);
+                                } else {
+                                    //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
+                                    Toast.makeText(NewDocument.this, "There was a problem adding this Document to your service.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(NewDocument.this, "There was a problem creating this Document.", Toast.LENGTH_SHORT).show();
                 }
             });
         }
