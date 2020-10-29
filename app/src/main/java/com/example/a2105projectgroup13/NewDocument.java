@@ -115,7 +115,8 @@ public class NewDocument extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(NewDocument.this, "Document added to service", Toast.LENGTH_SHORT).show();
                                     finish();
-                                    Intent moveToAdd = new Intent(NewDocument.this, AddFormsAndDocuments.class);
+
+                                    Intent moveToAdd = new Intent(NewDocument.this, ViewServiceRequirements.class);
                                     moveToAdd.putExtra("serviceName", serviceName);
                                     startActivity(moveToAdd);
                                 } else {

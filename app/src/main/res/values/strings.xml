@@ -33,7 +33,6 @@
     <string name="pdf">PDF</string>
     <string name="add_document">Add Document</string>
     <string name="form_name">Form Name</string>
-    <string name="add_field">Add Field</string>
     <string name="field_name">Field Name</string>
     <string name="remove_field">Remove Field</string>
     <string name="welcome_admin">Welcome Admin!</string>
@@ -76,4 +75,8 @@
     <string name="button">Button</string>
     <string name="fields_of">Fields of:</string>
     <string name="requirement">Requirement</string>
+    <string name="back_to_service_list">Back To Service List</string>
+    <string name="back_to_requirement_list">Back to Requirement List</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_field">Add Field</string>
 </resources>

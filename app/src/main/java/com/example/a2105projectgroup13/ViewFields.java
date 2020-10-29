@@ -41,8 +41,11 @@ public class ViewFields extends AppCompatActivity {
     private TextView requirementNameOnScreen;
     private ArrayList<String> fieldArrayList = new ArrayList<String>();
 
-
     private ArrayList<String> fieldKeyArrayList = new ArrayList<String>();
+
+    private Button backToServiceListButton;
+    private Button backToRequirementListButton;
+    private Button addFieldButton;
 
 
     @Override
@@ -61,8 +64,37 @@ public class ViewFields extends AppCompatActivity {
         fieldsInDatabase = requirementInDatabase.child("fields");
 
         requirementNameOnScreen = (TextView) findViewById(R.id.changeableRequirementName);
-
         requirementNameOnScreen.setText(requirementName);
+
+        backToServiceListButton = (Button) findViewById(R.id.backToServicesButtonOnFields);
+        backToServiceListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent moveToServices = new Intent(ViewFields.this, ServiceList.class);
+                startActivity(moveToServices);
+            }
+        });
+
+        backToRequirementListButton = (Button) findViewById(R.id.backToRequirementListButton);
+        backToRequirementListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent moveToRequirements = new Intent(ViewFields.this, ViewServiceRequirements.class);
+                moveToRequirements.putExtra("serviceName", serviceName);
+                startActivity(moveToRequirements);
+            }
+        });
+
+        addFieldButton = (Button) findViewById(R.id.addFieldButtonOnFields);
+        addFieldButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent moveToFields = new Intent(ViewFields.this, AddField.class);
+                moveToFields.putExtra("serviceName", serviceName);
+                moveToFields.putExtra("requirementName", requirementName);
+                startActivity(moveToFields);
+            }
+        });
 
 
         fieldsInDatabase.addValueEventListener(new ValueEventListener() {
@@ -95,6 +127,8 @@ public class ViewFields extends AppCompatActivity {
                 return true;
             }
         });
+
+
     }
 
     private void changeValue(final DatabaseReference key, final String newValue) {
@@ -191,7 +225,6 @@ public class ViewFields extends AppCompatActivity {
             }
         });
 
-        /**
         editFieldNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -207,7 +240,5 @@ public class ViewFields extends AppCompatActivity {
                 alert.dismiss();
             }
         });
-
-         */
     }
 }

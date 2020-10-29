@@ -37,12 +37,46 @@
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/serviceRequirementList"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="582dp">
+            android:layout_height="505dp"
+            android:orientation="horizontal">
 
-        </ListView>
+            <ListView
+                android:id="@+id/serviceRequirementList"
+                android:layout_width="match_parent"
+                android:layout_height="500dp">
+
+            </ListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addFormRequirementButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/add_form" />
+
+            <Button
+                android:id="@+id/addDocumentRequirementButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/add_document" />
+
+            <Button
+                android:id="@+id/backToServicesButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/back_to_service_list" />
+        </LinearLayout>
 
     </LinearLayout>
 

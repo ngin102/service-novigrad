@@ -46,6 +46,10 @@ public class ViewServiceRequirements extends AppCompatActivity {
 
     private TextView requirementsListServiceName;
 
+    private Button addFormButton;
+    private Button addDocumentButton;
+    private Button backToServiceListButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +68,38 @@ public class ViewServiceRequirements extends AppCompatActivity {
 
         requirementsListServiceName = (TextView) findViewById(R.id.requirementsListServiceName);
         requirementsListServiceName.setText(serviceName);
+
+
+        addFormButton = (Button) findViewById(R.id.addFormRequirementButton);
+        addDocumentButton = (Button) findViewById(R.id.addDocumentRequirementButton);
+
+        addFormButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent moveToForms = new Intent(ViewServiceRequirements.this, NewForm.class);
+                moveToForms.putExtra("serviceName", serviceName);
+                startActivity(moveToForms);
+            }
+        });
+
+        addDocumentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent moveToDocuments = new Intent(ViewServiceRequirements.this, NewDocument.class);
+                moveToDocuments.putExtra("serviceName2", serviceName);
+                startActivity(moveToDocuments);
+            }
+        });
+
+        backToServiceListButton = (Button) findViewById(R.id.backToServicesButton);
+
+        backToServiceListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent moveToServices = new Intent(ViewServiceRequirements.this, ServiceList.class);
+                startActivity(moveToServices);
+            }
+        });
 
 
         serviceInDatabase.addValueEventListener(new ValueEventListener() {

@@ -79,7 +79,7 @@ public class NewForm extends AppCompatActivity {
 
     private void addFieldToList(){
         LayoutInflater inflater = getLayoutInflater();
-        final View field = inflater.inflate(R.layout.add_field, null);
+        final View field = inflater.inflate(R.layout.add_field_in_newform, null);
 
         Button removeFieldButton = (Button) field.findViewById(R.id.removeFieldButton);
 
@@ -97,7 +97,7 @@ public class NewForm extends AppCompatActivity {
     private boolean validateForEmptyFields(){
         for (int i = 0; i < fieldList.getChildCount(); i++){
             View selectedField = fieldList.getChildAt(i);
-            EditText selectedFieldName = (EditText) selectedField.findViewById(R.id.editTextFieldName);
+            EditText selectedFieldName = (EditText) selectedField.findViewById(R.id.editTextFieldNameInNewForm);
             String fieldName = selectedFieldName.getText().toString().trim();
 
             if (fieldName.isEmpty()) {
@@ -113,11 +113,11 @@ public class NewForm extends AppCompatActivity {
         for (int i = 0; i < fieldList.getChildCount(); i++){
             for (int j = i + 1; j < fieldList.getChildCount(); j++){
                 View fieldOne = fieldList.getChildAt(i);
-                EditText fieldNameOne = (EditText) fieldOne.findViewById(R.id.editTextFieldName);
+                EditText fieldNameOne = (EditText) fieldOne.findViewById(R.id.editTextFieldNameInNewForm);
                 String stringFieldNameOne = fieldNameOne.getText().toString().trim();
 
                 View fieldTwo = fieldList.getChildAt(j);
-                EditText fieldNameTwo = (EditText) fieldTwo.findViewById(R.id.editTextFieldName);
+                EditText fieldNameTwo = (EditText) fieldTwo.findViewById(R.id.editTextFieldNameInNewForm);
                 String stringFieldNameTwo = fieldNameTwo.getText().toString().trim();
 
                 if (stringFieldNameOne.equals(stringFieldNameTwo)) {
@@ -147,7 +147,7 @@ public class NewForm extends AppCompatActivity {
             fields.clear();
             for (int i = 0; i < fieldList.getChildCount(); i++) {
                 View selectedField = fieldList.getChildAt(i);
-                EditText selectedFieldName = (EditText) selectedField.findViewById(R.id.editTextFieldName);
+                EditText selectedFieldName = (EditText) selectedField.findViewById(R.id.editTextFieldNameInNewForm);
                 String fieldName = selectedFieldName.getText().toString().trim();
 
                 fields.add(fieldName);
@@ -180,7 +180,8 @@ public class NewForm extends AppCompatActivity {
 
                                     Toast.makeText(NewForm.this, "Form added to service", Toast.LENGTH_SHORT).show();
                                     finish();
-                                    Intent moveToAdd = new Intent(NewForm.this, AddFormsAndDocuments.class);
+
+                                    Intent moveToAdd = new Intent(NewForm.this, ViewServiceRequirements.class);
                                     moveToAdd.putExtra("serviceName", serviceName);
                                     startActivity(moveToAdd);
                                 } else {
