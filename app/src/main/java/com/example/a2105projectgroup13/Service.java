@@ -13,5 +13,8 @@ public class Service {
         return name;
     }
 
-    public Double getPrice() { return Double.parseDouble(price); }
+    public double getPrice() {
+        double price = Double.parseDouble(this.price);
+        return price;
+    }
 }
