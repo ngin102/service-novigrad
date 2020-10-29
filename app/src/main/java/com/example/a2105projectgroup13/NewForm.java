@@ -23,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static android.view.View.INVISIBLE;
+
 public class NewForm extends AppCompatActivity {
     private EditText editTextFormName;
     private LinearLayout fieldList;
@@ -131,7 +133,15 @@ public class NewForm extends AppCompatActivity {
     }
 
     public void submitFormOnClick(View v) {
-        final String formName = editTextFormName.getText().toString().trim();
+        String formName = editTextFormName.getText().toString().trim();
+
+        String validatedFormName = ValidateString.validateServiceName(formName);
+        if (validatedFormName.equals("-1")) {
+            Toast.makeText(NewForm.this, "Invalid Form name. Make sure your Form name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            formName = validatedFormName;
+        }
 
         if (fieldList.getChildCount() == 0){
             Toast.makeText(NewForm.this, "Please specify the fields that will be in the Form.", Toast.LENGTH_SHORT).show();
@@ -149,6 +159,14 @@ public class NewForm extends AppCompatActivity {
                 View selectedField = fieldList.getChildAt(i);
                 EditText selectedFieldName = (EditText) selectedField.findViewById(R.id.editTextFieldNameInNewForm);
                 String fieldName = selectedFieldName.getText().toString().trim();
+
+                String validatedFieldName = ValidateString.validateServiceName(fieldName);
+                if (validatedFieldName.equals("-1")) {
+                    Toast.makeText(NewForm.this, "Invalid Field name. Make sure your Field name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    fieldName = validatedFieldName;
+                }
 
                 fields.add(fieldName);
             }
@@ -169,11 +187,11 @@ public class NewForm extends AppCompatActivity {
                         Toast.makeText(NewForm.this, "A requirement already exists under this name. Please use a different name for your Form.", Toast.LENGTH_SHORT).show();
                         return;
                     }else{
-                        firebaseDatabase.getReference("Services").child(serviceName).child(formName).setValue(formToAddToService).addOnCompleteListener(NewForm.this, new OnCompleteListener<Void>() {
+                        firebaseDatabase.getReference("Services").child(serviceName).child(formToAddToService.getName()).setValue(formToAddToService).addOnCompleteListener(NewForm.this, new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    DatabaseReference fieldsInFirebase = firebaseDatabase.getReference("Services").child(serviceName).child(formName).child("fields");
+                                    DatabaseReference fieldsInFirebase = firebaseDatabase.getReference("Services").child(serviceName).child(formToAddToService.getName()).child("fields");
                                     for (int i = 0; i < fields.size(); i++) {
                                         String fieldToAdd = fields.get(i);
                                         fieldsInFirebase.child(Integer.toString(i)).setValue(fieldToAdd);

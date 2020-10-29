@@ -355,6 +355,14 @@ public class ViewServiceRequirements extends AppCompatActivity {
                         return;
                     }
 
+                    String validatedNewKey = ValidateString.validateServiceName(newKey);
+                    if (validatedNewKey.equals("-1")) {
+                        Toast.makeText(ViewServiceRequirements.this, "Invalid Requirement name. Make sure your Requirement name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        newKey = validatedNewKey;
+                    }
+
                     DatabaseReference currentRequirementName = firebaseDatabase.getReference("Services").child(serviceName).child(requirement);
                     DatabaseReference newRequirementName = firebaseDatabase.getReference("Services").child(serviceName).child(newKey);
 

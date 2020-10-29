@@ -178,6 +178,14 @@ public class ServiceList extends AppCompatActivity {
                     return;
                 }
 
+                String validatedNewKey = ValidateString.validateServiceName(newKey);
+                if (validatedNewKey.equals("-1")) {
+                    Toast.makeText(ServiceList.this, "Invalid Service name. Make sure your Service name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    newKey = validatedNewKey;
+                }
+
                 DatabaseReference currentRequirementName = firebaseDatabase.getReference("Services").child(serviceName);
                 DatabaseReference newRequirementName = firebaseDatabase.getReference("Services").child(newKey);
 

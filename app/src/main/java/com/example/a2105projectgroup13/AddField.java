@@ -68,6 +68,14 @@ public class AddField extends AppCompatActivity {
                     return;
                 }
 
+                String validatedNewField = ValidateString.validateServiceName(newField);
+                if (validatedNewField.equals("-1")) {
+                    Toast.makeText(AddField.this, "Invalid Field name. Make sure your Field name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    newField = validatedNewField;
+                }
+
                 allFieldsReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

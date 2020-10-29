@@ -54,8 +54,8 @@ public class NewService extends AppCompatActivity {
     public void continueOnClick(View v) {
         //Convert whatever was inputted by the user into the text fields on the register screen to strings.
         //Trim any potential whitespace from the inputted email address. The password is allowed to have whitespace.
-        final String serviceName = editTextServiceName.getText().toString().trim();
-        final String price = editTextNumberPrice.getText().toString().trim();
+        String serviceName = editTextServiceName.getText().toString().trim();
+        String price = editTextNumberPrice.getText().toString().trim();
 
         if (! price.contains(".")){
             Toast.makeText(NewService.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
@@ -85,6 +85,15 @@ public class NewService extends AppCompatActivity {
             return;
         }
 
+
+        String validatedServiceName = ValidateString.validateServiceName(serviceName);
+        if (validatedServiceName.equals("-1")) {
+            Toast.makeText(NewService.this, "Invalid Service name. Make sure your Service name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            serviceName = validatedServiceName;
+        }
+
         Admin admin = new Admin("Admin", "Admin", "Admin Account");
         final Service serviceToAdd = admin.createService(serviceName, price);
 
@@ -102,7 +111,7 @@ public class NewService extends AppCompatActivity {
                                 Toast.makeText(NewService.this, "Service created. Now add Forms and Documents.", Toast.LENGTH_SHORT).show();
                                 finish();
                                 Intent moveToNextScreen = new Intent(NewService.this, AddFormsAndDocuments.class);
-                                moveToNextScreen.putExtra("serviceName", serviceName);
+                                moveToNextScreen.putExtra("serviceName", serviceToAdd.getName());
                                 startActivity(moveToNextScreen);
                             } else {
                                 //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.

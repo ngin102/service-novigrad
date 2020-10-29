@@ -256,6 +256,14 @@ public class ViewFields extends AppCompatActivity {
                     return;
                 }
 
+                String validatedNewValue = ValidateString.validateServiceName(newValue);
+                if (validatedNewValue.equals("-1")) {
+                    Toast.makeText(ViewFields.this, "Invalid Field name. Make sure your Field name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    newValue = validatedNewValue;
+                }
+
                 DatabaseReference fieldReference = firebaseDatabase.getReference("Services").child(serviceName).child(requirementName).child("fields").child(specificField);
 
                 changeValue(fieldReference, newValue);

@@ -85,7 +85,7 @@ public class NewDocument extends AppCompatActivity {
     }
 
     public void submitDocumentOnClick(View v) {
-        final String documentName = editTextDocumentName.getText().toString().trim();
+        String documentName = editTextDocumentName.getText().toString().trim();
 
         if (documentName.equals("")){
             Toast.makeText(NewDocument.this, "Please enter a name for the Document.", Toast.LENGTH_SHORT).show();
@@ -100,6 +100,14 @@ public class NewDocument extends AppCompatActivity {
 
         if ( ( ! chooseFileType.equals("-1") ) && (! documentName.equals("") )) {
 
+            String validatedDocumentName = ValidateString.validateServiceName(documentName);
+            if (validatedDocumentName.equals("-1")) {
+                Toast.makeText(NewDocument.this, "Invalid Document name. Make sure your Document name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                documentName = validatedDocumentName;
+            }
+
             Admin admin = new Admin("Admin", "Admin", "Admin Account");
             final Document documentToAddToService = admin.createDocument("document", documentName, chooseFileType);
 
@@ -111,7 +119,7 @@ public class NewDocument extends AppCompatActivity {
                         Toast.makeText(NewDocument.this, "A requirement already exists under this name. Please use a different name for your Document.", Toast.LENGTH_SHORT).show();
                         return;
                     }else{
-                        firebaseDatabase.getReference("Services").child(serviceName).child(documentName).setValue(documentToAddToService).addOnCompleteListener(NewDocument.this, new OnCompleteListener<Void>() {
+                        firebaseDatabase.getReference("Services").child(serviceName).child(documentToAddToService.getName()).setValue(documentToAddToService).addOnCompleteListener(NewDocument.this, new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
