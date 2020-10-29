@@ -65,12 +65,12 @@ public class NewService extends AppCompatActivity {
             return;
         }
 
-        Admin admin = new Admin("Admin", "Admin", "Admin Account");
-        final Service serviceToAdd = admin.createService(serviceName);
+        //Admin admin = new Admin("Admin", "Admin", "Admin Account");
+        //final Service serviceToAdd = admin.createService(serviceName);
 
-        DatabaseReference referenceToService = serviceToAdd.getDatabaseReference();
+        //DatabaseReference referenceToService = serviceToAdd.getDatabaseReference();
 
-        referenceToService.addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDatabase.getReference("Services").child(serviceName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
