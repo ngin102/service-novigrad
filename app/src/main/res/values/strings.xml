@@ -79,4 +79,8 @@
     <string name="back_to_requirement_list">Back to Requirement List</string>
     <string name="cancel">Cancel</string>
     <string name="add_field">Add Field</string>
+    <string name="description">Description</string>
+    <string name="new_description">New Description</string>
+    <string name="edit_description">Edit Description</string>
+    <string name="update_file_type">Update File Type</string>
 </resources>

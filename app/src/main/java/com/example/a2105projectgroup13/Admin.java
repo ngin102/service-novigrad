@@ -19,8 +19,8 @@ public class Admin extends User{
     public Form createForm(String type, String formName){
         return new Form(type, formName);
     }
-    public Document createDocument(String type, String documentName, String fileType){
-        return new Document(type, documentName, fileType);
+    public Document createDocument(String type, String documentName, String fileType, String description){
+        return new Document(type, documentName, fileType, description);
     }
 
 

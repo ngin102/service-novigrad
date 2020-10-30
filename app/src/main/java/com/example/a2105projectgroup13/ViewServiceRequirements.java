@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class ViewServiceRequirements extends AppCompatActivity {
@@ -181,6 +182,12 @@ public class ViewServiceRequirements extends AppCompatActivity {
                     moveToView.putExtra("requirementName", requirementToViewFields);
                     startActivity(moveToView);
                 }
+                else {
+                    Intent moveToView2 = new Intent(ViewServiceRequirements.this, EditDocument.class);
+                    moveToView2.putExtra("selectedServiceName", serviceName);
+                    moveToView2.putExtra("requirementName", requirementToViewFields);
+                    startActivity(moveToView2);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -296,13 +303,10 @@ public class ViewServiceRequirements extends AppCompatActivity {
     }
 
 
-
-
-
     //Adapted from showUpdateDeleteDialog() method from Lab 5
-    private void showChangeDialog(final String requirement){
+    private void showChangeDialog(final String requirement) {
 
-        if (requirement.equals("price")){
+        if (requirement.equals("price")) {
             final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             LayoutInflater inflater = getLayoutInflater();
             final View dialogView = inflater.inflate(R.layout.change_dialog_requirement_price, null);
@@ -317,9 +321,9 @@ public class ViewServiceRequirements extends AppCompatActivity {
 
             updatePriceButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view){
+                public void onClick(View view) {
                     String newPrice = editTextNewPrice.getText().toString().trim();
-                    if (newPrice.equals("")){
+                    if (newPrice.equals("")) {
                         Toast.makeText(ViewServiceRequirements.this, "Please enter a price.", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -329,10 +333,11 @@ public class ViewServiceRequirements extends AppCompatActivity {
             });
         }
 
+
         else {
             final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             LayoutInflater inflater = getLayoutInflater();
-            final View dialogView = inflater.inflate(R.layout.change_dialog_requirement, null);
+            final View dialogView = inflater.inflate(R.layout.change_dialog_form, null);
             dialogBuilder.setView(dialogView);
 
 
@@ -357,13 +362,13 @@ public class ViewServiceRequirements extends AppCompatActivity {
                 public void onClick(View view){
                     String newKey = editTextNewRequirementName.getText().toString().trim();
                     if (newKey.equals("")){
-                        Toast.makeText(ViewServiceRequirements.this, "Please enter a requirement name.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ViewServiceRequirements.this, "Please enter a Form name.", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
                     String validatedNewKey = ValidateString.validateServiceName(newKey);
                     if (validatedNewKey.equals("-1")) {
-                        Toast.makeText(ViewServiceRequirements.this, "Invalid Requirement name. Make sure your Requirement name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ViewServiceRequirements.this, "Invalid Form name. Make sure your Form name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
                         newKey = validatedNewKey;

@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class NewDocument extends AppCompatActivity {
     private EditText editTextDocumentName;
+    private EditText editTextDescription;
     private Button chooseImageButton;
     private Button choosePDFButton;
     private Button addDocumentButton;
@@ -54,7 +55,8 @@ public class NewDocument extends AppCompatActivity {
 
     private void initializeInstanceVariables() {
         //Initialize each instance variable by finding the first view that corresponds with its id.
-        editTextDocumentName= findViewById(R.id.editTextDocumentName);
+        editTextDocumentName = findViewById(R.id.editTextDocumentName);
+        editTextDescription = findViewById(R.id.editTextDescription);
         chooseImageButton = findViewById(R.id.chooseImageButton);
         choosePDFButton = findViewById(R.id.choosePDFButton);
         addDocumentButton = findViewById(R.id.addDocumentButton);
@@ -87,8 +89,15 @@ public class NewDocument extends AppCompatActivity {
     public void submitDocumentOnClick(View v) {
         String documentName = editTextDocumentName.getText().toString().trim();
 
+        String description =  editTextDescription.getText().toString().trim();
+
         if (documentName.equals("")){
             Toast.makeText(NewDocument.this, "Please enter a name for the Document.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (description.equals("")){
+            Toast.makeText(NewDocument.this, "Please enter a description for the Document.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -98,7 +107,7 @@ public class NewDocument extends AppCompatActivity {
             return;
         }
 
-        if ( ( ! chooseFileType.equals("-1") ) && (! documentName.equals("") )) {
+        if ( ( ! chooseFileType.equals("-1") ) && (! documentName.equals("") ) && (! description.equals("") )) {
 
             String validatedDocumentName = ValidateString.validateServiceName(documentName);
             if (validatedDocumentName.equals("-1")) {
@@ -109,7 +118,7 @@ public class NewDocument extends AppCompatActivity {
             }
 
             Admin admin = new Admin("Admin", "Admin", "Admin Account");
-            final Document documentToAddToService = admin.createDocument("document", documentName, chooseFileType);
+            final Document documentToAddToService = admin.createDocument("document", documentName, chooseFileType, description);
 
             firebaseDatabase.getReference("Services").child(serviceName).child("price").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
