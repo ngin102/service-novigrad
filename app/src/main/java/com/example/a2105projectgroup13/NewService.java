@@ -104,7 +104,7 @@ public class NewService extends AppCompatActivity {
                     Toast.makeText(NewService.this, "A service already exists under this name. Please use a different name for your service.", Toast.LENGTH_SHORT).show();
                     return;
                 }else{
-                    firebaseDatabase.getReference("Services").child(serviceToAdd.getName()).child("price").setValue( String.format("%.2f", serviceToAdd.getPrice()) ).addOnCompleteListener(NewService.this, new OnCompleteListener<Void>() {
+                    firebaseDatabase.getReference("Services").child(serviceToAdd.getName()).child("price").setValue( serviceToAdd.getPrice() ).addOnCompleteListener(NewService.this, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {

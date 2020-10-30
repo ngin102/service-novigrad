@@ -182,11 +182,14 @@ public class ViewServiceRequirements extends AppCompatActivity {
                     moveToView.putExtra("requirementName", requirementToViewFields);
                     startActivity(moveToView);
                 }
-                else {
+                else if (!(requirementToViewFields.equals("price"))){
                     Intent moveToView2 = new Intent(ViewServiceRequirements.this, EditDocument.class);
                     moveToView2.putExtra("selectedServiceName", serviceName);
                     moveToView2.putExtra("requirementName", requirementToViewFields);
                     startActivity(moveToView2);
+                }
+                else{
+                    return;
                 }
             }
             @Override

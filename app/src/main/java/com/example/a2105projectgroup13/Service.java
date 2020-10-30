@@ -21,8 +21,7 @@ public class Service {
         return name;
     }
 
-    public double getPrice() {
-        double price = Double.parseDouble(this.price);
+    public String getPrice() {
         return price;
     }
 
