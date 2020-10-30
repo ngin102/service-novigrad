@@ -1,5 +1,9 @@
 package com.example.a2105projectgroup13;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * This class is the Admin class.
  * It can be used to create instances of type Admin, a subclass of User.
@@ -9,8 +13,12 @@ package com.example.a2105projectgroup13;
  * but they will be implemented in future Deliverables.
  */
 public class Admin extends User{
+
+    private List<Service> services;
+
     public Admin(String firstName, String lastName, String accountType) {
         super(firstName, lastName, accountType);
+        services = new ArrayList<Service>();
     }
 
     public Service createService(String serviceName, String price){
@@ -23,5 +31,12 @@ public class Admin extends User{
         return new Document(type, documentName, fileType, description);
     }
 
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void addToServices(Service i){
+        services.add(i);
+    }
 
 }

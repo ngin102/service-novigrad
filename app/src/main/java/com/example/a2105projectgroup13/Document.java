@@ -39,4 +39,8 @@ public class Document extends Requirement {
         return service;
     }
 
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
 }

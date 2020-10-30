@@ -49,12 +49,27 @@ public class ServiceList extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 serviceArrayList.clear();
                 for (DataSnapshot service : snapshot.getChildren() ) {
-                    String key = service.getKey();
-                    serviceArrayList.add(key);
-                }
 
-                ArrayAdapter arrayAdapter = new ArrayAdapter(ServiceList.this, android.R.layout.simple_list_item_1, serviceArrayList);
-                serviceList.setAdapter(arrayAdapter);
+                    final String key = service.getKey();
+
+                    serviceInDatabase.child(key).child("price").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String price = dataSnapshot.getValue(String.class);
+                            Service newService = new Service(key, price);
+                            Admin admin = new Admin("Admin", "Admin", "Admin Account");
+                            admin.addToServices(newService);
+                            serviceArrayList.add(newService.getName());
+                            ArrayAdapter arrayAdapter = new ArrayAdapter(ServiceList.this, android.R.layout.simple_list_item_1, serviceArrayList);
+                            serviceList.setAdapter(arrayAdapter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(ServiceList.this, "ERROR", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
 
             @Override
