@@ -27,6 +27,9 @@ public class AdminWelcomeActivity extends AppCompatActivity {
 
     private TextView adminFirstNameText;
 
+    /*
+
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

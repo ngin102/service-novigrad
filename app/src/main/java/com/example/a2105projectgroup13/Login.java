@@ -28,13 +28,8 @@ import static android.view.View.VISIBLE;
 
 /**
  * This class is the activity used to login to an account that has already been registered through the Service Novigrad app.
- *
- * NOTE: While testing our login activity in the Android Emulator, we noticed that in some random cases, it takes a fairly long
- * amount of time (40 seconds+) for the user's information to be verified with Firebase and, therefore, for this user's account to be
- * successfully logged in. However, these occurrences seem to have been caused on the server-end by Firebase and not by our app.
- * In the majority of cases, the registration process only took a few seconds to complete (<=5 seconds).
- * These issues did not seem to persist when we tested our app on an Android phone and an Android tablet, which were connected to
- * two different Wifi networks.
+ * Using an Android Emulator, registering takes an indeterminate time (for an undetermined reason). However, registration
+ * is consistently fast when the program is run on a real device.
  */
 public class Login extends AppCompatActivity {
 

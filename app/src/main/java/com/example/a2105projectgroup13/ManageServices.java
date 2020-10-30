@@ -7,11 +7,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ This class allows the Admin to naviate to activities for managing Services offered by Service Novigrad,
+ namely: NewService and ServiceList.
+ */
+
 public class ManageServices extends AppCompatActivity {
 
     private Button addServiceButton;
     private Button viewServicesButton;
 
+    /**
+     Class allowing the Admin to navigate to the NewService or ServiceList activities.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +27,7 @@ public class ManageServices extends AppCompatActivity {
 
         initializeInstanceVariables();
 
+        // launch the NewService activity
         addServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -26,6 +35,7 @@ public class ManageServices extends AppCompatActivity {
             }
         });
 
+        // launch the ServiceList activity
         viewServicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -34,7 +44,9 @@ public class ManageServices extends AppCompatActivity {
         });
     }
 
-
+    /**
+     Helper method for initializing the Button objects on the activity.
+     */
     private void initializeInstanceVariables() {
         //Initialize each instance variable by finding the first view that corresponds with its id.
         addServiceButton = findViewById(R.id.addServiceButton);

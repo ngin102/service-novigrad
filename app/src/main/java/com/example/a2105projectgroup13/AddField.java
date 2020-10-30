@@ -18,6 +18,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ This class allows the admin to add fields to Forms (i.e. required information that is entered
+ by the user as a String).
+ */
+
 public class AddField extends AppCompatActivity {
 
     Button addFieldButton;
@@ -31,6 +36,7 @@ public class AddField extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference allFieldsReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +114,8 @@ public class AddField extends AppCompatActivity {
                         });
                     }
 
+
+                     //Notifies the user that there was a database error.
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(AddField.this, "ERROR.", Toast.LENGTH_LONG).show();

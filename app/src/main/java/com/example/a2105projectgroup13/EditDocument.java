@@ -1,5 +1,9 @@
 package com.example.a2105projectgroup13;
 
+    /*
+    This class allows the admin to edit an existing document.
+     */
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -53,6 +57,7 @@ public class EditDocument extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
         documentInfoReference = firebaseDatabase.getReference("Services").child(serviceName).child(requirementName);
 
+        // when the cancel button is clicked, navigate to ViewServiceRequirements
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,16 +68,20 @@ public class EditDocument extends AppCompatActivity {
             }
         });
 
+        // when the edit description button is clicked, overwrite the existing description of the document with the new description
         editDescriptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String newDescription = editTextDescription.getText().toString().trim();
 
+                // require the admin to provide a description for a document
                 if (newDescription.equals("")) {
                     Toast.makeText(EditDocument.this, "Please enter a description", Toast.LENGTH_LONG).show();
                     return;
                 }
 
+                // if the description is not empty, then overwrite the existing description
+                // after the task is complete, navigate to moveToRequirements
                 documentInfoReference.child("description").setValue(newDescription).addOnCompleteListener(EditDocument.this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -84,6 +93,7 @@ public class EditDocument extends AppCompatActivity {
                             moveToRequirements.putExtra("serviceName", serviceName);
                             startActivity(moveToRequirements);
                         } else {
+                            // display an error if the overwrite was unsuccessful
                             Toast.makeText(EditDocument.this, "There was a problem updating the description.", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -91,10 +101,12 @@ public class EditDocument extends AppCompatActivity {
             }
         });
 
+        //
         chooseNewTypeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String chooseFileType = checkRadioButtonChoice(chooseFileTypeRadioGroup);
+                // display an error if the admin hasn't selected a file type
                 if (chooseFileType.equals("-1")) {
                     Toast.makeText(EditDocument.this, "Please select a file type.", Toast.LENGTH_SHORT).show();
                     return;
@@ -111,6 +123,8 @@ public class EditDocument extends AppCompatActivity {
                             moveToRequirements.putExtra("serviceName", serviceName);
                             startActivity(moveToRequirements);
                         } else {
+                            // display an error if the type overwrite is unsuccesful
+                            // after the task is complete, navigate to moveToRequirements
                             Toast.makeText(EditDocument.this, "There was a problem updating the description.", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -120,6 +134,9 @@ public class EditDocument extends AppCompatActivity {
 
     }
 
+    /*
+    Returns the text of the selected radio button choice, or "-1" if no radio button has been selected.
+     */
     public String checkRadioButtonChoice(RadioGroup radioGroup){
         int radioButtonId = radioGroup.getCheckedRadioButtonId();
         if (radioButtonId == -1){

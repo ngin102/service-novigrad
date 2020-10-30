@@ -8,6 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ The class allows the admin to navigate between activities where they can add and manage
+ Service Novigrad services: NewForm, NewDocument, and ManageServices.
+ */
+
 public class AddFormsAndDocuments extends AppCompatActivity {
     private Intent previousScreen;
     private String serviceName;
@@ -29,6 +34,8 @@ public class AddFormsAndDocuments extends AppCompatActivity {
 
         serviceNameOnScreen.setText(serviceName);
 
+        // Starts to the NewForm activity.
+        // NewForm is used to create a new required form in the database for a service (i.e. a required field that the user will need to give information for).
         addFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -38,6 +45,8 @@ public class AddFormsAndDocuments extends AppCompatActivity {
             }
         });
 
+        // Starts to the NewDocument activity.
+        // NewDocument is used to create a new required document in the database for a service (i.e. a document type like an image or a PDF that the user has to upload).
         addDocumentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -47,6 +56,8 @@ public class AddFormsAndDocuments extends AppCompatActivity {
             }
         });
 
+        // Starts to the ManageServices activity.
+        // ManageServices is used by the admin to access activites for adding (new services), or viewing/editing/deleting (existing) services.
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
