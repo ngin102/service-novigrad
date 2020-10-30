@@ -22,13 +22,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import static android.view.View.INVISIBLE;
 
 public class ViewServiceRequirements extends AppCompatActivity {
     private DatabaseReference serviceInDatabase;
@@ -107,31 +104,40 @@ public class ViewServiceRequirements extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 requirementWithDetailsArrayList.clear();
                 requirementWithoutDetailsArrayList.clear();
+
+                String cost = ""; 
+                for (DataSnapshot requirement: snapshot.getChildren()){
+                    if (requirement.getKey().equals("price")) {
+                        cost = requirement.getValue(String.class);
+                        requirementWithDetailsArrayList.add("price: $" + cost);
+                        requirementWithoutDetailsArrayList.add(requirement.getKey());
+                    }
+                }
+                
+                Service selectedService = new Service(serviceName, cost);
+
                 for (DataSnapshot requirement : snapshot.getChildren()) {
                     if (requirement.hasChild("fields")) {
                         form = requirement.getValue(Form.class);
 
-                        requirementWithDetailsArrayList.add(form.getName() + ": " + "\n" + "      type: " + form.getType() +
-                                "\n" + "      TAP TO VIEW FIELDS");
+                        selectedService.addToRequirements(form);
                         requirementWithoutDetailsArrayList.add(requirement.getKey());
 
                     } else if (requirement.getKey().equals("price")) {
-                        String cost = requirement.getValue(String.class);
-                        requirementWithDetailsArrayList.add("price: $" + cost);
-                        requirementWithoutDetailsArrayList.add(requirement.getKey());
+                        ;
                     } else {
                         document = requirement.getValue(Document.class);
-                        requirementWithDetailsArrayList.add(document.getName() + ": " + "\n" + "      type: " + document.getType() +
-                                "\n" + "      fileType: " + document.getFileType());
+                        selectedService.addToRequirements(document);
                         requirementWithoutDetailsArrayList.add(requirement.getKey());
-
                     }
+                }
+
+                for (int i = 0; i < selectedService.getRequirements().size(); i++){
+                    requirementWithDetailsArrayList.add(selectedService.getRequirements().get(i).toString());
                 }
 
                 ArrayAdapter arrayAdapter = new ArrayAdapter(ViewServiceRequirements.this, android.R.layout.simple_list_item_1, requirementWithDetailsArrayList);
                 requirementList.setAdapter(arrayAdapter);
-
-
 
             }
 

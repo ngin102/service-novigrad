@@ -180,6 +180,26 @@ public class NewForm extends AppCompatActivity {
             Admin admin = new Admin("Admin", "Admin", "Admin Account");
             final Form formToAddToService = admin.createForm("form", formName);
 
+            firebaseDatabase.getReference("Services").child(serviceName).child("price").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String servicePrice = dataSnapshot.getValue(String.class);
+                    Service selectedService = new Service(serviceName, servicePrice);
+                    formToAddToService.setService(selectedService);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(NewForm.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            for (int i = 0; i < fields.size(); i++) {
+                String fieldToAdd = fields.get(i);
+                formToAddToService.addToFields(fieldToAdd);
+            }
+
+
             firebaseDatabase.getReference("Services").child(serviceName).child(formName).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

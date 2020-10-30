@@ -1,23 +1,15 @@
 package com.example.a2105projectgroup13;
 
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class Form {
+public class Form extends Requirement{
 
     private String type;
     private String name;;
+    private Service service;
+    private List<String> fields;
 
     public Form(){
     }
@@ -25,14 +17,36 @@ public class Form {
     public Form(String type, String formName){
         this.type = type;
         this.name = formName;
+        this.service = new Service();
+        this.fields = new ArrayList<String>();
     }
 
     public String getType (){
         return type;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
+
+    public String toString(){
+        Object[] stringFields = fields.toArray();
+
+        return getName() + ": " + "\n" + "      type: " + getType() +
+                "\n" + "      fields: " + Arrays.toString(stringFields);
+    }
+
+    public void setService(Service newService){
+        service = newService;
+    }
+
+    public List<String> getFields() {
+        return fields;
+    }
+
+    public void addToFields(String i){
+        fields.add(i);
+    }
+
 
 }

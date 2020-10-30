@@ -111,6 +111,20 @@ public class NewDocument extends AppCompatActivity {
             Admin admin = new Admin("Admin", "Admin", "Admin Account");
             final Document documentToAddToService = admin.createDocument("document", documentName, chooseFileType);
 
+            firebaseDatabase.getReference("Services").child(serviceName).child("price").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String servicePrice = dataSnapshot.getValue(String.class);
+                    Service selectedService = new Service(serviceName, servicePrice);
+                    documentToAddToService.setService(selectedService);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(NewDocument.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
 
             firebaseDatabase.getReference("Services").child(serviceName).child(documentName).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
