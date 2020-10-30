@@ -48,5 +48,9 @@ public class Form extends Requirement{
         fields.add(i);
     }
 
+    public Service getService(){
+        return service;
+    }
+
 
 }

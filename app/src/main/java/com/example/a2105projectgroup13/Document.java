@@ -35,4 +35,8 @@ public class Document extends Requirement {
         service = newService;
     }
 
+    public Service getService(){
+        return service;
+    }
+
 }

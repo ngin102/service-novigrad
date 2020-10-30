@@ -24,6 +24,10 @@ public class Requirement {
         return name;
     }
 
+    public Service getService(){
+        return service;
+    }
+
     public void setService(Service newService){
         service = newService;
     }
