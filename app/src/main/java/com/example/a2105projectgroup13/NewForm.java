@@ -135,6 +135,11 @@ public class NewForm extends AppCompatActivity {
     public void submitFormOnClick(View v) {
         String formName = editTextFormName.getText().toString().trim();
 
+        if (formName.equals("")){
+            Toast.makeText(NewForm.this, "Please enter a name for the Form.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String validatedFormName = ValidateString.validateServiceName(formName);
         if (validatedFormName.equals("-1")) {
             Toast.makeText(NewForm.this, "Invalid Form name. Make sure your Form name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
@@ -148,10 +153,6 @@ public class NewForm extends AppCompatActivity {
             return;
         }
 
-        if (formName.equals("")){
-            Toast.makeText(NewForm.this, "Please enter a name for the Form.", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         if (validateForDuplicateFields() == true && validateForEmptyFields() == true && (! formName.equals("") ) && (fieldList.getChildCount() != 0)) {
             fields.clear();
