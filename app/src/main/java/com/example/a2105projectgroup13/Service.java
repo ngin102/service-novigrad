@@ -8,6 +8,8 @@ public class Service {
     private String price;
     private List<Requirement> requirements;
 
+    private Admin admin;
+
     public Service(){
     }
 
@@ -15,6 +17,8 @@ public class Service {
         this.name = name;
         this.price = price;
         this.requirements = new ArrayList<Requirement>();
+        //Every service is associated to the same Admin.
+        this.admin = new Admin("Admin", "Admin,", "Admin Account");
     }
 
     public String getName(){
