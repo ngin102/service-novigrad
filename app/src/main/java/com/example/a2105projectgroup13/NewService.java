@@ -62,23 +62,13 @@ public class NewService extends AppCompatActivity {
         String serviceName = editTextServiceName.getText().toString().trim();
         String price = editTextNumberPrice.getText().toString().trim();
 
-        //TODO: regex validation
-        if (! price.contains(".")){
-            Toast.makeText(NewService.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
+        //validate the price
+        String validatedPrice = ValidateString.validatePrice(price);
+        if (validatedPrice == "-1") {
+            Toast.makeText(NewService.this, "Please enter a valid form of price", Toast.LENGTH_SHORT).show();
             return;
-        }
-
-        if (price.endsWith(".")){
-            Toast.makeText(NewService.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (price.contains(".")){
-            String[] numberOfDecimals = price.split("\\.");
-            if (numberOfDecimals[1].length() != 2) {
-                Toast.makeText(NewService.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        } else {
+            price = validatedPrice;
         }
 
         //Checks if the inputted serviceName is empty. Prompts user to enter a service name.
