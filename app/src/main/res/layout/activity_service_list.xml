@@ -22,13 +22,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="507dp"
+            android:layout_height="0dp"
+            android:layout_weight="8"
             android:orientation="horizontal">
 
             <ListView
                 android:id="@+id/serviceList"
                 android:layout_width="match_parent"
-                android:layout_height="583dp">
+                android:layout_height="match_parent">
 
             </ListView>
 
