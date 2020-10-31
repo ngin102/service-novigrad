@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Service {
+    //Instance variables.
     private String name;
     private String price;
     private List<Requirement> requirements;
 
     private Admin admin;
 
+    //Constructors
     public Service(){
     }
 
@@ -21,6 +23,7 @@ public class Service {
         this.admin = new Admin("Admin", "Admin,", "Admin Account");
     }
 
+    //Getter functions.
     public String getName(){
         return name;
     }
