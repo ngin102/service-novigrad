@@ -2,11 +2,13 @@ package com.example.a2105projectgroup13;
 
 public class Requirement {
 
+    //Instance variables
     private String type;
     private String name;;
 
     private Service service;
 
+    //Constructors
     public Requirement(){
     }
 
@@ -16,6 +18,7 @@ public class Requirement {
         this.service = new Service();
     }
 
+    // Getter functions
     public String getType (){
         return type;
     }
