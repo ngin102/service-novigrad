@@ -51,12 +51,18 @@ public class NewService extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
     }
 
+    /**
+     * Validates the Service name and price entered into the appropriate text fields.
+     * If the data is entered incorrectly or the attempted service name already exists on Firebase,
+     * an appropriate error message is displayed.
+     */
     public void continueOnClick(View v) {
         //Convert whatever was inputted by the user into the text fields on the register screen to strings.
         //Trim any potential whitespace from the inputted email address. The password is allowed to have whitespace.
         String serviceName = editTextServiceName.getText().toString().trim();
         String price = editTextNumberPrice.getText().toString().trim();
 
+        //TODO: regex validation
         if (! price.contains(".")){
             Toast.makeText(NewService.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
             return;
@@ -75,17 +81,19 @@ public class NewService extends AppCompatActivity {
             }
         }
 
+        //Checks if the inputted serviceName is empty. Prompts user to enter a service name.
         if (serviceName.equals("")){
             Toast.makeText(NewService.this, "Please enter a service name.", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        //Checks if the inputted price is empty. Prompts user to enter a valid price.
         if (price.equals("")){
             Toast.makeText(NewService.this, "Please enter a price.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-
+        //Verifies that the inputted serviceName begins with a letter and is alphanumeric.
         String validatedServiceName = ValidateString.validateServiceName(serviceName);
         if (validatedServiceName.equals("-1")) {
             Toast.makeText(NewService.this, "Invalid Service name. Make sure your Service name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
@@ -94,20 +102,22 @@ public class NewService extends AppCompatActivity {
             serviceName = validatedServiceName;
         }
 
+        //Initializes a Service object which its info will be added to Firebase.
         Admin admin = new Admin("Admin", "Admin", "Admin Account");
         final Service serviceToAdd = admin.createService(serviceName, price);
 
+        //Starts process of saving serviceToAdd info to Firebase to the directory "Services".
         firebaseDatabase.getReference("Services").child(serviceName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) { //Stops process if a service of the same name is on Firebase.
                     Toast.makeText(NewService.this, "A service already exists under this name. Please use a different name for your service.", Toast.LENGTH_SHORT).show();
                     return;
                 }else{
                     firebaseDatabase.getReference("Services").child(serviceToAdd.getName()).child("price").setValue( serviceToAdd.getPrice() ).addOnCompleteListener(NewService.this, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
+                            if (task.isSuccessful()) { //Adds info to Firebase if there were no complications.
                                 Toast.makeText(NewService.this, "Service created. Now add Forms and Documents.", Toast.LENGTH_SHORT).show();
                                 finish();
                                 Intent moveToNextScreen = new Intent(NewService.this, AddFormsAndDocuments.class);
