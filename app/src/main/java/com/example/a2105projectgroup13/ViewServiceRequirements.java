@@ -27,8 +27,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+/**
+ * This class displays the existing requirements of a service (forms and documents) to the admin.
+ */
 public class ViewServiceRequirements extends AppCompatActivity {
+    // instance variables
     private DatabaseReference serviceInDatabase;
     private FirebaseDatabase firebaseDatabase;
 
@@ -49,6 +52,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
     private Button addDocumentButton;
     private Button backToServiceListButton;
 
+    // instance methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +78,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
         addFormButton = (Button) findViewById(R.id.addFormRequirementButton);
         addDocumentButton = (Button) findViewById(R.id.addDocumentRequirementButton);
 
+        // launch NewForm
         addFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -83,6 +88,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
             }
         });
 
+        // launch NewDocument
         addDocumentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -94,6 +100,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
 
         backToServiceListButton = (Button) findViewById(R.id.backToServicesButton);
 
+        // launch ServiceList
         backToServiceListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -102,7 +109,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
             }
         });
 
-
+        // update displayed data when any data is changed
         serviceInDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -141,6 +148,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
 
             }
 
+            // display error if there is a problem displaying the data from the database
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_LONG).show();
@@ -177,6 +185,10 @@ public class ViewServiceRequirements extends AppCompatActivity {
         });
     }
 
+    /**
+     * Helper method for launching ViewFields to edit form requirements.
+     * Returns nothing.
+     */
     private void moveToFields(final String requirementToViewFields){
         Intent moveToView = new Intent(ViewServiceRequirements.this, ViewFields.class);
         moveToView.putExtra("selectedServiceName", serviceName);
@@ -184,6 +196,10 @@ public class ViewServiceRequirements extends AppCompatActivity {
         startActivity(moveToView);
     }
 
+    /**
+     * Helper method for launching EditDocument to edit a document requirement.
+     * Returns nothing.
+     */
     private void moveToDocumentDetails(String requirementToViewDetails){
         Intent moveToView2 = new Intent(ViewServiceRequirements.this, EditDocument.class);
         moveToView2.putExtra("selectedServiceName", serviceName);
@@ -192,10 +208,17 @@ public class ViewServiceRequirements extends AppCompatActivity {
     }
 
 
+    /**
+     * Method for updating the price of the requirement.
+     * If the task is succesful, returns true and display a success message to the user.
+     * Otherwise, returns false and displays an error message to the user.
+     */
     private boolean updatePrice(String price){
         //Getting the specified service reference
         DatabaseReference priceReference = serviceInDatabase.child("price");
 
+        // input validation
+        //TODO: require the price of a document to have exactly 2 digits following . -- perhaps with regex
         if (! price.contains(".")){
             Toast.makeText(ViewServiceRequirements.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
             return false;
@@ -214,6 +237,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
             }
         }
 
+        // update the price
         priceReference.setValue(price).addOnCompleteListener(ViewServiceRequirements.this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -227,7 +251,10 @@ public class ViewServiceRequirements extends AppCompatActivity {
         return true;
     }
 
-    //Adapted from deleteProduct() method from Lab 5
+    //
+    /**
+     * Adapted from deleteProduct() method from Lab 5
+     */
     private boolean deleteRequirement(String requirement){
         //Getting the specified service reference
         DatabaseReference serviceReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName).child(requirement);
