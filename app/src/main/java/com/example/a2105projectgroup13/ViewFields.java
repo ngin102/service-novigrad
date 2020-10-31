@@ -28,7 +28,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * This class allows the Admin to view and edit the fields (forms) of a service.
+ */
+
 public class ViewFields extends AppCompatActivity {
+    // instance variables
     private DatabaseReference requirementInDatabase;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference fieldsInDatabase;
@@ -96,7 +101,6 @@ public class ViewFields extends AppCompatActivity {
             }
         });
 
-
         fieldsInDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -131,6 +135,9 @@ public class ViewFields extends AppCompatActivity {
 
     }
 
+    /**
+     Updates the value of a field in the database for an associated reference.
+     */
     private void changeValue(final DatabaseReference key, final String newValue) {
         //Moving reference in Firebase.
         final DatabaseReference fieldReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName).child(requirementName).child("fields");

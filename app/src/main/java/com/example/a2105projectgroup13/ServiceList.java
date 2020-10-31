@@ -27,7 +27,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This class displays a list of services to the Admin.
+ */
 public class ServiceList extends AppCompatActivity {
     private DatabaseReference serviceInDatabase;
     private FirebaseDatabase firebaseDatabase;

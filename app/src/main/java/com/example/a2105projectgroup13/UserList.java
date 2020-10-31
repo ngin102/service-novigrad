@@ -23,7 +23,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * This class allows the Admin to view and delete user accounts.
+ */
+
 public class UserList extends AppCompatActivity {
+    // instance variables
     private DatabaseReference usersInDatabase;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
@@ -36,10 +41,12 @@ public class UserList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
 
+        //variables
         firebaseDatabase = firebaseDatabase.getInstance();
         usersInDatabase = firebaseDatabase.getReference("Users");
         usersList = (ListView) findViewById(R.id.userList);
 
+        //
         usersInDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -47,7 +54,7 @@ public class UserList extends AppCompatActivity {
                 for (DataSnapshot user : snapshot.getChildren() ) {
                     String key = user.getKey();
 
-                    if (!key.equals("htb18OBBKHQ3OmeBlg3qg8pzY2A3")) {
+                    if (!key.equals("htb18OBBKHQ3OmeBlg3qg8pzY2A3")) { //prevent the Admin from deleting themselves
                         usersArrayList.add(key);
                     }
                    // User userToAdd = user.getValue(User.class);
