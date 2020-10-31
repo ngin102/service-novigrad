@@ -124,4 +124,27 @@ public class ValidateStringTest {
 
 
     }
+
+    @Test
+    public void validatePrice() {
+        // incorrect formats
+        assertEquals("-1", ValidateString.validatePrice("01"));
+        assertEquals("-1", ValidateString.validatePrice("01.0"));
+        assertEquals("-1", ValidateString.validatePrice("1.0"));
+        assertEquals("-1", ValidateString.validatePrice("borb"));
+
+        // 0.00 form
+        assertEquals("0.00", ValidateString.validatePrice("0"));
+        assertEquals("0.00", ValidateString.validatePrice("0.00"));
+
+        //[num] form
+        assertEquals("1.00", ValidateString.validatePrice("1"));
+        assertEquals("2.00", ValidateString.validatePrice("2"));
+        assertEquals("3.00", ValidateString.validatePrice("3"));
+
+        //[num].[num][num] form
+        assertEquals("1.00", ValidateString.validatePrice("1.00"));
+        assertEquals("2.00", ValidateString.validatePrice("2.00"));
+        assertEquals("3.00", ValidateString.validatePrice("3.00"));
+    }
 }

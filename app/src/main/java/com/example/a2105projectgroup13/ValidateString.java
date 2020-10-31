@@ -162,4 +162,26 @@ public class ValidateString {
             return (formattedName.substring(0, formattedName.length()-1));
         }
     }
+
+    /**
+     Validates a price.
+     Prices are valid if they are of the forms:
+     1) 0.00
+     2) [num] (e.g. 3)
+     3) [num].[num][num] (e.g. 3.12)
+     Returns "-1" if the price cannot be validated.
+     Returns the second form if the num is valid.
+     */
+    public static String validatePrice(String price) {
+        String priceFormat = "^(([1-9]+[0-9]*)|[0])([.][0-9]{2})?$";
+        if (!validateField(priceFormat, price)) { // check if the password is invalid
+            return "-1"; // notify the caller that this is an invalid input
+        } else { // if validateField() returns True, then the price is in one of our acceptable formats
+            if (price.contains(".")) { // first or third form
+                return price;
+            } else { // second form, so just add a decimal
+                return price + ".00";
+            }
+        }
+    }
 }
