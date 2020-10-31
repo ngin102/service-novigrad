@@ -217,28 +217,15 @@ public class ViewServiceRequirements extends AppCompatActivity {
         //Getting the specified service reference
         DatabaseReference priceReference = serviceInDatabase.child("price");
 
-        // input validation
-        //TODO: require the price of a document to have exactly 2 digits following . -- perhaps with regex
-        if (! price.contains(".")){
-            Toast.makeText(ViewServiceRequirements.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
+        //validate the price
+        String validatedPrice = ValidateString.validatePrice(price);
+        if (validatedPrice == "-1") {
+            Toast.makeText(ViewServiceRequirements.this, "Please enter a valid form of price", Toast.LENGTH_SHORT).show();
             return false;
-        }
-
-        if (price.endsWith(".")){
-            Toast.makeText(ViewServiceRequirements.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (price.contains(".")){
-            String[] numberOfDecimals = price.split("\\.");
-            if (numberOfDecimals[1].length() != 2) {
-                Toast.makeText(ViewServiceRequirements.this, "Please input two cent decimals. For prices that have no cent values, enter .00 ", Toast.LENGTH_SHORT).show();
-                return false;
-            }
         }
 
         // update the price
-        priceReference.setValue(price).addOnCompleteListener(ViewServiceRequirements.this, new OnCompleteListener<Void>() {
+        priceReference.setValue(ValidateString.validatePrice(price)).addOnCompleteListener(ViewServiceRequirements.this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
