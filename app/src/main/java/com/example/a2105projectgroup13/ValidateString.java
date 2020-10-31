@@ -144,7 +144,7 @@ public class ValidateString {
      */
     public static String validateServiceName(String serviceName) {
 
-        String serviceNameFormat = "^([a-zA-Z][a-zA-Z0-9]*[ ]?)*[ ]{0}$"; // regex to check that the service name is a valid format (i.e. alphanumeric and spaces)
+        String serviceNameFormat = "^([a-zA-Z]+[ a-zA-Z0-9_@.#&+-]?)*$"; // regex to check that the service name is a valid format (i.e. alphanumeric, special characters, spaces -- EXCEPT the first character of any word must be a letter)
         String[] splitSentence;
         String formattedName;
         if (!validateField(serviceNameFormat, serviceName)) { // check if the service name is invalid
