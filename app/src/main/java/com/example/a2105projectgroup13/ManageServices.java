@@ -16,6 +16,7 @@ public class ManageServices extends AppCompatActivity {
 
     private Button addServiceButton;
     private Button viewServicesButton;
+    private Button returnToAdminWelcomeButton;
 
     /**
      Class allowing the Admin to navigate to the NewService or ServiceList activities.
@@ -42,6 +43,13 @@ public class ManageServices extends AppCompatActivity {
                 startActivity(new Intent(ManageServices.this, ServiceList.class));
             }
         });
+
+        returnToAdminWelcomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(ManageServices.this, AdminWelcomeActivity.class));
+            }
+        });
     }
 
     /**
@@ -51,6 +59,7 @@ public class ManageServices extends AppCompatActivity {
         //Initialize each instance variable by finding the first view that corresponds with its id.
         addServiceButton = findViewById(R.id.addServiceButton);
         viewServicesButton = findViewById(R.id.viewServicesButton);
+        returnToAdminWelcomeButton = findViewById(R.id.returnToAdminWelcomeButton);
     }
 
 }

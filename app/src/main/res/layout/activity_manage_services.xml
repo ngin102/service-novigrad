@@ -31,5 +31,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/view_edit_and_delete_services" />
+
+        <Button
+            android:id="@+id/returnToAdminWelcomeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/return_to_admin_welcome_screen" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
