@@ -24,6 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import static android.view.View.INVISIBLE;
+/**
+ This class allows the Admin to add a new form to the database.
+ */
 
 public class NewForm extends AppCompatActivity {
     private EditText editTextFormName;
@@ -38,7 +41,6 @@ public class NewForm extends AppCompatActivity {
     private TextView serviceNameOnscreen;
 
     private ArrayList<String> fields;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,9 @@ public class NewForm extends AppCompatActivity {
         });
     }
 
+    /**
+     Helper method for initializing local variables.
+     */
     private void initializeInstanceVariables() {
         editTextFormName = findViewById(R.id.editTextFormName);
         fieldList = findViewById(R.id.fieldList);
@@ -79,6 +84,9 @@ public class NewForm extends AppCompatActivity {
         serviceNameOnscreen = (TextView) findViewById(R.id.serviceNameOnScreen2);
     }
 
+    /**
+     Method which adds a new form field for the Admin to fill out.
+     */
     private void addFieldToList(){
         LayoutInflater inflater = getLayoutInflater();
         final View field = inflater.inflate(R.layout.add_field_in_newform, null);
@@ -95,13 +103,17 @@ public class NewForm extends AppCompatActivity {
         fieldList.addView(field);
     }
 
-
+    /**
+     Method which checks that all fields are filled by the admin.
+     Returns true if the fields are filled appropriately, or false if they are not.
+     */
     private boolean validateForEmptyFields(){
         for (int i = 0; i < fieldList.getChildCount(); i++){
             View selectedField = fieldList.getChildAt(i);
             EditText selectedFieldName = (EditText) selectedField.findViewById(R.id.editTextFieldNameInNewForm);
             String fieldName = selectedFieldName.getText().toString().trim();
 
+            // display an error if a field is empty
             if (fieldName.isEmpty()) {
                 Toast.makeText(NewForm.this, "Please name all fields or remove unnamed fields.", Toast.LENGTH_SHORT).show();
                 return false;
@@ -111,6 +123,10 @@ public class NewForm extends AppCompatActivity {
         return true;
     }
 
+    /**
+     Method that verifies there are no duplicate fields.
+     Returns true if there are no duplicate fields, or false if there are duplicate fields.
+     */
     private boolean validateForDuplicateFields(){
         for (int i = 0; i < fieldList.getChildCount(); i++){
             for (int j = i + 1; j < fieldList.getChildCount(); j++){
@@ -122,6 +138,7 @@ public class NewForm extends AppCompatActivity {
                 EditText fieldNameTwo = (EditText) fieldTwo.findViewById(R.id.editTextFieldNameInNewForm);
                 String stringFieldNameTwo = fieldNameTwo.getText().toString().trim();
 
+                // display an error if there is a duplicate field
                 if (stringFieldNameOne.equals(stringFieldNameTwo)) {
                     Toast.makeText(NewForm.this, "Please remove duplicate fields.", Toast.LENGTH_SHORT).show();
                     return false;
@@ -132,14 +149,18 @@ public class NewForm extends AppCompatActivity {
         return true;
     }
 
+    /**
+     Method for uploading the new form to the database under the appropriate service.
+     */
     public void submitFormOnClick(View v) {
         String formName = editTextFormName.getText().toString().trim();
 
+        // display and error if the form's name is empty
         if (formName.equals("")){
             Toast.makeText(NewForm.this, "Please enter a name for the Form.", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        // display and error if the form's name is invalid
         String validatedFormName = ValidateString.validateServiceName(formName);
         if (validatedFormName.equals("-1")) {
             Toast.makeText(NewForm.this, "Invalid Form name. Make sure your Form name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
@@ -148,6 +169,7 @@ public class NewForm extends AppCompatActivity {
             formName = validatedFormName;
         }
 
+        // display and error if the form has no fields
         if (fieldList.getChildCount() == 0){
             Toast.makeText(NewForm.this, "Please specify the fields that will be in the Form.", Toast.LENGTH_SHORT).show();
             return;
@@ -189,6 +211,7 @@ public class NewForm extends AppCompatActivity {
                     formToAddToService.setService(selectedService);
                 }
 
+                // display an error if there is a problem finding the service in the database
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Toast.makeText(NewForm.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
@@ -233,6 +256,7 @@ public class NewForm extends AppCompatActivity {
                     }
                 }
 
+                // display an error if there was a problem saving the form to the database
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Toast.makeText(NewForm.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
