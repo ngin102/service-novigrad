@@ -132,11 +132,11 @@ public class NewForm extends AppCompatActivity {
             for (int j = i + 1; j < fieldList.getChildCount(); j++){
                 View fieldOne = fieldList.getChildAt(i);
                 EditText fieldNameOne = (EditText) fieldOne.findViewById(R.id.editTextFieldNameInNewForm);
-                String stringFieldNameOne = fieldNameOne.getText().toString().trim();
+                String stringFieldNameOne = fieldNameOne.getText().toString().toLowerCase().trim();
 
                 View fieldTwo = fieldList.getChildAt(j);
                 EditText fieldNameTwo = (EditText) fieldTwo.findViewById(R.id.editTextFieldNameInNewForm);
-                String stringFieldNameTwo = fieldNameTwo.getText().toString().trim();
+                String stringFieldNameTwo = fieldNameTwo.getText().toString().toLowerCase().trim();
 
                 // display an error if there is a duplicate field
                 if (stringFieldNameOne.equals(stringFieldNameTwo)) {
@@ -163,7 +163,7 @@ public class NewForm extends AppCompatActivity {
         // display and error if the form's name is invalid
         String validatedFormName = ValidateString.validateServiceName(formName);
         if (validatedFormName.equals("-1")) {
-            Toast.makeText(NewForm.this, "Invalid Form name. Make sure your Form name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(NewForm.this, "Invalid Form name. Make sure your Form name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
             return;
         } else {
             formName = validatedFormName;
@@ -176,7 +176,7 @@ public class NewForm extends AppCompatActivity {
         }
 
 
-        if (validateForDuplicateFields() == true && validateForEmptyFields() == true && (! formName.equals("") ) && (fieldList.getChildCount() != 0)) {
+        if ( validateForEmptyFields() == true &&  validateForDuplicateFields() == true && (! formName.equals("") ) && (fieldList.getChildCount() != 0)) {
             fields.clear();
             for (int i = 0; i < fieldList.getChildCount(); i++) {
                 View selectedField = fieldList.getChildAt(i);
@@ -185,7 +185,7 @@ public class NewForm extends AppCompatActivity {
 
                 String validatedFieldName = ValidateString.validateServiceName(fieldName);
                 if (validatedFieldName.equals("-1")) {
-                    Toast.makeText(NewForm.this, "Invalid Field name. Make sure your Field name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewForm.this, "Invalid Field name. Make sure your Field name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     fieldName = validatedFieldName;
@@ -217,12 +217,6 @@ public class NewForm extends AppCompatActivity {
                     Toast.makeText(NewForm.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
                 }
             });
-
-            for (int i = 0; i < fields.size(); i++) {
-                String fieldToAdd = fields.get(i);
-                formToAddToService.addToFields(fieldToAdd);
-            }
-
 
             firebaseDatabase.getReference("Services").child(serviceName).child(formName).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

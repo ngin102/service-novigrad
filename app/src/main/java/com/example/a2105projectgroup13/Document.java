@@ -27,7 +27,7 @@ public class Document extends Requirement {
     public String getFileType(){return fileType;}
 
     public String toString(){
-        return getName() + ": " + "\n" + "      type: " + getType() +
+        return getName() + "\n" + "      type: " + getType() +
                 "\n" + "      fileType: " + getFileType() +   "\n" + "      description: " + (getDescription());
     }
 

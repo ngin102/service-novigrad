@@ -84,4 +84,5 @@
     <string name="edit_description">Edit Description</string>
     <string name="update_file_type">Update File Type</string>
     <string name="return_to_admin_welcome_screen">Return to Admin Welcome Screen</string>
+    <string name="return_to_manage_services_screen">Return To Manage Services Screen</string>
 </resources>

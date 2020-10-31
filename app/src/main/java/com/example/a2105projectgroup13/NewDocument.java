@@ -128,7 +128,7 @@ public class NewDocument extends AppCompatActivity {
             // display an error if the document name is invalid
             String validatedDocumentName = ValidateString.validateServiceName(documentName);
             if (validatedDocumentName.equals("-1")) {
-                Toast.makeText(NewDocument.this, "Invalid Document name. Make sure your Document name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewDocument.this, "Invalid Document name. Make sure your Document name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
                 return;
             } else { // if validation is succesful, put the document name in the proper format per the validation
                 documentName = validatedDocumentName;

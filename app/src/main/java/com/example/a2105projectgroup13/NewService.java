@@ -88,7 +88,7 @@ public class NewService extends AppCompatActivity {
 
         String validatedServiceName = ValidateString.validateServiceName(serviceName);
         if (validatedServiceName.equals("-1")) {
-            Toast.makeText(NewService.this, "Invalid Service name. Make sure your Service name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(NewService.this, "Invalid Service name. Make sure your Service name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
             return;
         } else {
             serviceName = validatedServiceName;

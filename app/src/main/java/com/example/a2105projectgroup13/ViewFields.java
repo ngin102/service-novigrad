@@ -1,32 +1,32 @@
 package com.example.a2105projectgroup13;
 
-        import androidx.annotation.NonNull;
-        import androidx.appcompat.app.AlertDialog;
-        import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.ListView;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.google.android.gms.tasks.OnCompleteListener;
-        import com.google.android.gms.tasks.Task;
-        import com.google.firebase.database.DataSnapshot;
-        import com.google.firebase.database.DatabaseError;
-        import com.google.firebase.database.DatabaseReference;
-        import com.google.firebase.database.FirebaseDatabase;
-        import com.google.firebase.database.Query;
-        import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-        import java.lang.reflect.Array;
-        import java.util.ArrayList;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class ViewFields extends AppCompatActivity {
     private DatabaseReference requirementInDatabase;
@@ -221,20 +221,6 @@ public class ViewFields extends AppCompatActivity {
         final Button deleteFieldButton = (Button) dialogView.findViewById(R.id.deleteFieldButton);
         final Button editFieldNameButton = (Button) dialogView.findViewById(R.id.editFieldNameButton);
         final EditText editTextFieldNameOnList = (EditText) dialogView.findViewById(R.id.editTextFieldNameOnList);
-
-        DatabaseReference specificFieldName = fieldsInDatabase.child(specificField);
-        specificFieldName.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String fieldValue = snapshot.getValue(String.class);
-                dialogBuilder.setTitle(fieldValue);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
-            }
-        });
 
         final AlertDialog alert = dialogBuilder.create();
         alert.show();

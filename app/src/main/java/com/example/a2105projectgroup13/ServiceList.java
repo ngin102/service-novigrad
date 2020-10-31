@@ -35,6 +35,8 @@ public class ServiceList extends AppCompatActivity {
     private ListView serviceList;
     private ArrayList<String> serviceArrayList = new ArrayList<String>();
 
+    private Button returnToManageServicesButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,17 @@ public class ServiceList extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
         serviceInDatabase = firebaseDatabase.getReference("Services");
         serviceList = (ListView) findViewById(R.id.serviceList);
+
+        returnToManageServicesButton = (Button) findViewById(R.id.returnToManageServicesButton);
+
+
+        returnToManageServicesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(ServiceList.this, ManageServices.class));
+            }
+        });
+
 
         serviceInDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -59,9 +72,6 @@ public class ServiceList extends AppCompatActivity {
                             Service newService = new Service(key, price);
                             Admin admin = new Admin("Admin", "Admin", "Admin Account");
                             admin.addToServices(newService);
-                            serviceArrayList.add(newService.getName());
-                            ArrayAdapter arrayAdapter = new ArrayAdapter(ServiceList.this, android.R.layout.simple_list_item_1, serviceArrayList);
-                            serviceList.setAdapter(arrayAdapter);
                         }
 
                         @Override
@@ -69,7 +79,12 @@ public class ServiceList extends AppCompatActivity {
                             Toast.makeText(ServiceList.this, "ERROR", Toast.LENGTH_SHORT).show();
                         }
                     });
+
+                    serviceArrayList.add(key);
                 }
+
+                ArrayAdapter arrayAdapter = new ArrayAdapter(ServiceList.this, android.R.layout.simple_list_item_1, serviceArrayList);
+                serviceList.setAdapter(arrayAdapter);
             }
 
             @Override
@@ -195,7 +210,7 @@ public class ServiceList extends AppCompatActivity {
 
                 String validatedNewKey = ValidateString.validateServiceName(newKey);
                 if (validatedNewKey.equals("-1")) {
-                    Toast.makeText(ServiceList.this, "Invalid Service name. Make sure your Service name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ServiceList.this, "Invalid Service name. Make sure your Service name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     newKey = validatedNewKey;

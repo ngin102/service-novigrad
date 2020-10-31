@@ -22,14 +22,23 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="507dp"
             android:orientation="horizontal">
 
             <ListView
                 android:id="@+id/serviceList"
                 android:layout_width="match_parent"
-                android:layout_height="583dp" />
+                android:layout_height="583dp">
+
+            </ListView>
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/returnToManageServicesButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/return_to_manage_services_screen" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,7 +76,7 @@ public class AddField extends AppCompatActivity {
 
                 String validatedNewField = ValidateString.validateServiceName(newField);
                 if (validatedNewField.equals("-1")) {
-                    Toast.makeText(AddField.this, "Invalid Field name. Make sure your Field name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddField.this, "Invalid Field name. Make sure your Field name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     newField = validatedNewField;
@@ -100,7 +100,7 @@ public class AddField extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(AddField.this, "Field added to Form.", Toast.LENGTH_SHORT).show();
-                                    finish();
+                                    //finish();
 
                                     Intent moveToRequirements = new Intent(AddField.this, ViewFields.class);
                                     moveToRequirements.putExtra("selectedServiceName", serviceName);

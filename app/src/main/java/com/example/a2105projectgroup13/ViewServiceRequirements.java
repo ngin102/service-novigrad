@@ -43,6 +43,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
     private Document document;
 
     private TextView requirementsListServiceName;
+    private TextView requirementsText;
 
     private Button addFormButton;
     private Button addDocumentButton;
@@ -66,6 +67,8 @@ public class ViewServiceRequirements extends AppCompatActivity {
 
         requirementsListServiceName = (TextView) findViewById(R.id.requirementsListServiceName);
         requirementsListServiceName.setText(serviceName);
+
+        requirementsText = (TextView) findViewById(R.id.requirementsText);
 
 
         addFormButton = (Button) findViewById(R.id.addFormRequirementButton);
@@ -110,7 +113,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
                 for (DataSnapshot requirement: snapshot.getChildren()){
                     if (requirement.getKey().equals("price")) {
                         cost = requirement.getValue(String.class);
-                        requirementWithDetailsArrayList.add("price: $" + cost);
+                        requirementWithDetailsArrayList.add("Price: $" + cost);
                         requirementWithoutDetailsArrayList.add(requirement.getKey());
                     }
                 }
@@ -121,20 +124,16 @@ public class ViewServiceRequirements extends AppCompatActivity {
                     if (requirement.hasChild("fields")) {
                         form = requirement.getValue(Form.class);
 
-                        selectedService.addToRequirements(form);
+                        requirementWithDetailsArrayList.add("Form: " + form.toString());
                         requirementWithoutDetailsArrayList.add(requirement.getKey());
 
                     } else if (requirement.getKey().equals("price")) {
                         ;
                     } else {
                         document = requirement.getValue(Document.class);
-                        selectedService.addToRequirements(document);
+                        requirementWithDetailsArrayList.add("Document: " + document.toString());
                         requirementWithoutDetailsArrayList.add(requirement.getKey());
                     }
-                }
-
-                for (int i = 0; i < selectedService.getRequirements().size(); i++){
-                    requirementWithDetailsArrayList.add(selectedService.getRequirements().get(i).toString());
                 }
 
                 ArrayAdapter arrayAdapter = new ArrayAdapter(ViewServiceRequirements.this, android.R.layout.simple_list_item_1, requirementWithDetailsArrayList);
@@ -163,40 +162,33 @@ public class ViewServiceRequirements extends AppCompatActivity {
         requirementList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String requirementToViewFields = requirementWithoutDetailsArrayList.get(i);
-                moveToViewFields(requirementToViewFields);
+                String requirementToView = requirementWithoutDetailsArrayList.get(i);
+
+                String checkIfFormOrDocument = requirementWithDetailsArrayList.get(i);
+
+                if (checkIfFormOrDocument.indexOf(":") == 4){
+                    moveToFields(requirementToView);
+                }
+                if (checkIfFormOrDocument.indexOf(":") == 8){
+                    moveToDocumentDetails(requirementToView);
+                }
 
             }
         });
     }
 
-    private void moveToViewFields(final String requirementToViewFields){
-        DatabaseReference requirementReference = serviceInDatabase.child(requirementToViewFields);
+    private void moveToFields(final String requirementToViewFields){
+        Intent moveToView = new Intent(ViewServiceRequirements.this, ViewFields.class);
+        moveToView.putExtra("selectedServiceName", serviceName);
+        moveToView.putExtra("requirementName", requirementToViewFields);
+        startActivity(moveToView);
+    }
 
-        requirementReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.hasChild("fields")) {
-                    Intent moveToView = new Intent(ViewServiceRequirements.this, ViewFields.class);
-                    moveToView.putExtra("selectedServiceName", serviceName);
-                    moveToView.putExtra("requirementName", requirementToViewFields);
-                    startActivity(moveToView);
-                }
-                else if (!(requirementToViewFields.equals("price"))){
-                    Intent moveToView2 = new Intent(ViewServiceRequirements.this, EditDocument.class);
-                    moveToView2.putExtra("selectedServiceName", serviceName);
-                    moveToView2.putExtra("requirementName", requirementToViewFields);
-                    startActivity(moveToView2);
-                }
-                else{
-                    return;
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_LONG).show();
-            }
-        });
+    private void moveToDocumentDetails(String requirementToViewDetails){
+        Intent moveToView2 = new Intent(ViewServiceRequirements.this, EditDocument.class);
+        moveToView2.putExtra("selectedServiceName", serviceName);
+        moveToView2.putExtra("requirementName", requirementToViewDetails);
+        startActivity(moveToView2);
     }
 
 
@@ -371,7 +363,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
 
                     String validatedNewKey = ValidateString.validateServiceName(newKey);
                     if (validatedNewKey.equals("-1")) {
-                        Toast.makeText(ViewServiceRequirements.this, "Invalid Form name. Make sure your Form name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ViewServiceRequirements.this, "Invalid Form name. Make sure your Form name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
                         newKey = validatedNewKey;
