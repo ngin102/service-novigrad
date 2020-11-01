@@ -138,29 +138,29 @@ public class ValidateString {
 
     /**
      Validates a service name.
-     Returns "-1" if the service name is invalid. A service name is invalid if any word begins with a non-alphabetical character,
-     or characters that are non-alphanumeric. Additionally, the service name cannot start with a space, but it may end with a space.
-     If the service name is valid, then a representation of the valid form (uppercase for each word) is returned.
+     Any service name is valid, as this is the admin.
      */
     public static String validateServiceName(String serviceName) {
 
-        String serviceNameFormat = "^([a-zA-Z]+[ a-zA-Z0-9_@.#&+-]?)*$"; // regex to check that the service name is a valid format (i.e. alphanumeric, special characters, spaces -- EXCEPT the first character of any word must be a letter)
-        String[] splitSentence;
-        String formattedName;
-        if (!validateField(serviceNameFormat, serviceName)) { // check if the service name is invalid
-            return "-1"; // notify the caller that this is an invalid input
-        } else { // serviceName is in a "valid" layout
-            splitSentence = serviceName.split(" ");
-            formattedName = "";
+//        String serviceNameFormat = "^([a-zA-Z]+[']?[ a-zA-Z0-9_@.#&+-?/]?)*$"; // regex to check that the service name is a valid format (i.e. alphanumeric, special characters, spaces -- EXCEPT the first character of any word must be a letter)
+//        String[] splitSentence;
+//        String formattedName;
+//        if (!validateField(serviceNameFormat, serviceName)) { // check if the service name is invalid
+//            return "-1"; // notify the caller that this is an invalid input
+//        } else { // serviceName is in a "valid" layout
+//            splitSentence = serviceName.split(" ");
+//            formattedName = "";
+//
+//            for(String word : splitSentence) {
+//                if (word.length()>0) {
+//                    formattedName = formattedName + word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase() + " ";
+//                }
+//            }
+//
+//            return (formattedName.substring(0, formattedName.length()-1));
+//        }
 
-            for(String word : splitSentence) {
-                if (word.length()>0) {
-                    formattedName = formattedName + word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase() + " ";
-                }
-            }
-
-            return (formattedName.substring(0, formattedName.length()-1));
-        }
+        return serviceName;
     }
 
     /**
