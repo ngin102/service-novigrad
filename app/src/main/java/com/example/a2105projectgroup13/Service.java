@@ -39,7 +39,4 @@ public class Service {
     public void addToRequirements(Requirement i){
         requirements.add(i);
     }
-
-    public Admin getAdmin(){ return admin;
-    }
 }
