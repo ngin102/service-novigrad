@@ -8,4 +8,5 @@ Group members:
 - Jared Wagner
 - Grant Wanger
 
-[![CircleCI](https://circleci.com/<gh>/<SEG2105-uottawa>/<seg2105f20-project_gr-13>.svg?style=svg&circle-token=<YOUR_STATUS_API_TOKEN>)](<https://github.com/SEG2105-uottawa/seg2105f20-project_gr-13/tree/master>)
+
+[![CircleCI](https://circleci.com/<gh>/SEG2105-uottawa/seg2105f20-project_gr-13.svg?style=svg&circle-token=933821f756d53318a90bf6c4368fb53358cff30b)](https://app.circleci.com/pipelines/github/SEG2105-uottawa/seg2105f20-project_gr-13)
