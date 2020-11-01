@@ -35,7 +35,16 @@
                 android:layout_weight="1"
                 android:text="@string/requirement"
                 android:textSize="18sp" />
+
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/fieldsInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/press_and_hold_down_on_a_field_to_delete_or_rename_it"
+            android:textAlignment="center"
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="match_parent"

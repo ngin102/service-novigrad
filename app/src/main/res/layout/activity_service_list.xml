@@ -20,6 +20,14 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/serviceListInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/this_is_the_list_of_created_services_press_down_on_a_service_to_delete_or_rename_it_press_on_a_service_to_see_its_requirements"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"

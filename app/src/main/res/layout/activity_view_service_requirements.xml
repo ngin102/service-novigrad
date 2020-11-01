@@ -37,6 +37,14 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/requirementsListInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/this_is_the_list_of_a_your_selected_service_s_requirements_press_and_hold_down_on_a_requirement_to_delete_or_rename_it_you_can_only_update_the_price_not_delete_it_single_press_on_a_form_to_edit_its_fields_single_press_on_a_document_to_edit_its_description_or_filetype"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -46,7 +54,7 @@
             <ListView
                 android:id="@+id/serviceRequirementList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 

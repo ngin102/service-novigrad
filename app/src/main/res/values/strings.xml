@@ -85,4 +85,7 @@
     <string name="update_file_type">Update File Type</string>
     <string name="return_to_admin_welcome_screen">Return to Admin Welcome Screen</string>
     <string name="return_to_manage_services_screen">Return To Manage Services Screen</string>
+    <string name="this_is_the_list_of_created_services_press_down_on_a_service_to_delete_or_rename_it_press_on_a_service_to_see_its_requirements">This is the list of created Services. Press and hold down on a Service to delete or rename it. Single press on a Service to view its Requirements.</string>
+    <string name="this_is_the_list_of_a_your_selected_service_s_requirements_press_and_hold_down_on_a_requirement_to_delete_or_rename_it_you_can_only_update_the_price_not_delete_it_single_press_on_a_form_to_edit_its_fields_single_press_on_a_document_to_edit_its_description_or_filetype">This is the list of the Requirements of your selected Service. Press and hold down on a Requirement to delete or rename it. You can only update the price, not delete it. Single press on a Form to edit its fields. Single press on a Document to edit its description or fileType.</string>
+    <string name="press_and_hold_down_on_a_field_to_delete_or_rename_it">This is the list of fields of your selected Form. Press and hold down on a field to delete or rename it.</string>
 </resources>
