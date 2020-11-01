@@ -20,7 +20,7 @@ public class Service {
         this.price = price;
         this.requirements = new ArrayList<Requirement>();
         //Every service is associated to the same Admin.
-        this.admin = new Admin("Admin", "Admin,", "Admin Account");
+        this.admin = new Admin("Admin", "Admin", "Admin Account");
     }
 
     //Getter functions.
@@ -38,5 +38,8 @@ public class Service {
 
     public void addToRequirements(Requirement i){
         requirements.add(i);
+    }
+
+    public Admin getAdmin(){ return admin;
     }
 }
