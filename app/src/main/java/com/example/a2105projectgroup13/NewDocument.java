@@ -169,55 +169,37 @@ public class NewDocument extends AppCompatActivity {
                         }
                     }
 
-
                     firebaseDatabase.getReference("Services").child(serviceName).child(newDocumentName).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            // display and error if a requirement already exists with the name specified by the Admin
                             if (dataSnapshot.exists()) {
                                 Toast.makeText(NewDocument.this, "A requirement already exists under this name. Please use a different name for your Document.", Toast.LENGTH_SHORT).show();
                                 return;
-                            } else {
-
-                                firebaseDatabase.getReference("Services").child(serviceName).child(newDocumentName).addListenerForSingleValueEvent(new ValueEventListener() {
+                            } else { // add the new document to the database
+                                firebaseDatabase.getReference("Services").child(serviceName).child(documentToAddToService.getName()).setValue(documentToAddToService).addOnCompleteListener(NewDocument.this, new OnCompleteListener<Void>() {
                                     @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        // display and error if a requirement already exists with the name specified by the Admin
-                                        if (dataSnapshot.exists()) {
-                                            Toast.makeText(NewDocument.this, "A requirement already exists under this name. Please use a different name for your Document.", Toast.LENGTH_SHORT).show();
-                                            return;
-                                        } else { // add the new document to the database
-                                            firebaseDatabase.getReference("Services").child(serviceName).child(documentToAddToService.getName()).setValue(documentToAddToService).addOnCompleteListener(NewDocument.this, new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        Toast.makeText(NewDocument.this, "Document added to service", Toast.LENGTH_SHORT).show();
-                                                        finish();
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(NewDocument.this, "Document added to service", Toast.LENGTH_SHORT).show();
+                                            finish();
 
-                                                        Intent moveToAdd = new Intent(NewDocument.this, ViewServiceRequirements.class);
-                                                        moveToAdd.putExtra("serviceName", serviceName);
-                                                        startActivity(moveToAdd);
-                                                    } else {
-                                                        //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
-                                                        Toast.makeText(NewDocument.this, "There was a problem adding this Document to your service.", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                }
-                                            });
+                                            Intent moveToAdd = new Intent(NewDocument.this, ViewServiceRequirements.class);
+                                            moveToAdd.putExtra("serviceName", serviceName);
+                                            startActivity(moveToAdd);
+                                        } else {
+                                            //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
+                                            Toast.makeText(NewDocument.this, "There was a problem adding this Document to your service.", Toast.LENGTH_SHORT).show();
                                         }
-                                    }
-
-                                    // display an error if there is a problem creating the document
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                        Toast.makeText(NewDocument.this, "There was a problem creating this Document.", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
                         }
 
-                        // display an error if there was a problem saving the form to the database
+                        // display an error if there is a problem creating the document
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(NewDocument.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NewDocument.this, "There was a problem creating this Document.", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
