@@ -89,7 +89,7 @@ public class AddField extends AppCompatActivity {
 
                         for (DataSnapshot field : snapshot.getChildren()) {
                             String fieldValue = field.getValue(String.class);
-                            if (fieldValue.equals(newField)) {
+                            if (fieldValue.toLowerCase().equals( newField.toLowerCase() ) ) {
                                 Toast.makeText(AddField.this, "There is already a field with this name. Please choose a different field name.", Toast.LENGTH_LONG).show();
                                 return;
                             }

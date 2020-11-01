@@ -148,7 +148,7 @@ public class ViewFields extends AppCompatActivity {
                 for (DataSnapshot field : snapshot.getChildren() ) {
                     String fieldValue = field.getValue(String.class);
 
-                    if (fieldValue.equals(newValue)){
+                    if (fieldValue.toLowerCase().equals(newValue.toLowerCase())){
                         Toast.makeText(ViewFields.this, "There is already a field with this name. Please choose a new field name.", Toast.LENGTH_LONG).show();
                         return;
                     }
