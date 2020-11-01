@@ -122,48 +122,67 @@ public class ServiceList extends AppCompatActivity {
         final String newKeyChecker = newKey.getKey();
         final DatabaseReference serviceReference = FirebaseDatabase.getInstance().getReference("Services");
 
-        serviceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        firebaseDatabase.getReference("Services").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild(newKeyChecker)){
-                    Toast.makeText(ServiceList.this, "There already exists a Service by this name. Choose another Service name.", Toast.LENGTH_LONG).show();
-                    return;
-                } else {
-                    //Moving reference in Firebase.
-                    currentKey.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            newKey.setValue(snapshot.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isComplete()) {
-                                        Toast.makeText(ServiceList.this, "Changed Service name.", Toast.LENGTH_LONG).show();
+                for (DataSnapshot service : snapshot.getChildren()) {
+                    String storedServiceName = service.getKey();
 
-                                    } else {
-                                        Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
-                                    }
+                    if (storedServiceName.toLowerCase().equals(newKeyChecker.toLowerCase())) {
+                        Toast.makeText(ServiceList.this, "There is already a Service with this name. Please choose a new Service name.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+
+
+                serviceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild(newKeyChecker)) {
+                            Toast.makeText(ServiceList.this, "There already exists a Service by this name. Choose another Service name.", Toast.LENGTH_LONG).show();
+                            return;
+                        } else {
+                            //Moving reference in Firebase.
+                            currentKey.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    newKey.setValue(snapshot.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isComplete()) {
+                                                Toast.makeText(ServiceList.this, "Changed Service name.", Toast.LENGTH_LONG).show();
+
+                                            } else {
+                                                Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                            deleteService(currentKey.getKey());
                         }
-                    });
+                    }
 
-                    deleteService(currentKey.getKey());
-                }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
     }
-
-
 
 
     //Adapted from deleteProduct() method from Lab 5

@@ -96,35 +96,56 @@ public class NewService extends AppCompatActivity {
         Admin admin = new Admin("Admin", "Admin", "Admin Account");
         final Service serviceToAdd = admin.createService(serviceName, price);
 
-        //Starts process of saving serviceToAdd info to Firebase to the directory "Services".
-        firebaseDatabase.getReference("Services").child(serviceName).addListenerForSingleValueEvent(new ValueEventListener() {
+        final String newServiceName = serviceName;
+        firebaseDatabase.getReference("Services").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) { //Stops process if a service of the same name is on Firebase.
-                    Toast.makeText(NewService.this, "A service already exists under this name. Please use a different name for your service.", Toast.LENGTH_SHORT).show();
-                    return;
-                }else{
-                    firebaseDatabase.getReference("Services").child(serviceToAdd.getName()).child("price").setValue( serviceToAdd.getPrice() ).addOnCompleteListener(NewService.this, new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) { //Adds info to Firebase if there were no complications.
-                                Toast.makeText(NewService.this, "Service created. Now add Forms and Documents.", Toast.LENGTH_SHORT).show();
-                                finish();
-                                Intent moveToNextScreen = new Intent(NewService.this, AddFormsAndDocuments.class);
-                                moveToNextScreen.putExtra("serviceName", serviceToAdd.getName());
-                                startActivity(moveToNextScreen);
-                            } else {
-                                //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
-                                Toast.makeText(NewService.this, "There was a problem creating this Service.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot service : snapshot.getChildren() ) {
+                    String storedServiceName = service.getKey();
+
+                    if (storedServiceName.toLowerCase().equals(newServiceName.toLowerCase())){
+                        Toast.makeText(NewService.this, "There is already a Service with this name. Please choose a new Service name.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                 }
+
+                //Starts process of saving serviceToAdd info to Firebase to the directory "Services".
+                firebaseDatabase.getReference("Services").child(newServiceName).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) { //Stops process if a service of the same name is on Firebase.
+                            Toast.makeText(NewService.this, "A service already exists under this name. Please use a different name for your service.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }else{
+                            firebaseDatabase.getReference("Services").child(serviceToAdd.getName()).child("price").setValue( serviceToAdd.getPrice() ).addOnCompleteListener(NewService.this, new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) { //Adds info to Firebase if there were no complications.
+                                        Toast.makeText(NewService.this, "Service created. Now add Forms and Documents.", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                        Intent moveToNextScreen = new Intent(NewService.this, AddFormsAndDocuments.class);
+                                        moveToNextScreen.putExtra("serviceName", serviceToAdd.getName());
+                                        startActivity(moveToNextScreen);
+                                    } else {
+                                        //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
+                                        Toast.makeText(NewService.this, "There was a problem creating this Service.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(NewService.this, "There was a problem creating this Service.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(NewService.this, "There was a problem creating this Service.", Toast.LENGTH_SHORT).show();
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(NewService.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
 

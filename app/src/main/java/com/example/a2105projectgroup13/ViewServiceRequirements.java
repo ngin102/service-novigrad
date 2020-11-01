@@ -258,55 +258,75 @@ public class ViewServiceRequirements extends AppCompatActivity {
         final String newKeyChecker = newKey.getKey();
         final DatabaseReference serviceReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName);
 
-        serviceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDatabase.getReference("Services").child(serviceName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               if (snapshot.hasChild(newKeyChecker)){
-                   Toast.makeText(ViewServiceRequirements.this, "There already exists a requirement by this name. Choose another requirement name.", Toast.LENGTH_LONG).show();
-                   return;
-               } else {
-                   //Moving reference in Firebase.
-                   currentKey.addListenerForSingleValueEvent(new ValueEventListener() {
-                       @Override
-                       public void onDataChange(@NonNull DataSnapshot snapshot) {
-                           newKey.setValue(snapshot.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                               @Override
-                               public void onComplete(@NonNull Task<Void> task) {
-                                   if (task.isComplete()) {
-                                       Toast.makeText(ViewServiceRequirements.this, "Changed requirement name.", Toast.LENGTH_LONG).show();
+                for (DataSnapshot requirement : snapshot.getChildren()) {
+                    String storedRequirementName = requirement.getKey();
 
-                                   } else {
-                                       Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
-                                   }
-                               }
-                           });
-                       }
+                    if (storedRequirementName.toLowerCase().equals(newKeyChecker.toLowerCase())) {
+                        Toast.makeText(ViewServiceRequirements.this, "There is already a Form with this name. Please choose a new Form name.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
 
-                       @Override
-                       public void onCancelled(@NonNull DatabaseError error) {
-                           Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
-                       }
-                   });
+                serviceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild(newKeyChecker)) {
+                            Toast.makeText(ViewServiceRequirements.this, "There already exists a requirement by this name. Choose another requirement name.", Toast.LENGTH_LONG).show();
+                            return;
+                        } else {
+                            //Moving reference in Firebase.
+                            currentKey.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    newKey.setValue(snapshot.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isComplete()) {
+                                                Toast.makeText(ViewServiceRequirements.this, "Changed requirement name.", Toast.LENGTH_LONG).show();
 
-                   newKey.addListenerForSingleValueEvent(new ValueEventListener() {
-                       @Override
-                       public void onDataChange(@NonNull DataSnapshot snapshot) {
-                           newKey.child("name").setValue(newKey.getKey());
-                       }
+                                            } else {
+                                                Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
 
-                       @Override
-                       public void onCancelled(@NonNull DatabaseError error) {
-                           Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
-                       }
-                   });
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
-                   deleteRequirement(currentKey.getKey());
-               }
+                            newKey.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    newKey.child("name").setValue(newKey.getKey());
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                            deleteRequirement(currentKey.getKey());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
     }
