@@ -5,7 +5,22 @@ package com.example.a2105projectgroup13;
  * It can be used to create instances of type Branch, a subclass of User.
  */
 public class Branch extends User{
+    String address;
+    String phoneNumber;
+
     public Branch(String firstName, String lastName, String accountType) {
         super(firstName, lastName, accountType);
     }
+
+    public void setAddress(String address){
+        this.address = address;
+    }
+
+    public void setPhoneNumber(String phoneNumber){
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress(){return address;}
+
+    public String getPhoneNumber(){return phoneNumber;}
 }
