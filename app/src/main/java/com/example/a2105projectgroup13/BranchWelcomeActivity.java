@@ -23,6 +23,8 @@ public class BranchWelcomeActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private String uid;
 
+    private Button offerServicesCreatedByAdminButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +32,19 @@ public class BranchWelcomeActivity extends AppCompatActivity {
 
         initializeInstanceVariables();
 
+        offerServicesCreatedByAdminButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(BranchWelcomeActivity.this, BranchViewAdminServiceList.class));
+            }
+        });
+
 
     }
 
     private void initializeInstanceVariables() {
         //Initialize each instance variable by finding the first view that corresponds with its id.
+        offerServicesCreatedByAdminButton = (Button) findViewById(R.id.offerServicesFromAdminListButton);
     }
 
     private void getUid(){

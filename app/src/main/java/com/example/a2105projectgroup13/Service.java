@@ -10,6 +10,7 @@ public class Service {
     private List<Requirement> requirements;
 
     private Admin admin;
+    private List<Branch> branches;
 
     //Constructors
     public Service(){
@@ -19,6 +20,7 @@ public class Service {
         this.name = name;
         this.price = price;
         this.requirements = new ArrayList<Requirement>();
+        this.branches = new ArrayList<Branch>();
         //Every service is associated to the same Admin.
         this.admin = new Admin("Admin", "Admin", "Admin Account");
     }
