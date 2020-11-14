@@ -175,7 +175,36 @@ public class ServiceList extends AppCompatActivity {
                         Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
+
+
+                //Changing in Branches
+                final String currentKeyChecker = currentKey.getKey();
+                FirebaseDatabase.getInstance().getReference("Offered Services").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot uid : snapshot.getChildren()) {
+                            String uidKey = uid.getKey();
+
+                            if (uid.hasChild(currentKeyChecker)) {
+                                Service editedService = new Service(newKeyChecker, "Not needed");
+                                FirebaseDatabase.getInstance().getReference("Offered Services").child(uidKey).child(currentKeyChecker).removeValue();
+                                FirebaseDatabase.getInstance().getReference("Offered Services").child(uidKey).child(newKeyChecker).setValue(editedService);
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -186,11 +215,32 @@ public class ServiceList extends AppCompatActivity {
 
 
     //Adapted from deleteProduct() method from Lab 5
-    private boolean deleteService(String serviceName){
+    private boolean deleteService(final String serviceName){
         //Getting the specified service reference
         DatabaseReference serviceReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName);
         serviceReference.removeValue();
         Toast.makeText(ServiceList.this, "Service deleted.", Toast.LENGTH_LONG).show();
+
+        FirebaseDatabase.getInstance().getReference("Offered Services").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot uid : snapshot.getChildren()) {
+                    String key = uid.getKey();
+
+                    if (uid.hasChild(serviceName)) {
+                        DatabaseReference uidRemoveService = FirebaseDatabase.getInstance().getReference("Offered Services").child(key).child(serviceName);
+                        uidRemoveService.removeValue();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         return true;
     }
 

@@ -4,23 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BranchWelcomeActivity">
+    tools:context=".BranchViewOfferedServiceList">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/offerServicesFromAdminListButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/offer_services_created_by_admin" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/viewOfferedServicesButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/view_services_you_are_currently_offering" />
+            <ListView
+                android:id="@+id/offeredServiceListBranch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

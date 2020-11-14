@@ -144,39 +144,54 @@ public class Login extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(Login.this, "Welcome!", Toast.LENGTH_SHORT).show();
                     getUid();
-                    DatabaseReference accountType = firebaseDatabase.getReference("Users").child(uid).child("accountType");
 
-                    //Sends logged in user to the main screen.
-                    //An Admin will go to the Admin Main Activity.
-                    //Other Users will go to the other Main Acitivty.
-                    accountType.addValueEventListener(new ValueEventListener() {
+
+                    firebaseDatabase.getReference("Users").child(uid).addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            String value = dataSnapshot.getValue(String.class);
+                        public void onDataChange(DataSnapshot snapshot) {
+                            if (snapshot.getValue() == null) {
+                                FirebaseUser signedInUser = firebaseAuth.getCurrentUser();
+                                signedInUser.delete();
+                                Toast.makeText(Login.this, "This account was recently deleted by the Admin. Please register again.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Login.this, "Welcome!", Toast.LENGTH_SHORT).show();
+                                DatabaseReference accountType = firebaseDatabase.getReference("Users").child(uid).child("accountType");
+                                //Sends logged in user to the main screen.
+                                //An Admin will go to the Admin Main Activity.
+                                //Other Users will go to the other Main Acitivty.
+                                accountType.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        String value = dataSnapshot.getValue(String.class);
 
-                            if (value.equals("Branch Account") ){
-                                startActivity(new Intent(Login.this, BranchWelcomeActivity.class));
+                                        if (value.equals("Branch Account")) {
+                                            startActivity(new Intent(Login.this, BranchWelcomeActivity.class));
+                                        } else if (value.equals("Admin Account")) {
+                                            startActivity(new Intent(Login.this, AdminWelcomeActivity.class));
+                                        } else {
+                                            startActivity(new Intent(Login.this, MainActivity.class));
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError error) {
+                                        Toast.makeText(Login.this, "ERROR", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
-
-                            else if (value.equals("Admin Account")){
-                                startActivity(new Intent(Login.this, AdminWelcomeActivity.class));
-                            }
-
-                            else {
-                                startActivity(new Intent(Login.this, MainActivity.class));
-                            }
-
                         }
+
 
                         @Override
                         public void onCancelled(DatabaseError error) {
-                            Toast.makeText(Login.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                            Toast.makeText(Login.this, "ERROR", Toast.LENGTH_SHORT).show();
                         }
                     });
+                }
 
-                } else {
+                else {
                     Toast.makeText(Login.this, "The password and/or email was incorrect.", Toast.LENGTH_SHORT).show();
                 }
                 progressBar.setVisibility(INVISIBLE);

@@ -24,6 +24,7 @@ public class BranchWelcomeActivity extends AppCompatActivity {
     private String uid;
 
     private Button offerServicesCreatedByAdminButton;
+    private Button viewOfferedServicesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +40,20 @@ public class BranchWelcomeActivity extends AppCompatActivity {
             }
         });
 
+        viewOfferedServicesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(BranchWelcomeActivity.this, BranchViewOfferedServiceList.class));
+            }
+        });
+
 
     }
 
     private void initializeInstanceVariables() {
         //Initialize each instance variable by finding the first view that corresponds with its id.
         offerServicesCreatedByAdminButton = (Button) findViewById(R.id.offerServicesFromAdminListButton);
+        viewOfferedServicesButton = (Button) findViewById(R.id.viewOfferedServicesButton);
     }
 
     private void getUid(){

@@ -90,4 +90,6 @@
     <string name="press_and_hold_down_on_a_field_to_delete_or_rename_it">This is the list of fields of your selected Form. Press and hold down on a field to delete or rename it.</string>
     <string name="offer_service">Offer Service</string>
     <string name="offer_services_created_by_admin">Offer Services Created by Admin</string>
+    <string name="stop_offering_service">Stop Offering Service</string>
+    <string name="view_services_you_are_currently_offering">View Services You are currently offering</string>
 </resources>
