@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditDocument"></activity>
+        <activity android:name=".BranchWelcomeActivity"></activity>
+        <activity android:name=".EditDocument" />
         <activity android:name=".AddField" />
         <activity android:name=".ViewFields" />
         <activity android:name=".ViewRequirementDetails" />

@@ -156,12 +156,16 @@ public class Login extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String value = dataSnapshot.getValue(String.class);
 
-                            if (value.equals("Branch Account") || value.equals("Customer Account")){
-                                startActivity(new Intent(Login.this, MainActivity.class));
+                            if (value.equals("Branch Account") ){
+                                startActivity(new Intent(Login.this, BranchWelcomeActivity.class));
+                            }
+
+                            else if (value.equals("Admin Account")){
+                                startActivity(new Intent(Login.this, AdminWelcomeActivity.class));
                             }
 
                             else {
-                                startActivity(new Intent(Login.this, AdminWelcomeActivity.class));
+                                startActivity(new Intent(Login.this, MainActivity.class));
                             }
 
                         }

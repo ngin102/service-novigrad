@@ -17,7 +17,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -77,6 +82,9 @@ public class Register extends AppCompatActivity {
     //Variables required to store information in Firebase Authentication and Firebase Database:
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
+
+    private String loginUid;
+
 
 
     /**
@@ -233,6 +241,11 @@ public class Register extends AppCompatActivity {
         //We will now try to register an account via Firebase Authentication using the .createUserWithEmailAndPassword() method.
         //Again, only the user-inputted email address and password will be stored in Firebase Authentication.
         //The user's unique uId in Firebase Authentication will be generated at this time as well.
+
+
+        final String finalEmailAddress = emailAddress;
+        final String finalPassword = password;
+
         firebaseAuth.createUserWithEmailAndPassword(emailAddress, password).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -248,9 +261,8 @@ public class Register extends AppCompatActivity {
                                 //Since the user's information has been successfully stored in Firebase Database, the registration process is completed!
                                 Toast.makeText(Register.this, "Account registered!", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(INVISIBLE);
-                                finish();
-                                //Redirect the user to the Welcome Screen (the main activity).
-                                startActivity(new Intent(Register.this, MainActivity.class));
+                                login(finalEmailAddress, finalPassword);
+
                             } else {
                                 //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
                                 Toast.makeText(Register.this, "There was a problem saving your account information. Please try again.", Toast.LENGTH_SHORT).show();
@@ -286,5 +298,64 @@ public class Register extends AppCompatActivity {
         String selectionString = (String) selection.getText().toString();
 
         return selectionString;
+    }
+
+
+
+    private void login(String emailAddress, String password){
+        firebaseAuth.signInWithEmailAndPassword(emailAddress, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(Register.this, "Welcome!", Toast.LENGTH_SHORT).show();
+                    getLoginUid();
+                    DatabaseReference accountType = firebaseDatabase.getReference("Users").child(loginUid).child("accountType");
+
+                    //Sends logged in user to the main screen.
+                    //An Admin will go to the Admin Main Activity.
+                    //Other Users will go to the other Main Acitivty.
+                    accountType.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String value = dataSnapshot.getValue(String.class);
+
+                            if (value.equals("Branch Account") ){
+                                startActivity(new Intent(Register.this, BranchWelcomeActivity.class));
+                            }
+
+                            else if (value.equals("Admin Account")){
+                                startActivity(new Intent(Register.this, AdminWelcomeActivity.class));
+                            }
+
+                            else {
+                                startActivity(new Intent(Register.this, MainActivity.class));
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            Toast.makeText(Register.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                        }
+                    });
+
+                } else {
+                    Toast.makeText(Register.this, "The password and/or email was incorrect.", Toast.LENGTH_SHORT).show();
+                }
+                progressBar.setVisibility(INVISIBLE);
+            }
+        });
+    }
+
+    /**
+     * Gets (but does not return) the unique user uId of the user who
+     * is currently logged into the app via Firebase Authentication.
+     */
+    private void getLoginUid(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = firebaseDatabase.getInstance();
+
+        FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
+        loginUid = user.getUid();
     }
 }
