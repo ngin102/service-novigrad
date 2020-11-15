@@ -30,6 +30,7 @@ public class BranchWelcomeActivity extends AppCompatActivity {
     private Button viewBranchProfileButton;
     private Button offerServicesCreatedByAdminButton;
     private Button viewOfferedServicesButton;
+    private Button viewWorkingHoursButton;
 
     //Text that appears on screen:
     private TextView firstNameText;
@@ -88,6 +89,16 @@ public class BranchWelcomeActivity extends AppCompatActivity {
         });
 
 
+        viewWorkingHoursButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent moveToWorkingHours = new Intent(BranchWelcomeActivity.this, BranchAddWorkingHours.class);
+                moveToWorkingHours.putExtra("uid", uid);
+                startActivity(moveToWorkingHours);
+            }
+        });
+
+
         //Get the references to the user's first name and account type in Firebase Database based on the user's unique uId.
         DatabaseReference firstName = firebaseDatabase.getReference("Users").child(uid).child("firstName");
 
@@ -111,6 +122,7 @@ public class BranchWelcomeActivity extends AppCompatActivity {
         offerServicesCreatedByAdminButton = (Button) findViewById(R.id.viewAdminServicesFromBranchButton);
         viewOfferedServicesButton = (Button) findViewById(R.id.viewOfferedServicesButton);
         viewBranchProfileButton = (Button) findViewById(R.id.viewBranchProfileButton);
+        viewWorkingHoursButton = (Button) findViewById(R.id.viewWorkingHoursButton);
 
         firstNameText = (TextView) findViewById(R.id.nameBranchText);
     }

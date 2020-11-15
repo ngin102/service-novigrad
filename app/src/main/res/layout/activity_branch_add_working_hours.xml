@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SetBranchProfile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/setWorkingHoursTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/working_hours"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/branchUIDTextView2"
+                android:layout_width="119dp"
+                android:layout_height="wrap_content"
+                android:text="@string/branch_uid"
+                android:textAlignment="textStart" />
+
+            <TextView
+                android:id="@+id/uidBranchTextView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/uid" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/workingHoursFormatTextView"
+                android:layout_width="119dp"
+                android:layout_height="wrap_content"
+                android:text="@string/working_hours2"
+                android:textAlignment="textStart" />
+
+            <TextView
+                android:id="@+id/mondayWorkingHoursTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/monday_working_hours" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/emptyTextView3"
+                android:layout_width="119dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tuesdayWorkingHoursTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tuesday_working_hours" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/emptyTextView4"
+                android:layout_width="119dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/wednesdayWorkingHoursTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/wednesday_working_hours" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="21dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/emptyTextView5"
+                android:layout_width="119dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/thursdayWorkingHoursTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/thursday_working_hours" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="21dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/emptyTextView6"
+                android:layout_width="119dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/fridayWorkingHoursTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/friday_working_hours" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="21dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/emptyTextView7"
+                android:layout_width="119dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/saturdayWorkingHoursTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/saturday_working_hours" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/emptyTextView8"
+                android:layout_width="119dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/sundayWorkingHoursTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sunday_working_hours" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/editWorkingHoursTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_working_hours"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="337dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/howToDoTimeTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/we_store_time_using_the_24_hour_clock_input_times_in_the_following_format_00_00_where_00_is_any_two_digit_number_input_numbers_lower_than_10_such_as_1_as_01"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/youCanScrollTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/you_can_scroll_this_list_to_edit_working_hours_for_all_days_of_the_week"
+                    android:textAlignment="center"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/mondayTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/monday" />
+
+                    <EditText
+                        android:id="@+id/StartTimeEditText1"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/open_time"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/dashTextView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/dash"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/mondayEndTimeEditText1"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/close_time"
+                        android:inputType="time" />
+
+                    <Button
+                        android:id="@+id/editHoursButton1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/edit_hours" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/tuesdayTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/tuesday" />
+
+                    <EditText
+                        android:id="@+id/StartTimeEditText2"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/open_time"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/dashTextView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/dash"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/tuesdayEndTimeEditText"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/close_time"
+                        android:inputType="time" />
+
+                    <Button
+                        android:id="@+id/editHoursButton2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/edit_hours" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/wednesdayTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/wednesday" />
+
+                    <EditText
+                        android:id="@+id/StartTimeEditText3"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/open_time"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/dashTextView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/dash"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/wednesdayEndTimeEditText"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/close_time"
+                        android:inputType="time" />
+
+                    <Button
+                        android:id="@+id/editHoursButton3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/edit_hours" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/thursdayTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/thursday" />
+
+                    <EditText
+                        android:id="@+id/StartTimeEditText4"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/open_time"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/dashTextView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/dash"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/thursdayEndTimeEditText"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/close_time"
+                        android:inputType="time" />
+
+                    <Button
+                        android:id="@+id/editHoursButton4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/edit_hours" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/fridayTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/friday" />
+
+                    <EditText
+                        android:id="@+id/StartTimeEditText5"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/open_time"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/dashTextView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/dash"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/fridayEndTimeEditText"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/close_time"
+                        android:inputType="time" />
+
+                    <Button
+                        android:id="@+id/editHoursButton5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/edit_hours" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/saturdayTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/saturday" />
+
+                    <EditText
+                        android:id="@+id/StartTimeEditText6"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/open_time"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/dashTextView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/dash"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/saturdayEndTimeEditText"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/close_time"
+                        android:inputType="time" />
+
+                    <Button
+                        android:id="@+id/editHoursButton6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/edit_hours" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/sundayTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="@string/sunday" />
+
+                    <EditText
+                        android:id="@+id/StartTimeEditText7"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/open_time"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/dashTextView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/dash"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/sundayEndTimeEditText"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints=""
+                        android:ems="10"
+                        android:hint="@string/close_time"
+                        android:inputType="time" />
+
+                    <Button
+                        android:id="@+id/editHoursButton7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/edit_hours" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/goToBranchWelcomeScreenButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/go_to_branch_welcome_screen" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

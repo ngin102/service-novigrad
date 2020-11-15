@@ -62,6 +62,12 @@
             android:text="@string/view_and_edit_branch_profile" />
 
         <Button
+            android:id="@+id/viewWorkingHoursButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_and_edit_working_hours" />
+
+        <Button
             android:id="@+id/viewAdminServicesFromBranchButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
