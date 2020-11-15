@@ -72,7 +72,7 @@
 
             <TextView
                 android:id="@+id/showCityTextView"
-                android:layout_width="246dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/city" />
@@ -91,7 +91,7 @@
 
             <TextView
                 android:id="@+id/showPostalCodeTextView"
-                android:layout_width="444dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/postal_code" />
@@ -111,7 +111,7 @@
 
             <TextView
                 android:id="@+id/showPhoneNumberTextView"
-                android:layout_width="217dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/phone_number" />
@@ -224,7 +224,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="76dp"
             android:orientation="horizontal">
 
             <EditText
@@ -243,6 +243,19 @@
                 android:layout_weight="1"
                 android:text="@string/edit_phone_number" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/goToBranchWelcomeScreenButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/go_to_branch_welcome_screen" />
         </LinearLayout>
 
     </LinearLayout>

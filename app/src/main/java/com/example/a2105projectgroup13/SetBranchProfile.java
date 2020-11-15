@@ -2,6 +2,7 @@ package com.example.a2105projectgroup13;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Set;
+
 
 public class SetBranchProfile extends AppCompatActivity {
 
@@ -24,6 +27,7 @@ public class SetBranchProfile extends AppCompatActivity {
     Button editCityButton;
     Button editPostalCodeButton;
     Button editPhoneNumberButton;
+    Button goToBranchWelcomeScreenButton;
 
     EditText enterAddressEditText;
     EditText streetNumberEditText;
@@ -79,6 +83,13 @@ public class SetBranchProfile extends AppCompatActivity {
                 editPostalCodeOnClick(v);
             }
         });
+
+        goToBranchWelcomeScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToWelcomeScreenOnClick(v);
+            }
+        });
     }
 
 
@@ -90,7 +101,8 @@ public class SetBranchProfile extends AppCompatActivity {
         editStreetAddressButton = findViewById(R.id.editStreetAddressButton);
         editPhoneNumberButton = findViewById(R.id.editPhoneNumberButton);
         editPostalCodeButton = findViewById(R.id.editPostalCodeButton);;
-        editCityButton = findViewById(R.id.editCityButton);;
+        editCityButton = findViewById(R.id.editCityButton);
+        goToBranchWelcomeScreenButton = findViewById(R.id.goToBranchWelcomeScreenButton);
 
         enterAddressEditText = findViewById(R.id.enterAddressEditText);
         streetNumberEditText = findViewById(R.id.streetNumberEditText);;
@@ -286,5 +298,10 @@ public class SetBranchProfile extends AppCompatActivity {
             DatabaseReference phoneNumberReference = firebaseDatabase.getReference("User Info").child(uid).child("Phone Number");
             phoneNumberReference.setValue("(" + phoneNumber.substring(0, 3) + ")" + " " + phoneNumber.substring(3, 6) + "-" + phoneNumber.substring(6));
         }
+    }
+
+
+    private void goToWelcomeScreenOnClick(View view){
+        startActivity(new Intent(SetBranchProfile.this, BranchWelcomeActivity.class));
     }
 }

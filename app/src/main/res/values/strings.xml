@@ -124,4 +124,6 @@
     <string name="edit_city">Edit City</string>
     <string name="edit_postal_code">Edit Postal Code</string>
     <string name="city">City</string>
+    <string name="go_to_branch_welcome_screen">Go to Branch Welcome Screen</string>
+    <string name="to_gain_access_to_the_functionalities_a_branch_has_setting_working_hours_offering_services_and_reviewing_service_requests_it_is_mandatory_that_you_complete_your_branch_profile_in_its_entirety_these_functionalities_will_appear_on_this_screen_after_you_have_completed_your_branch_profile_to_do_so_select_view_and_edit_branch_profile_and_fill_out_all_fields">To gain access to the functionalities a Branch has (setting working hours, offering Services, and reviewing Service Requests), it is mandatory that you complete your Branch Profile in its entirety. These functionalities will appear on this screen after you have completed your Branch Profile; to do so, select View and Edit Branch Profile and fill out ALL fields.</string>
 </resources>

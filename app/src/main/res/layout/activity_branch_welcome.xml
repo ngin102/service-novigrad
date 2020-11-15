@@ -43,6 +43,14 @@
             android:text="@string/you_are_a_branch_account"
             android:textAlignment="center" />
 
+        <TextView
+            android:id="@+id/mandatoryInfoText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/to_gain_access_to_the_functionalities_a_branch_has_setting_working_hours_offering_services_and_reviewing_service_requests_it_is_mandatory_that_you_complete_your_branch_profile_in_its_entirety_these_functionalities_will_appear_on_this_screen_after_you_have_completed_your_branch_profile_to_do_so_select_view_and_edit_branch_profile_and_fill_out_all_fields"
+            android:textAlignment="center"
+            android:textColor="#E91E63" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="17dp" />
@@ -57,13 +65,15 @@
             android:id="@+id/viewAdminServicesFromBranchButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/offer_services_created_by_admin" />
+            android:text="@string/offer_services_created_by_admin"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/viewOfferedServicesButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/view_services_you_are_currently_offering" />
+            android:text="@string/view_services_you_are_currently_offering"
+            android:visibility="invisible" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
