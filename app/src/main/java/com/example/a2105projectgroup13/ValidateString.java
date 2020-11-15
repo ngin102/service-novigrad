@@ -184,4 +184,22 @@ public class ValidateString {
             }
         }
     }
+
+    public static String validateAddressOrCity(String addressOrCity){
+        String streetAddressFormat = "^[a-zA-Z\\-\\ ]+$";
+        if (!validateField(streetAddressFormat, addressOrCity)){
+            return "-1";
+        } else {
+            return addressOrCity;
+        }
+    }
+
+    public static String validatePostalCode(String postalCode){
+        String postalCodeFormat = "^[a-zA-Z]+[0-9]+[a-zA-Z]+[0-9]+[a-zA-Z]+[0-9]+$";
+        if (! validateField(postalCodeFormat, postalCode)){
+            return "-1";
+        } else {
+            return postalCode.substring(0,1).toUpperCase() + postalCode.substring(1,2) + postalCode.substring(2,3).toUpperCase() + postalCode.substring(3,4) + postalCode.substring(4,5).toUpperCase() + postalCode.substring(5);
+        }
+    }
 }

@@ -212,9 +212,19 @@ public class SetBranchProfile extends AppCompatActivity {
             Toast.makeText(SetBranchProfile.this, "Please enter the new street address.", Toast.LENGTH_SHORT).show();
             return;
         }
+        else if (streetAddress.equals("-")){
+            Toast.makeText(SetBranchProfile.this, "' - ' is not a valid street address.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         else {
-            DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Street Address");
-            addressReference.setValue(streetNumber + " " + streetAddress);
+            String validateStreetAddress = ValidateString.validateAddressOrCity(streetAddress);
+            if (validateStreetAddress.equals("-1")) {
+                Toast.makeText(SetBranchProfile.this, "Street addresses can only be alphabetic; they can also include hyphens. Please enter a valid street address.", Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Street Address");
+                addressReference.setValue(streetNumber + " " + validateStreetAddress);
+            }
         }
     }
 
@@ -225,9 +235,19 @@ public class SetBranchProfile extends AppCompatActivity {
             Toast.makeText(SetBranchProfile.this, "Please enter a city name.", Toast.LENGTH_SHORT).show();
             return;
         }
+        else if (city.equals("-")){
+            Toast.makeText(SetBranchProfile.this, "' - ' is not a city name.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         else {
-            DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("City");
-            addressReference.setValue(city + ", " + "Novigrad");
+            String validateCity = ValidateString.validateAddressOrCity(city);
+            if (validateCity.equals("-1")) {
+                Toast.makeText(SetBranchProfile.this, "City names can only be alphabetic; they can also include hyphens. Please enter a valid city name.", Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("City");
+                addressReference.setValue(validateCity + ", " + "Novigrad");
+            }
         }
     }
 
@@ -237,10 +257,18 @@ public class SetBranchProfile extends AppCompatActivity {
         if (postalCode.isEmpty()){
             Toast.makeText(SetBranchProfile.this, "Please enter a postal code.", Toast.LENGTH_SHORT).show();
             return;
-        }
-        else {
-            DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Postal Code");
-            addressReference.setValue(postalCode);
+        } else if (postalCode.length() != 6){
+            Toast.makeText(SetBranchProfile.this, "Postal codes are 6 characters long. Please enter a valid postal code.", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            String validatePostalCode = ValidateString.validatePostalCode(postalCode);
+            if (validatePostalCode.equals("-1")){
+                Toast.makeText(SetBranchProfile.this, "Postal codes are 6 characters long. Postal codes follow the format 'A0A0A0', where A is any letter and 0 is any number. Please enter a valid postal code.", Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Postal Code");
+                addressReference.setValue(validatePostalCode);
+            }
         }
     }
 
