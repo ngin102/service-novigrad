@@ -29,7 +29,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
- * This class allows the Admin to view and edit the fields (forms) of a service.
+ * This class allows the Admin to view and edit the fields of a form of a service.
  */
 
 public class ViewFields extends AppCompatActivity {

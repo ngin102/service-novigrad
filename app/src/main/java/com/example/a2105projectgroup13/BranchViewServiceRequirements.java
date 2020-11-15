@@ -67,7 +67,7 @@ public class BranchViewServiceRequirements extends AppCompatActivity {
         form = new Form();
         document = new Document();
 
-        requirementsListServiceName = (TextView) findViewById(R.id.requirementsListServiceName);
+        requirementsListServiceName = (TextView) findViewById(R.id.branchRequirementsListServiceName);
         requirementsListServiceName.setText(serviceName);
 
         backToServiceListButton = (Button) findViewById(R.id.branchBackToServicesButton);
@@ -159,11 +159,9 @@ public class BranchViewServiceRequirements extends AppCompatActivity {
      * Returns nothing.
      */
     private void moveToFields(final String requirementToViewFields){
-        /*
         Intent moveToView = new Intent(BranchViewServiceRequirements.this, BranchViewFields.class);
         moveToView.putExtra("selectedServiceName", serviceName);
         moveToView.putExtra("requirementName", requirementToViewFields);
         startActivity(moveToView);
-         */
     }
 }

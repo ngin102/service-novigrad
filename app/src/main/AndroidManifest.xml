@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BranchViewServiceRequirements"></activity>
+        <activity android:name=".BranchViewFields"></activity>
+        <activity android:name=".BranchViewServiceRequirements" />
         <activity android:name=".BranchViewOfferedServiceList" />
         <activity android:name=".BranchViewAdminServiceList" />
         <activity android:name=".BranchWelcomeActivity" />

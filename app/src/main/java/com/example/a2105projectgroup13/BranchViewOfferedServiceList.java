@@ -36,6 +36,8 @@ public class BranchViewOfferedServiceList extends AppCompatActivity {
     private ListView serviceList;
     private ArrayList<String> serviceArrayList = new ArrayList<String>();
 
+    private Button returnToBranchWelcomeScreenButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,9 @@ public class BranchViewOfferedServiceList extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
         serviceInDatabase = firebaseDatabase.getReference("Offered Services").child(uid);
         serviceList = (ListView) findViewById(R.id.offeredServiceListBranch);
+
+
+        returnToBranchWelcomeScreenButton = (Button) findViewById(R.id.returnToBranchWelcomeScreenButton2);
 
 
         serviceInDatabase.addValueEventListener(new ValueEventListener() {
@@ -88,6 +93,16 @@ public class BranchViewOfferedServiceList extends AppCompatActivity {
                 startActivity(moveToView);
             }
         });
+
+
+        returnToBranchWelcomeScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent move = new Intent(BranchViewOfferedServiceList.this, BranchWelcomeActivity.class);
+                startActivity(move);
+            }
+        });
+
     }
 
     //Adapted from showUpdateDeleteDialog() method from Lab 5

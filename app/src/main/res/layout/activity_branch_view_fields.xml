@@ -2,43 +2,45 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/branchFieldsInfo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewServiceRequirements">
+    tools:context=".ViewFields">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/branchRequirementsText"
-                android:layout_width="0dp"
+                android:id="@+id/branchFieldsText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/requirements_of"
+                android:text="@string/fields_of"
                 android:textAlignment="center"
+                android:textAllCaps="false"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:typeface="normal" />
 
             <TextView
-                android:id="@+id/branchRequirementsListServiceName"
-                android:layout_width="187dp"
+                android:id="@+id/branchChangeableRequirementName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/service_name2"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_weight="1"
+                android:text="@string/requirement"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/branchRequirementsListInfo"
+            android:id="@+id/fieldsInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/this_is_the_list_of_the_requirements_of_your_selected_service_single_press_on_a_form_to_view_its_fields_if_an_admin_changes_the_name_of_this_service_while_you_are_viewing_this_screen_please_return_to_one_of_the_service_lists_and_select_this_service_again_but_with_its_updated_name"
@@ -52,10 +54,9 @@
             android:orientation="horizontal">
 
             <ListView
-                android:id="@+id/branchServiceRequirementList"
+                android:id="@+id/branchFieldScrollingList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -65,21 +66,19 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/branchBackToServicesButton"
+                android:id="@+id/branchBackToServicesButton2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/view_all_services" />
+                android:text="@string/view_all_services"
+                android:textSize="14sp" />
 
             <Button
-                android:id="@+id/branchOfferedServicesButton1"
+                android:id="@+id/branchOfferedServicesButton2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/view_currently_offered_services" />
-
         </LinearLayout>
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
