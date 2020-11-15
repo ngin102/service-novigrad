@@ -2,7 +2,6 @@ package com.example.a2105projectgroup13;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,14 +20,21 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SetBranchProfile extends AppCompatActivity {
 
-    Button editAddressButton;
+    Button editStreetAddressButton;
+    Button editCityButton;
+    Button editPostalCodeButton;
     Button editPhoneNumberButton;
 
     EditText enterAddressEditText;
+    EditText streetNumberEditText;
+    EditText cityEditText;
+    EditText postalCodeEditText;
     EditText enterPhoneEditText;
 
     TextView showPhoneNumberTextView;
     TextView showAddressTextView;
+    TextView showCityTextView;
+    TextView showPostalCodeTextView;
     TextView uidBranchTextView;
 
     private FirebaseDatabase firebaseDatabase;
@@ -46,10 +52,10 @@ public class SetBranchProfile extends AppCompatActivity {
 
         getProfileInfo();
 
-        editAddressButton.setOnClickListener(new View.OnClickListener() {
+        editStreetAddressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editAddressOnClick(v);
+                editStreetAddressOnClick(v);
             }
         });
 
@@ -60,6 +66,19 @@ public class SetBranchProfile extends AppCompatActivity {
             }
         });
 
+        editCityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editCityOnClick(v);
+            }
+        });
+
+        editPostalCodeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editPostalCodeOnClick(v);
+            }
+        });
     }
 
 
@@ -68,14 +87,21 @@ public class SetBranchProfile extends AppCompatActivity {
      */
     private void initializeInstanceVariables() {
         //Initialize each instance variable by finding the first view that corresponds with its id.
-        editAddressButton = findViewById(R.id.editAddressButton);
+        editStreetAddressButton = findViewById(R.id.editStreetAddressButton);
         editPhoneNumberButton = findViewById(R.id.editPhoneNumberButton);
+        editPostalCodeButton = findViewById(R.id.editPostalCodeButton);;
+        editCityButton = findViewById(R.id.editCityButton);;
 
         enterAddressEditText = findViewById(R.id.enterAddressEditText);
+        streetNumberEditText = findViewById(R.id.streetNumberEditText);;
+        cityEditText = findViewById(R.id.cityEditText);;
+        postalCodeEditText = findViewById(R.id.postalCodeEditText);;
         enterPhoneEditText = findViewById(R.id.enterPhoneEditText);
 
         showPhoneNumberTextView = findViewById(R.id.showPhoneNumberTextView);
-        showAddressTextView = findViewById(R.id.showAddressTextView);
+        showAddressTextView = findViewById(R.id.showStreetAddressTextView);
+        showCityTextView = findViewById(R.id.showCityTextView);;
+        showPostalCodeTextView = findViewById(R.id.showPostalCodeTextView);;
         uidBranchTextView = findViewById(R.id.uidBranchTextView);
 
         firebaseDatabase = firebaseDatabase.getInstance();
@@ -92,15 +118,60 @@ public class SetBranchProfile extends AppCompatActivity {
     private void getProfileInfo(){
         uidBranchTextView.setText(uid);
 
-        DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Address");
+        DatabaseReference streetAddressReference = firebaseDatabase.getReference("User Info").child(uid).child("Street Address");
+        DatabaseReference cityReference = firebaseDatabase.getReference("User Info").child(uid).child("City");
+        DatabaseReference postalCodeReference = firebaseDatabase.getReference("User Info").child(uid).child("Postal Code");
         DatabaseReference phoneNumberReference = firebaseDatabase.getReference("User Info").child(uid).child("Phone Number");
 
 
-        addressReference.addValueEventListener(new ValueEventListener() {
+        streetAddressReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
-                showAddressTextView.setText(value);
+
+                if (value == null){
+                    showAddressTextView.setText("No street address has been set for this Branch.");
+
+                } else {
+                    showAddressTextView.setText(value);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Toast.makeText(SetBranchProfile.this, "ERROR", Toast.LENGTH_SHORT).show();;
+            }
+        });
+
+        cityReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+
+                if (value == null){
+                    showCityTextView.setText("No city has been set for this Branch.");
+                } else {
+                    showCityTextView.setText(value);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Toast.makeText(SetBranchProfile.this, "ERROR", Toast.LENGTH_SHORT).show();;
+            }
+        });
+
+
+        postalCodeReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+
+                if (value == null){
+                    showPostalCodeTextView.setText("No postal code has been set for this Branch.");
+                } else {
+                    showPostalCodeTextView.setText(value);
+                }
             }
 
             @Override
@@ -114,7 +185,12 @@ public class SetBranchProfile extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
-                showPhoneNumberTextView.setText(value);
+
+                if (value == null){
+                    showPhoneNumberTextView.setText("No phone number has been set for this Branch.");
+                } else {
+                    showPhoneNumberTextView.setText(value);
+                }
             }
 
             @Override
@@ -124,17 +200,47 @@ public class SetBranchProfile extends AppCompatActivity {
         });
     }
 
-    private void editAddressOnClick(View view) {
-        String address = enterAddressEditText.getText().toString().trim();
+    private void editStreetAddressOnClick(View view) {
+        String streetNumber = streetNumberEditText.getText().toString().trim();
+        String streetAddress = enterAddressEditText.getText().toString().trim();
 
-        if (address.isEmpty()){
-            Toast.makeText(SetBranchProfile.this, "Please indicate the new address.", Toast.LENGTH_SHORT).show();
+        if (streetNumber.isEmpty()){
+            Toast.makeText(SetBranchProfile.this, "Please enter the new street number.", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        else if (streetAddress.isEmpty()){
+            Toast.makeText(SetBranchProfile.this, "Please enter the new street address.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         else {
-            DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Address");
-            addressReference.setValue(address);
+            DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Street Address");
+            addressReference.setValue(streetNumber + " " + streetAddress);
+        }
+    }
+
+    private void editCityOnClick(View view) {
+        String city = cityEditText.getText().toString().trim();
+
+        if (city.isEmpty()){
+            Toast.makeText(SetBranchProfile.this, "Please enter a city name.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+            DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("City");
+            addressReference.setValue(city + ", " + "Novigrad");
+        }
+    }
+
+    private void editPostalCodeOnClick(View view) {
+        String postalCode = postalCodeEditText.getText().toString().trim();
+
+        if (postalCode.isEmpty()){
+            Toast.makeText(SetBranchProfile.this, "Please enter a postal code.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+            DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Postal Code");
+            addressReference.setValue(postalCode);
         }
     }
 
@@ -145,11 +251,12 @@ public class SetBranchProfile extends AppCompatActivity {
         if (phoneNumber.isEmpty()){
             Toast.makeText(SetBranchProfile.this, "Please indicate the new phone number.", Toast.LENGTH_SHORT).show();
             return;
-        }
-
-        else {
+        } else if (phoneNumber.length() != 10){
+            Toast.makeText(SetBranchProfile.this, "Phone numbers are 10 characters long. Please enter a valid phone number.", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
             DatabaseReference phoneNumberReference = firebaseDatabase.getReference("User Info").child(uid).child("Phone Number");
-            phoneNumberReference.setValue(phoneNumber);
+            phoneNumberReference.setValue("(" + phoneNumber.substring(0, 3) + ")" + " " + phoneNumber.substring(3, 6) + "-" + phoneNumber.substring(6));
         }
     }
 }

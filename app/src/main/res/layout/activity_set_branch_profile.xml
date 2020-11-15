@@ -52,11 +52,49 @@
                 android:textAlignment="textStart" />
 
             <TextView
-                android:id="@+id/showAddressTextView"
+                android:id="@+id/showStreetAddressTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/address" />
+                android:text="@string/street_address" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/emptyTextView1"
+                android:layout_width="119dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/showCityTextView"
+                android:layout_width="246dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/city" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="21dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/emptyTextView2"
+                android:layout_width="119dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/showPostalCodeTextView"
+                android:layout_width="444dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/postal_code" />
         </LinearLayout>
 
         <LinearLayout
@@ -66,9 +104,8 @@
 
             <TextView
                 android:id="@+id/phoneNumberTextView"
-                android:layout_width="44dp"
+                android:layout_width="119dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/phone_number_colon"
                 android:textAlignment="textStart" />
 
@@ -85,7 +122,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/edit_branch_profile_details"
+            android:textAlignment="center"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/editAddressDetailsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_address_details" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,20 +137,90 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/streetNumberEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/street"
+                android:inputType="number"
+                android:singleLine="false"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:autofillHints="" />
+
+            <EditText
                 android:id="@+id/enterAddressEditText"
-                android:layout_width="296dp"
+                android:layout_width="236dp"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:ems="10"
-                android:hint="@string/address"
+                android:hint="@string/street_address"
                 android:inputType="textPostalAddress" />
 
             <Button
-                android:id="@+id/editAddressButton"
-                android:layout_width="match_parent"
+                android:id="@+id/editStreetAddressButton"
+                android:layout_width="118dp"
                 android:layout_height="wrap_content"
-                android:text="@string/edit_address" />
+                android:text="@string/edit_street_address" />
+
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/cityEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/city"
+                android:inputType="textPersonName"
+                android:autofillHints="" />
+
+            <Button
+                android:id="@+id/editCityButton"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/edit_city" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/postalCodeEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/postal_code"
+                android:inputType="textPersonName"
+                android:autofillHints="" />
+
+            <Button
+                android:id="@+id/editPostalCodeButton"
+                android:layout_width="34dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/edit_postal_code" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/editPhoneNumberTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_phone_number" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,12 +229,12 @@
 
             <EditText
                 android:id="@+id/enterPhoneEditText"
-                android:layout_width="296dp"
+                android:layout_width="293dp"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/phone_number"
-                android:inputType="phone" />
+                android:inputType="number" />
 
             <Button
                 android:id="@+id/editPhoneNumberButton"
@@ -128,6 +242,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/edit_phone_number" />
+
         </LinearLayout>
 
     </LinearLayout>

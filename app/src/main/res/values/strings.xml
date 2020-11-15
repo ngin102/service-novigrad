@@ -116,4 +116,12 @@
     <string name="view_and_edit_branch_profile">View and Edit Branch Profile</string>
     <string name="welcome2">Welcome</string>
     <string name="you_are_a_branch_account">You are a Branch Account!</string>
+    <string name="edit_street_address">Edit Street Address</string>
+    <string name="street">Street #</string>
+    <string name="street_address">Street Address</string>
+    <string name="edit_address_details">Edit Address Details</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="edit_city">Edit City</string>
+    <string name="edit_postal_code">Edit Postal Code</string>
+    <string name="city">City</string>
 </resources>
