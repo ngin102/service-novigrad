@@ -102,4 +102,18 @@
     <string name="all_services_list">All Services List</string>
     <string name="offered_services_list">Offered Services List</string>
     <string name="the_following_is_the_list_of_services_you_are_currently_offering_to_your_customers_single_press_on_a_service_to_view_its_requirements">The following is the list of Services you are currently offering to your Customers. Single press on a Service to view its Requirements.</string>
+    <string name="address">Address</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="set_profile_information">Set Profile Information</string>
+    <string name="branch_uid">Branch uID:</string>
+    <string name="uid">uID</string>
+    <string name="branch_profile">Branch Profile</string>
+    <string name="addresscolon">Address:</string>
+    <string name="phone_number_colon">Phone Number:</string>
+    <string name="edit_branch_profile_details">Edit Branch Profile Details</string>
+    <string name="edit_address">Edit Address</string>
+    <string name="edit_phone_number">Edit Phone Number</string>
+    <string name="view_and_edit_branch_profile">View and Edit Branch Profile</string>
+    <string name="welcome2">Welcome</string>
+    <string name="you_are_a_branch_account">You are a Branch Account!</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.a2105projectgroup13;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -23,8 +22,13 @@ public class BranchWelcomeActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private String uid;
 
+    private Button viewBranchProfileButton;
     private Button offerServicesCreatedByAdminButton;
     private Button viewOfferedServicesButton;
+
+    //Text that appears on screen:
+    private TextView firstNameText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,9 @@ public class BranchWelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_branch_welcome);
 
         initializeInstanceVariables();
+
+        //The unique user uId of the user who is currently logged in to the app.
+        getUid();
 
         offerServicesCreatedByAdminButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,13 +54,41 @@ public class BranchWelcomeActivity extends AppCompatActivity {
             }
         });
 
+        viewBranchProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent moveToProfile = new Intent(BranchWelcomeActivity.this, SetBranchProfile.class);
+                moveToProfile.putExtra("uid", uid);
+                startActivity(moveToProfile);
+            }
+        });
 
+
+        //Get the references to the user's first name and account type in Firebase Database based on the user's unique uId.
+        DatabaseReference firstName = firebaseDatabase.getReference("Users").child(uid).child("firstName");
+
+        //Use dataSnapshot to set a TextView to display the user's first name.
+        firstName.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                firstNameText.setText(value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Toast.makeText(BranchWelcomeActivity.this, "ERROR", Toast.LENGTH_SHORT).show();;
+            }
+        });
     }
 
     private void initializeInstanceVariables() {
         //Initialize each instance variable by finding the first view that corresponds with its id.
-        offerServicesCreatedByAdminButton = (Button) findViewById(R.id.offerServicesFromAdminListButton);
+        offerServicesCreatedByAdminButton = (Button) findViewById(R.id.viewAdminServicesFromBranchButton);
         viewOfferedServicesButton = (Button) findViewById(R.id.viewOfferedServicesButton);
+        viewBranchProfileButton = (Button) findViewById(R.id.viewBranchProfileButton);
+
+        firstNameText = (TextView) findViewById(R.id.nameBranchText);
     }
 
     private void getUid(){
