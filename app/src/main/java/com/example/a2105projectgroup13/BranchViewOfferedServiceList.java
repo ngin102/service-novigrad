@@ -56,10 +56,11 @@ public class BranchViewOfferedServiceList extends AppCompatActivity {
                 for (DataSnapshot service : snapshot.getChildren()) {
                     final String key = service.getKey();
                     serviceArrayList.add(key);
-
-                    ArrayAdapter arrayAdapter = new ArrayAdapter(BranchViewOfferedServiceList.this, android.R.layout.simple_list_item_1, serviceArrayList);
-                    serviceList.setAdapter(arrayAdapter);
                 }
+
+
+                ArrayAdapter arrayAdapter = new ArrayAdapter(BranchViewOfferedServiceList.this, android.R.layout.simple_list_item_1, serviceArrayList);
+                serviceList.setAdapter(arrayAdapter);
             }
 
             @Override
@@ -82,7 +83,7 @@ public class BranchViewOfferedServiceList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String serviceToViewRequirements = serviceArrayList.get(i);
-                Intent moveToView = new Intent(BranchViewOfferedServiceList.this, ViewServiceRequirements.class);
+                Intent moveToView = new Intent(BranchViewOfferedServiceList.this, BranchViewServiceRequirements.class);
                 moveToView.putExtra("serviceName", serviceToViewRequirements);
                 startActivity(moveToView);
             }

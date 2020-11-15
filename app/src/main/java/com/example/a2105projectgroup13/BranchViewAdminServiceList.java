@@ -43,6 +43,8 @@ public class BranchViewAdminServiceList extends AppCompatActivity {
     private ListView serviceList;
     private ArrayList<String> serviceArrayList = new ArrayList<String>();
 
+    private Button returnToBranchWelcomeScreenButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,8 @@ public class BranchViewAdminServiceList extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
         serviceInDatabase = firebaseDatabase.getReference("Services");
         serviceList = (ListView) findViewById(R.id.adminServiceListBranch);
+
+        returnToBranchWelcomeScreenButton = (Button) findViewById(R.id.returnToBranchWelcomeScreenButton1);
 
 
         serviceInDatabase.addValueEventListener(new ValueEventListener() {
@@ -104,11 +108,21 @@ public class BranchViewAdminServiceList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String serviceToViewRequirements = serviceArrayList.get(i);
-                Intent moveToView = new Intent(BranchViewAdminServiceList.this, ViewServiceRequirements.class);
+                Intent moveToView = new Intent(BranchViewAdminServiceList.this, BranchViewServiceRequirements.class);
                 moveToView.putExtra("serviceName", serviceToViewRequirements);
                 startActivity(moveToView);
             }
         });
+
+        returnToBranchWelcomeScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent move = new Intent(BranchViewAdminServiceList.this, BranchWelcomeActivity.class);
+                startActivity(move);
+            }
+        });
+
+
     }
 
     //Adapted from showUpdateDeleteDialog() method from Lab 5

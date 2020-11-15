@@ -92,4 +92,12 @@
     <string name="offer_services_created_by_admin">Offer Services Created by Admin</string>
     <string name="stop_offering_service">Stop Offering Service</string>
     <string name="view_services_you_are_currently_offering">View Services You are currently offering</string>
+    <string name="this_is_the_list_of_the_requirements_of_your_selected_service_single_press_on_a_form_to_view_its_fields">This is the list of the Requirements of your selected Service. Single press on a Form to view its fields.</string>
+    <string name="go_to_services_list">Go to Services List</string>
+    <string name="view_all_services">View All Services</string>
+    <string name="view_currently_offered_services">View Currently Offered Services</string>
+    <string name="this_is_the_list_of_the_requirements_of_your_selected_service_single_press_on_a_form_to_view_its_fields_if_an_admin_changes_the_name_of_this_service_while_you_are_viewing_this_screen_please_return_to_one_of_the_service_lists_and_select_this_service_again_but_with_its_updated_name">This is the list of the Requirements of your selected Service. Single press on a Form to view its Fields. If an Admin changes the name of this Service while you are viewing this screen, please return to one of the Service Lists and select this Service again but with its updated name.</string>
+    <string name="return_to_branch_welcome_screen">Return to Branch Welcome Screen</string>
+    <string name="the_following_is_the_list_of_all_services_offered_by_the_admin">The following is the list of all Services offered by the Admin.</string>
+    <string name="all_services_list">All Services List</string>
 </resources>
