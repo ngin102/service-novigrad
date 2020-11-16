@@ -31,6 +31,7 @@ public class BranchWelcomeActivity extends AppCompatActivity {
     private Button offerServicesCreatedByAdminButton;
     private Button viewOfferedServicesButton;
     private Button viewWorkingHoursButton;
+    private Button viewServiceRequestsButton;
 
     //Text that appears on screen:
     private TextView firstNameText;
@@ -62,6 +63,7 @@ public class BranchWelcomeActivity extends AppCompatActivity {
                    offerServicesCreatedByAdminButton.setVisibility(VISIBLE);
                    viewOfferedServicesButton.setVisibility(VISIBLE);
                    viewWorkingHoursButton.setVisibility(VISIBLE);
+                   viewServiceRequestsButton.setVisibility(VISIBLE);
                 } else {
                    return;
                 }
@@ -77,6 +79,13 @@ public class BranchWelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 startActivity(new Intent(BranchWelcomeActivity.this, BranchViewOfferedServiceList.class));
+            }
+        });
+
+        viewServiceRequestsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(BranchWelcomeActivity.this, BranchViewServiceRequests.class));
             }
         });
 
@@ -124,6 +133,7 @@ public class BranchWelcomeActivity extends AppCompatActivity {
         viewOfferedServicesButton = (Button) findViewById(R.id.viewOfferedServicesButton);
         viewBranchProfileButton = (Button) findViewById(R.id.viewBranchProfileButton);
         viewWorkingHoursButton = (Button) findViewById(R.id.viewWorkingHoursButton);
+        viewServiceRequestsButton = (Button)findViewById(R.id.viewServiceRequestsButton);
 
         firstNameText = (TextView) findViewById(R.id.nameBranchText);
     }

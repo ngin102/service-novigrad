@@ -82,5 +82,12 @@
             android:text="@string/view_services_you_are_currently_offering"
             android:visibility="invisible" />
 
+        <Button
+            android:id="@+id/viewServiceRequestsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View service requests"
+            android:visibility="invisible" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
