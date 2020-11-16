@@ -53,7 +53,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="17dp" />
+            android:layout_height="10dp" />
 
         <Button
             android:id="@+id/viewBranchProfileButton"
@@ -66,28 +66,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/view_and_edit_working_hours"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/viewAdminServicesFromBranchButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/offer_services_created_by_admin"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/viewOfferedServicesButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/view_services_you_are_currently_offering"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
         <Button
             android:id="@+id/viewServiceRequestsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/view_and_accept_reject_service_requests"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

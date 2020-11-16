@@ -156,7 +156,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="21dp"
             android:orientation="horizontal">
 
             <TextView
@@ -184,7 +184,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="333dp">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -604,14 +605,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/goToBranchWelcomeScreenButton2"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/go_to_branch_welcome_screen" />
         </LinearLayout>
 
