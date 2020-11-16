@@ -185,6 +185,13 @@ public class ValidateString {
         }
     }
 
+    /**
+     Validates an address.
+     Returns "-1" if the address is an invalid format.
+     Returns the given string if the format is allowed.
+
+     An address is valid if it contains only letters, spaces, and hyphens.
+     */
     public static String validateAddressOrCity(String addressOrCity){
         String streetAddressFormat = "^[a-zA-Z\\-\\ ]+$";
         if (!validateField(streetAddressFormat, addressOrCity)){
@@ -194,8 +201,12 @@ public class ValidateString {
         }
     }
 
+    /**
+     Validates a postal code, returning "-1" if the string is in an invalid format,
+     or returning the postal code (with all capitals) if the format is correct.
+     */
     public static String validatePostalCode(String postalCode){
-        String postalCodeFormat = "^[a-zA-Z]+[0-9]+[a-zA-Z]+[0-9]+[a-zA-Z]+[0-9]+$";
+        String postalCodeFormat = "^([a-zA-Z][0-9]){3}$";
         if (! validateField(postalCodeFormat, postalCode)){
             return "-1";
         } else {
