@@ -55,6 +55,13 @@ public class BranchAddWorkingHours extends AppCompatActivity {
     Button editHoursButton6;
     Button editHoursButton7;
     Button goToBranchWelcomeScreenButton;
+    Button closedButton1;
+    Button closedButton2;
+    Button closedButton3;
+    Button closedButton4;
+    Button closedButton5;
+    Button closedButton6;
+    Button closedButton7;
 
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
@@ -119,6 +126,62 @@ public class BranchAddWorkingHours extends AppCompatActivity {
                 editHoursOnClick(v, startTimeEditText7, endTimeEditText7, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Sunday"));
             }
         });
+
+        closedButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Monday"));
+            }
+        });
+
+        closedButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Tuesday"));
+            }
+        });
+
+        closedButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Wednesday"));
+            }
+        });
+
+        closedButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Thursday"));
+            }
+        });
+
+        closedButton5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Friday"));
+            }
+        });
+
+        closedButton6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Saturday"));
+            }
+        });
+
+        closedButton7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Sunday"));
+            }
+        });
+
+        goToBranchWelcomeScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToWelcomeScreenOnClick(v);
+            }
+        });
     }
 
 
@@ -170,6 +233,15 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         editHoursButton7 = findViewById(R.id.editHoursButton7);
 
 
+        closedButton1 = findViewById(R.id.closedButton1);
+        closedButton2 = findViewById(R.id.closedButton2);
+        closedButton3 = findViewById(R.id.closedButton3);
+        closedButton4 = findViewById(R.id.closedButton4);
+        closedButton5 = findViewById(R.id.closedButton5);
+        closedButton6 = findViewById(R.id.closedButton6);
+        closedButton7 = findViewById(R.id.closedButton7);
+
+
         //Return to welcome screen
         goToBranchWelcomeScreenButton = findViewById(R.id.goToBranchWelcomeScreenButton2);
 
@@ -205,7 +277,7 @@ public class BranchAddWorkingHours extends AppCompatActivity {
                     mondayWorkingHoursTextView.setText("Monday: CLOSED");
 
                 } else {
-                    mondayWorkingHoursTextView.setText(value);
+                    mondayWorkingHoursTextView.setText("Monday: " + value);
                 }
             }
 
@@ -223,7 +295,7 @@ public class BranchAddWorkingHours extends AppCompatActivity {
                 if (value == null){
                     tuesdayWorkingHoursTextView.setText("Tuesday: CLOSED");
                 } else {
-                    tuesdayWorkingHoursTextView.setText(value);
+                    tuesdayWorkingHoursTextView.setText("Tuesday: " + value);
                 }
             }
 
@@ -242,7 +314,7 @@ public class BranchAddWorkingHours extends AppCompatActivity {
                 if (value == null){
                     wednesdayWorkingHoursTextView.setText("Wednesday: CLOSED");
                 } else {
-                    wednesdayWorkingHoursTextView.setText(value);
+                    wednesdayWorkingHoursTextView.setText("Wednesday: " + value);
                 }
             }
 
@@ -261,7 +333,7 @@ public class BranchAddWorkingHours extends AppCompatActivity {
                 if (value == null){
                     thursdayWorkingHoursTextView.setText("Thursday: CLOSED");
                 } else {
-                    thursdayWorkingHoursTextView.setText(value);
+                    thursdayWorkingHoursTextView.setText("Thursday: " + value);
                 }
             }
 
@@ -280,7 +352,7 @@ public class BranchAddWorkingHours extends AppCompatActivity {
                 if (value == null){
                     fridayWorkingHoursTextView.setText("Friday: CLOSED");
                 } else {
-                    fridayWorkingHoursTextView.setText(value);
+                    fridayWorkingHoursTextView.setText("Friday: " + value);
                 }
             }
 
@@ -299,7 +371,7 @@ public class BranchAddWorkingHours extends AppCompatActivity {
                 if (value == null){
                     saturdayWorkingHoursTextView.setText("Saturday: CLOSED");
                 } else {
-                    saturdayWorkingHoursTextView.setText(value);
+                    saturdayWorkingHoursTextView.setText("Saturday: " + value);
                 }
             }
 
@@ -318,7 +390,7 @@ public class BranchAddWorkingHours extends AppCompatActivity {
                 if (value == null){
                     sundayWorkingHoursTextView.setText("Sunday: CLOSED");
                 } else {
-                    sundayWorkingHoursTextView.setText(value);
+                    sundayWorkingHoursTextView.setText("Sunday: " + value);
                 }
             }
 
@@ -335,22 +407,22 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         String endTime = endTimeEditText.getText().toString().trim();
 
         if (startTime.isEmpty()){
-            Toast.makeText(BranchAddWorkingHours.this, "Please enter a open time.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchAddWorkingHours.this, "Please enter an open time.", Toast.LENGTH_SHORT).show();
             return;
         }
         else if (endTime.isEmpty()){
-            Toast.makeText(BranchAddWorkingHours.this, "Please enter an close time.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchAddWorkingHours.this, "Please enter a close time.", Toast.LENGTH_SHORT).show();
             return;
         }
         else {
             String validateStartTime = ValidateString.validateTime(startTime);
             if (validateStartTime.equals("-1")) {
-                Toast.makeText(BranchAddWorkingHours.this, "Please enter a valid open time.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BranchAddWorkingHours.this, "Please enter a valid open time. Use the time format specified above.", Toast.LENGTH_SHORT).show();
                 return;
             } else {
                 String validateEndTime = ValidateString.validateTime(endTime);
                 if (validateEndTime.equals("-1")) {
-                    Toast.makeText(BranchAddWorkingHours.this, "Please enter a valid close time.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BranchAddWorkingHours.this, "Please enter a valid close time. Use the time format specified above.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else {
@@ -367,6 +439,9 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         }
     }
 
+    private void setHoursToCloseOnClick(View view, DatabaseReference referenceToWorkingHours) {
+        referenceToWorkingHours.setValue("CLOSED");
+    }
 
     private void goToWelcomeScreenOnClick(View view){
         startActivity(new Intent(BranchAddWorkingHours.this, BranchWelcomeActivity.class));

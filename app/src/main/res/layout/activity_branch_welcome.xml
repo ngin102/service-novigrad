@@ -65,7 +65,8 @@
             android:id="@+id/viewWorkingHoursButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/view_and_edit_working_hours" />
+            android:text="@string/view_and_edit_working_hours"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/viewAdminServicesFromBranchButton"

@@ -61,6 +61,7 @@ public class BranchWelcomeActivity extends AppCompatActivity {
                 if (snapshot.hasChild("Street Address") && snapshot.hasChild("Postal Code") && snapshot.hasChild("City") && snapshot.hasChild("Phone Number")) {
                    offerServicesCreatedByAdminButton.setVisibility(VISIBLE);
                    viewOfferedServicesButton.setVisibility(VISIBLE);
+                   viewWorkingHoursButton.setVisibility(VISIBLE);
                 } else {
                    return;
                 }
