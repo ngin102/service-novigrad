@@ -1,3 +1,4 @@
+
 package com.example.a2105projectgroup13;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,6 +70,14 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         getUid();
 
         getWorkingHours();
+
+        editHoursButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editMondayHoursOnClick(v);
+            }
+        });
+
     }
 
 
@@ -279,95 +288,37 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         });
     }
 
-    /**
-    private void editStreetAddressOnClick(View view) {
-        String streetNumber = streetNumberEditText.getText().toString().trim();
-        String streetAddress = enterAddressEditText.getText().toString().trim();
 
-        if (streetNumber.isEmpty()){
-            Toast.makeText(SetBranchProfile.this, "Please enter the new street number.", Toast.LENGTH_SHORT).show();
+    private void editMondayHoursOnClick(View view) {
+        String startTime = startTimeEditText1.getText().toString().trim();
+        String endTime = endTimeEditText1.getText().toString().trim();
+
+        if (startTime.isEmpty()){
+            Toast.makeText(BranchAddWorkingHours.this, "Please enter a start time.", Toast.LENGTH_SHORT).show();
             return;
         }
-        else if (streetAddress.isEmpty()){
-            Toast.makeText(SetBranchProfile.this, "Please enter the new street address.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        else if (streetAddress.equals("-")){
-            Toast.makeText(SetBranchProfile.this, "' - ' is not a valid street address.", Toast.LENGTH_SHORT).show();
+        else if (endTime.isEmpty()){
+            Toast.makeText(BranchAddWorkingHours.this, "Please enter an end time.", Toast.LENGTH_SHORT).show();
             return;
         }
         else {
-            String validateStreetAddress = ValidateString.validateAddressOrCity(streetAddress);
-            if (validateStreetAddress.equals("-1")) {
-                Toast.makeText(SetBranchProfile.this, "Street addresses can only be alphabetic; they can also include hyphens. Please enter a valid street address.", Toast.LENGTH_SHORT).show();
+            String validateStartTime = ValidateString.validateTime(startTime);
+            if (validateStartTime.equals("-1")) {
+                Toast.makeText(BranchAddWorkingHours.this, "Please enter a valid start time.", Toast.LENGTH_SHORT).show();
                 return;
             } else {
-                DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Street Address");
-                addressReference.setValue(streetNumber + " " + validateStreetAddress);
+                String validateEndTime = ValidateString.validateTime(endTime);
+                if (validateEndTime.equals("-1")) {
+                    Toast.makeText(BranchAddWorkingHours.this, "Please enter a valid end time.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Monday");
+                    addressReference.setValue(validateStartTime + " - " + validateEndTime);
+                }
             }
         }
     }
-
-    private void editCityOnClick(View view) {
-        String city = cityEditText.getText().toString().trim();
-
-        if (city.isEmpty()){
-            Toast.makeText(SetBranchProfile.this, "Please enter a city name.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        else if (city.equals("-")){
-            Toast.makeText(SetBranchProfile.this, "' - ' is not a city name.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        else {
-            String validateCity = ValidateString.validateAddressOrCity(city);
-            if (validateCity.equals("-1")) {
-                Toast.makeText(SetBranchProfile.this, "City names can only be alphabetic; they can also include hyphens. Please enter a valid city name.", Toast.LENGTH_SHORT).show();
-                return;
-            } else {
-                DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("City");
-                addressReference.setValue(validateCity + ", " + "Novigrad");
-            }
-        }
-    }
-
-    private void editPostalCodeOnClick(View view) {
-        String postalCode = postalCodeEditText.getText().toString().trim();
-
-        if (postalCode.isEmpty()){
-            Toast.makeText(SetBranchProfile.this, "Please enter a postal code.", Toast.LENGTH_SHORT).show();
-            return;
-        } else if (postalCode.length() != 6){
-            Toast.makeText(SetBranchProfile.this, "Postal codes are 6 characters long. Please enter a valid postal code.", Toast.LENGTH_SHORT).show();
-            return;
-        } else {
-            String validatePostalCode = ValidateString.validatePostalCode(postalCode);
-            if (validatePostalCode.equals("-1")){
-                Toast.makeText(SetBranchProfile.this, "Postal codes are 6 characters long. Postal codes follow the format 'A0A0A0', where A is any letter and 0 is any number. Please enter a valid postal code.", Toast.LENGTH_SHORT).show();
-                return;
-            } else {
-                DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Postal Code");
-                addressReference.setValue(validatePostalCode);
-            }
-        }
-    }
-
-
-    private void editPhoneNumberOnClick(View view) {
-        String phoneNumber = enterPhoneEditText.getText().toString().trim();
-
-        if (phoneNumber.isEmpty()){
-            Toast.makeText(SetBranchProfile.this, "Please indicate the new phone number.", Toast.LENGTH_SHORT).show();
-            return;
-        } else if (phoneNumber.length() != 10){
-            Toast.makeText(SetBranchProfile.this, "Phone numbers are 10 characters long. Please enter a valid phone number.", Toast.LENGTH_SHORT).show();
-            return;
-        } else {
-            DatabaseReference phoneNumberReference = firebaseDatabase.getReference("User Info").child(uid).child("Phone Number");
-            phoneNumberReference.setValue("(" + phoneNumber.substring(0, 3) + ")" + " " + phoneNumber.substring(3, 6) + "-" + phoneNumber.substring(6));
-        }
-    }
-    **/
 
 
     private void goToWelcomeScreenOnClick(View view){
