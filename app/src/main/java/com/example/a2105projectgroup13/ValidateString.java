@@ -185,6 +185,13 @@ public class ValidateString {
         }
     }
 
+    /**
+     Validates an address.
+     Returns "-1" if the address is an invalid format.
+     Returns the given string if the format is allowed.
+
+     An address is valid if it contains only letters, spaces, and hyphens.
+     */
     public static String validateAddressOrCity(String addressOrCity){
         String streetAddressFormat = "^[a-zA-Z\\-\\ ]+$";
         if (!validateField(streetAddressFormat, addressOrCity)){
@@ -194,12 +201,37 @@ public class ValidateString {
         }
     }
 
+    /**
+     Validates a postal code, returning "-1" if the string is in an invalid format,
+     or returning the postal code (with all capitals) if the format is correct.
+     */
     public static String validatePostalCode(String postalCode){
-        String postalCodeFormat = "^[a-zA-Z]+[0-9]+[a-zA-Z]+[0-9]+[a-zA-Z]+[0-9]+$";
+        String postalCodeFormat = "^([a-zA-Z][0-9]){3}$";
         if (! validateField(postalCodeFormat, postalCode)){
             return "-1";
         } else {
             return postalCode.substring(0,1).toUpperCase() + postalCode.substring(1,2) + postalCode.substring(2,3).toUpperCase() + postalCode.substring(3,4) + postalCode.substring(4,5).toUpperCase() + postalCode.substring(5);
+        }
+    }
+
+    /**
+     Validates a time, returning "-1" if the string is in an invalid format,
+     or returning the time (in the format 00:00, where 00 is any two digit number between 00 and 24) if the format is correct.
+     */
+    public static String validateTime(String time) {
+        String timeFormat1 = "^(0?[0-9]|1[0-9]|2[0-3])([:][0-5][0-9])?$";
+        if (!validateField(timeFormat1, time)) {
+            return "-1";
+        } else {
+            if (time.length() > 1 && time.substring(1, 2).equals(":")) {
+                return "0" + time;
+            } else if (time.length() == 1){
+                return "0" + time + ":00";
+            } else if (time.length() == 2){
+                return time + ":00";
+            } else {
+                return time;
+            }
         }
     }
 }
