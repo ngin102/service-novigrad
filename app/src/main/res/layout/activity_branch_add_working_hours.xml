@@ -178,13 +178,13 @@
             android:id="@+id/editWorkingHoursTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/edit_working_hours"
+            android:text="@string/edit_working_hours_scrollable_list"
             android:textAlignment="center"
             android:textStyle="bold" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="337dp">
+            android:layout_height="333dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -197,14 +197,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/we_store_time_using_the_24_hour_clock_input_times_in_the_following_format_00_00_where_00_is_any_two_digit_number_input_numbers_lower_than_10_such_as_1_as_01"
                     android:textAlignment="center" />
-
-                <TextView
-                    android:id="@+id/youCanScrollTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/you_can_scroll_this_list_to_edit_working_hours_for_all_days_of_the_week"
-                    android:textAlignment="center"
-                    android:textSize="12sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -219,7 +211,7 @@
                         android:text="@string/monday" />
 
                     <EditText
-                        android:id="@+id/StartTimeEditText1"
+                        android:id="@+id/startTimeEditText1"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -239,7 +231,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/mondayEndTimeEditText1"
+                        android:id="@+id/endTimeEditText1"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -257,6 +249,12 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/closedButton1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_monday_hours_to_closed" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -271,7 +269,7 @@
                         android:text="@string/tuesday" />
 
                     <EditText
-                        android:id="@+id/StartTimeEditText2"
+                        android:id="@+id/startTimeEditText2"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -291,7 +289,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/tuesdayEndTimeEditText"
+                        android:id="@+id/endTimeEditText2"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -309,6 +307,12 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/closedButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_tuesday_hours_to_closed" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -322,7 +326,7 @@
                         android:text="@string/wednesday" />
 
                     <EditText
-                        android:id="@+id/StartTimeEditText3"
+                        android:id="@+id/startTimeEditText3"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -342,7 +346,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/wednesdayEndTimeEditText"
+                        android:id="@+id/endTimeEditText3"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -360,6 +364,12 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/closedButton3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_wednesday_hours_to_closed" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -373,7 +383,7 @@
                         android:text="@string/thursday" />
 
                     <EditText
-                        android:id="@+id/StartTimeEditText4"
+                        android:id="@+id/startTimeEditText4"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -393,7 +403,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/thursdayEndTimeEditText"
+                        android:id="@+id/endTimeEditText4"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -411,6 +421,12 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/closedButton4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_thursday_hours_to_closed" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -424,7 +440,7 @@
                         android:text="@string/friday" />
 
                     <EditText
-                        android:id="@+id/StartTimeEditText5"
+                        android:id="@+id/startTimeEditText5"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -444,7 +460,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/fridayEndTimeEditText"
+                        android:id="@+id/endTimeEditText5"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -462,6 +478,12 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/closedButton5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_friday_hours_to_closed" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -475,7 +497,7 @@
                         android:text="@string/saturday" />
 
                     <EditText
-                        android:id="@+id/StartTimeEditText6"
+                        android:id="@+id/startTimeEditText6"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -495,7 +517,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/saturdayEndTimeEditText"
+                        android:id="@+id/endTimeEditText6"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -513,6 +535,12 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/closedButton6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_saturday_hours_to_closed" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -526,7 +554,7 @@
                         android:text="@string/sunday" />
 
                     <EditText
-                        android:id="@+id/StartTimeEditText7"
+                        android:id="@+id/startTimeEditText7"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -546,7 +574,7 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/sundayEndTimeEditText"
+                        android:id="@+id/endTimeEditText7"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -564,6 +592,12 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/closedButton7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_sunday_hours_to_closed" />
+
             </LinearLayout>
         </ScrollView>
 
@@ -574,7 +608,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/goToBranchWelcomeScreenButton"
+                android:id="@+id/goToBranchWelcomeScreenButton2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
