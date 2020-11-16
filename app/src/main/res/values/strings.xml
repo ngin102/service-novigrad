@@ -150,4 +150,12 @@
     <string name="thursday">Thursday:</string>
     <string name="we_store_time_using_the_24_hour_clock_input_times_in_the_following_format_00_00_where_00_is_any_two_digit_number_input_numbers_lower_than_10_such_as_1_as_01">We store time using the 24 hour clock. Input times in the following format: 00:00, where 00 is any two digit number (input numbers lower than 10, such as 1, as 01).</string>
     <string name="you_can_scroll_this_list_to_edit_working_hours_for_all_days_of_the_week">You can scroll this list to edit working hours for all days of the week.</string>
+    <string name="set_monday_hours_to_closed">Set Monday Hours to Closed</string>
+    <string name="set_tuesday_hours_to_closed">Set Tuesday Hours To Closed</string>
+    <string name="set_wednesday_hours_to_closed">Set Wednesday Hours To Closed</string>
+    <string name="set_thursday_hours_to_closed">Set Thursday Hours To Closed</string>
+    <string name="set_friday_hours_to_closed">Set Friday Hours To Closed</string>
+    <string name="set_saturday_hours_to_closed">Set Saturday Hours To Closed</string>
+    <string name="set_sunday_hours_to_closed">Set Sunday Hours To Closed</string>
+    <string name="edit_working_hours_scrollable_list">Edit Working Hours (Scrollable List)</string>
 </resources>
