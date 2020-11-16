@@ -30,8 +30,8 @@ public class BranchViewServiceRequests extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private String uid;
 
-    private ListView serviceList;
-    private ArrayList<String> serviceArrayList = new ArrayList<String>();
+    private ListView serviceRequestList;
+    private ArrayList<String> serviceRequestArrayList = new ArrayList<String>();
 
     private Button returnToBranchWelcomeScreenButton;
 
@@ -44,22 +44,22 @@ public class BranchViewServiceRequests extends AppCompatActivity {
 
         firebaseDatabase = firebaseDatabase.getInstance();
         serviceInDatabase = firebaseDatabase.getReference("Service Requests").child(uid);
-        serviceList = (ListView) findViewById(R.id.serviceRequestListBranch);
+        serviceRequestList = (ListView) findViewById(R.id.serviceRequestListBranch);
 
         returnToBranchWelcomeScreenButton = (Button) findViewById(R.id.returnToBranchWelcomeScreenButton2);
 
         serviceInDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                serviceArrayList.clear();
+                serviceRequestArrayList.clear();
                 for (DataSnapshot service : snapshot.getChildren()) {
                     final String key = service.getKey();
-                    serviceArrayList.add(key);
+                    serviceRequestArrayList.add(key);
                 }
 
 
-                ArrayAdapter arrayAdapter = new ArrayAdapter(BranchViewServiceRequests.this, android.R.layout.simple_list_item_1, serviceArrayList);
-                serviceList.setAdapter(arrayAdapter);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(BranchViewServiceRequests.this, android.R.layout.simple_list_item_1, serviceRequestArrayList);
+                serviceRequestList.setAdapter(arrayAdapter);
             }
 
             @Override
@@ -68,13 +68,13 @@ public class BranchViewServiceRequests extends AppCompatActivity {
             }
         });
 
-        serviceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        serviceRequestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String serviceToViewRequirements = serviceArrayList.get(i);
-                Intent moveToView = new Intent(BranchViewServiceRequests.this, ActivityServiceRequest.class);
-                moveToView.putExtra("serviceName", serviceToViewRequirements);
-                startActivity(moveToView);
+                String requestToView = serviceRequestArrayList.get(i);
+                Intent moveToNextScreen = new Intent(BranchViewServiceRequests.this, ActivityServiceRequest.class);
+                moveToNextScreen.putExtra("requestKey", requestToView);
+                startActivity(moveToNextScreen);
             }
         });
 

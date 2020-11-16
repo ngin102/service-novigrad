@@ -19,11 +19,10 @@
         <activity android:name=".BranchViewOfferedServiceList" />
         <activity android:name=".BranchViewAdminServiceList" />
         <activity android:name=".BranchWelcomeActivity" />
+        <activity android:name=".ActivityServiceRequest" />
         <activity android:name=".EditDocument" />
         <activity android:name=".AddField" />
         <activity android:name=".ViewFields" />
-        <activity android:name=".ViewRequirementDetails" />
-        <activity android:name=".ViewServiceRequirementDetails" />
         <activity android:name=".ViewServiceRequirements" />
         <activity android:name=".ServiceList" />
         <activity android:name=".AddFormsAndDocuments" />

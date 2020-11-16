@@ -21,7 +21,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Service Requests"
+                android:text="@string/service_requests"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -31,7 +31,7 @@
             android:id="@+id/serviceRequestsListInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The following is a list of service requests made to your branch. Single press on a Request to view the details submitted by the customer, as well as to approve or deny the service request."
+            android:text="@string/the_following_is_a_list_of_service_requests_made_to_your_branch_single_press_on_a_request_to_view_the_details_submitted_by_the_customer_as_well_as_to_approve_or_deny_the_service_request"
             android:textAlignment="center"
             android:textSize="12sp" />
 

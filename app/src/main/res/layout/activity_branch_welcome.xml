@@ -86,8 +86,8 @@
             android:id="@+id/viewServiceRequestsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="View service requests"
-            android:visibility="invisible" />
+            android:text="@string/view_and_approve_decline_service_requests"
+            android:visibility="visible" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
