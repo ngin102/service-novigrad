@@ -6,7 +6,8 @@ import java.util.List;
 public class WorkingHours {
     //Instance variables.
     private String day;
-    private String hours;
+    private String openTime;
+    private String closeTime;
 
     private Branch branch;
 
@@ -14,10 +15,11 @@ public class WorkingHours {
     public WorkingHours(){
     }
 
-    public WorkingHours(Branch branch, String day, String hours) {
+    public WorkingHours(Branch branch, String day, String openTime, String closeTime) {
         this.branch = branch;
         this.day = day;
-        this.hours = hours;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
     }
 
     //Getter functions.
@@ -29,8 +31,12 @@ public class WorkingHours {
         return day;
     }
 
-    public String getHours(){
-        return hours;
+    public String getOpenTime(){
+        return openTime;
+    }
+
+    public String getCloseTime() {
+        return closeTime;
     }
 }
 
