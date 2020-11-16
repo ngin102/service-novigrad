@@ -74,10 +74,51 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         editHoursButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editMondayHoursOnClick(v);
+                editHoursOnClick(v, startTimeEditText1, endTimeEditText1, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Monday"));
             }
         });
 
+        editHoursButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editHoursOnClick(v, startTimeEditText2, endTimeEditText2, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Tuesday"));
+            }
+        });
+
+        editHoursButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editHoursOnClick(v, startTimeEditText3, endTimeEditText3, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Wednesday"));
+            }
+        });
+
+        editHoursButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editHoursOnClick(v, startTimeEditText4, endTimeEditText4, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Thursday"));
+            }
+        });
+
+        editHoursButton5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editHoursOnClick(v, startTimeEditText5, endTimeEditText5, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Friday"));
+            }
+        });
+
+        editHoursButton6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editHoursOnClick(v, startTimeEditText6, endTimeEditText6, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Saturday"));
+            }
+        });
+
+        editHoursButton7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editHoursOnClick(v, startTimeEditText7, endTimeEditText7, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Sunday"));
+            }
+        });
     }
 
 
@@ -289,32 +330,38 @@ public class BranchAddWorkingHours extends AppCompatActivity {
     }
 
 
-    private void editMondayHoursOnClick(View view) {
-        String startTime = startTimeEditText1.getText().toString().trim();
-        String endTime = endTimeEditText1.getText().toString().trim();
+    private void editHoursOnClick(View view, EditText startTimeEditText, EditText endTimeEditText, DatabaseReference referenceToWorkingHours) {
+        String startTime = startTimeEditText.getText().toString().trim();
+        String endTime = endTimeEditText.getText().toString().trim();
 
         if (startTime.isEmpty()){
-            Toast.makeText(BranchAddWorkingHours.this, "Please enter a start time.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchAddWorkingHours.this, "Please enter a open time.", Toast.LENGTH_SHORT).show();
             return;
         }
         else if (endTime.isEmpty()){
-            Toast.makeText(BranchAddWorkingHours.this, "Please enter an end time.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchAddWorkingHours.this, "Please enter an close time.", Toast.LENGTH_SHORT).show();
             return;
         }
         else {
             String validateStartTime = ValidateString.validateTime(startTime);
             if (validateStartTime.equals("-1")) {
-                Toast.makeText(BranchAddWorkingHours.this, "Please enter a valid start time.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BranchAddWorkingHours.this, "Please enter a valid open time.", Toast.LENGTH_SHORT).show();
                 return;
             } else {
                 String validateEndTime = ValidateString.validateTime(endTime);
                 if (validateEndTime.equals("-1")) {
-                    Toast.makeText(BranchAddWorkingHours.this, "Please enter a valid end time.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BranchAddWorkingHours.this, "Please enter a valid close time.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else {
-                    DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Monday");
-                    addressReference.setValue(validateStartTime + " - " + validateEndTime);
+                    if (validateStartTime.equals(validateEndTime)){
+                        Toast.makeText(BranchAddWorkingHours.this, "Your open time and close time occur at the same time, indicating that your Branch is closed for the day.", Toast.LENGTH_SHORT).show();
+                        referenceToWorkingHours.setValue("CLOSED");
+                        return;
+                    }
+                    else {
+                        referenceToWorkingHours.setValue(validateStartTime + " - " + validateEndTime);
+                    }
                 }
             }
         }
