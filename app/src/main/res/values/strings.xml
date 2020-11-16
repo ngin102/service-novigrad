@@ -173,4 +173,9 @@
     <string name="service_requested">Service Requested:</string>
     <string name="price_of_service">Price of Service:</string>
     <string name="placeholder_text_instructions_for_ta_on_how_to_decipher_this_list_go_here">(Placeholder Text - Instructions for TA on how to decipher this list go here)</string>
+    <string name="back_to_service_request">Back to Service Request</string>
+    <string name="document">Document</string>
+    <string name="png">png</string>
+    <string name="jpg">jpg</string>
+    <string name="view_and_accept_reject_service_requests">View and Accept/Reject Service Requests</string>
 </resources>

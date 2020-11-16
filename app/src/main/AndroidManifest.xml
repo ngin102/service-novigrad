@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BranchViewServiceRequests"></activity>
+        <activity android:name=".OpenDocument"></activity>
+        <activity android:name=".BranchViewServiceRequests" />
         <activity android:name=".BranchAddWorkingHours" />
         <activity android:name=".SetBranchProfile" />
         <activity android:name=".BranchViewFields" />

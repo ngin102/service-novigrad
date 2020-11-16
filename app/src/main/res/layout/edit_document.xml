@@ -56,13 +56,13 @@
                     android:id="@+id/pngSelectorButton2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/png_or_jpg" />
+                    android:text="@string/png" />
 
                 <RadioButton
                     android:id="@+id/pdfSelectorButton2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/pdf" />
+                    android:text="@string/jpg" />
             </RadioGroup>
         </LinearLayout>
 

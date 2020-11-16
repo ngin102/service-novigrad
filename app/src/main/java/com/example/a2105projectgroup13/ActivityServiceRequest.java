@@ -1,8 +1,10 @@
 package com.example.a2105projectgroup13;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -26,6 +32,8 @@ public class ActivityServiceRequest extends AppCompatActivity {
     //instance variables
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
+    private FirebaseStorage firebaseStorage;
+
 
     private ArrayList<String> formAndFieldsArrayList = new ArrayList<String>();
     private ArrayList<String> documentsArrayList = new ArrayList<String>();
@@ -98,6 +106,20 @@ public class ActivityServiceRequest extends AppCompatActivity {
             }
         });
 
+        //Only for fields
+        documentsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String documentToDownload = documentsArrayList.get(i);
+                Intent moveToDocument = new Intent(ActivityServiceRequest.this, OpenDocument.class);
+                moveToDocument.putExtra("documentToDownload", documentToDownload);
+                moveToDocument.putExtra("requestKey", requestKey);
+                startActivity(moveToDocument);
+            }
+        });
+
+
+
 
         //The back button returns the user to the list of service requests received by the branch account
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +153,7 @@ public class ActivityServiceRequest extends AppCompatActivity {
         //initialize firebase
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = firebaseDatabase.getInstance();
+        firebaseStorage = firebaseStorage.getInstance();
 
         //getting the branch id
         FirebaseUser branchAccount = firebaseAuth.getInstance().getCurrentUser();
