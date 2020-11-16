@@ -32,6 +32,7 @@ public class BranchViewServiceRequests extends AppCompatActivity {
 
     private ListView serviceRequestList;
     private ArrayList<String> serviceRequestArrayList = new ArrayList<String>();
+    private ArrayList<String> serviceRequestWithStatusArrayList = new ArrayList<String>();
 
     private Button returnToBranchWelcomeScreenButton;
 
@@ -52,14 +53,27 @@ public class BranchViewServiceRequests extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 serviceRequestArrayList.clear();
+                serviceRequestWithStatusArrayList.clear();
                 for (DataSnapshot service : snapshot.getChildren()) {
                     final String key = service.getKey();
                     serviceRequestArrayList.add(key);
+
+                    serviceInDatabase.child(key).child("Status").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String status = dataSnapshot.getValue(String.class);
+                            serviceRequestWithStatusArrayList.add(key + ": " + status);
+
+                            ArrayAdapter arrayAdapter = new ArrayAdapter(BranchViewServiceRequests.this, android.R.layout.simple_list_item_1, serviceRequestWithStatusArrayList);
+                            serviceRequestList.setAdapter(arrayAdapter);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            Toast.makeText(BranchViewServiceRequests.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                        }
+                    });
                 }
-
-
-                ArrayAdapter arrayAdapter = new ArrayAdapter(BranchViewServiceRequests.this, android.R.layout.simple_list_item_1, serviceRequestArrayList);
-                serviceRequestList.setAdapter(arrayAdapter);
             }
 
             @Override
@@ -67,6 +81,7 @@ public class BranchViewServiceRequests extends AppCompatActivity {
                 Toast.makeText(BranchViewServiceRequests.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
+
 
         serviceRequestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
