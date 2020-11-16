@@ -11,6 +11,7 @@ public class Branch extends User{
     private String address;
     private String phoneNumber;
     private List<Service> services;
+    private List<WorkingHours> workingHours;
 
     public Branch(){
     }
@@ -18,6 +19,7 @@ public class Branch extends User{
     public Branch(String firstName, String lastName, String accountType) {
         super(firstName, lastName, accountType);
         this.services = new ArrayList<Service>();
+        this.workingHours = new ArrayList<WorkingHours>();
     }
 
     public void setAddress(String address){
@@ -31,4 +33,8 @@ public class Branch extends User{
     public String getAddress(){return address;}
 
     public String getPhoneNumber(){return phoneNumber;}
+
+    public void addToWorkingHours(WorkingHours hours){
+        workingHours.add(hours);
+    }
 }
