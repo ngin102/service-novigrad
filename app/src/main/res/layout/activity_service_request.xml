@@ -66,7 +66,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="39dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0"
             android:orientation="horizontal">
 
@@ -74,28 +74,25 @@
                 android:id="@+id/pricePaidTextView"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
                 android:text="@string/price_of_service" />
 
             <TextView
                 android:id="@+id/changeableServicePriceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
                 android:text="@string/price" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="51dp"
+            android:layout_height="50dp"
             android:layout_weight="0"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/formsTextView"
-                android:layout_width="93dp"
+                android:layout_width="90dp"
                 android:layout_height="40dp"
-                android:layout_weight="0"
                 android:text="@string/forms"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -103,21 +100,19 @@
                 android:id="@+id/formsInfoTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
                 android:text="@string/placeholder_text_instructions_for_ta_on_how_to_decipher_this_list_go_here" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="104dp"
-            android:layout_weight="0"
+            android:layout_height="200dp"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <ListView
                 android:id="@+id/formFilledFieldsListView"
                 android:layout_width="match_parent"
-                android:layout_height="229dp"
-                android:layout_weight="2">
+                android:layout_height="match_parent">
 
             </ListView>
         </LinearLayout>
@@ -132,7 +127,6 @@
                 android:id="@+id/documentsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_weight="0"
                 android:text="@string/documentscolon"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -140,21 +134,19 @@
                 android:id="@+id/documentsExplanationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
                 android:text="@string/placeholder_text_instructions_for_ta_on_how_to_decipher_this_list_go_here" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_weight="0"
+            android:layout_height="100dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <ListView
                 android:id="@+id/attachmentsListView"
                 android:layout_width="match_parent"
-                android:layout_height="176dp"
-                android:layout_weight="1">
+                android:layout_height="match_parent">
 
             </ListView>
         </LinearLayout>
