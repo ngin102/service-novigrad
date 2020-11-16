@@ -20,6 +20,8 @@ public class Branch extends User{
         super(firstName, lastName, accountType);
         this.services = new ArrayList<Service>();
         this.workingHours = new ArrayList<WorkingHours>();
+        this.address = "Not set";
+        this.phoneNumber = "Not set";
     }
 
     public void setAddress(String address){

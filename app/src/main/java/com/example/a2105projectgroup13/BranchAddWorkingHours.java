@@ -1,6 +1,7 @@
 
 package com.example.a2105projectgroup13;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -81,98 +82,98 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         editHoursButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editHoursOnClick(v, startTimeEditText1, endTimeEditText1, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Monday"));
+                editHoursOnClick(v, startTimeEditText1, endTimeEditText1, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Monday"), "Monday");
             }
         });
 
         editHoursButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editHoursOnClick(v, startTimeEditText2, endTimeEditText2, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Tuesday"));
+                editHoursOnClick(v, startTimeEditText2, endTimeEditText2, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Tuesday"), "Tuesday");
             }
         });
 
         editHoursButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editHoursOnClick(v, startTimeEditText3, endTimeEditText3, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Wednesday"));
+                editHoursOnClick(v, startTimeEditText3, endTimeEditText3, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Wednesday"), "Wednesday");
             }
         });
 
         editHoursButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editHoursOnClick(v, startTimeEditText4, endTimeEditText4, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Thursday"));
+                editHoursOnClick(v, startTimeEditText4, endTimeEditText4, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Thursday"), "Thursday");
             }
         });
 
         editHoursButton5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editHoursOnClick(v, startTimeEditText5, endTimeEditText5, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Friday"));
+                editHoursOnClick(v, startTimeEditText5, endTimeEditText5, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Friday"), "Friday");
             }
         });
 
         editHoursButton6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editHoursOnClick(v, startTimeEditText6, endTimeEditText6, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Saturday"));
+                editHoursOnClick(v, startTimeEditText6, endTimeEditText6, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Saturday"), "Saturday");
             }
         });
 
         editHoursButton7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editHoursOnClick(v, startTimeEditText7, endTimeEditText7, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Sunday"));
+                editHoursOnClick(v, startTimeEditText7, endTimeEditText7, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Sunday"), "Sunday");
             }
         });
 
         closedButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Monday"));
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Monday"), "Monday");
             }
         });
 
         closedButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Tuesday"));
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Tuesday"), "Tuesday");
             }
         });
 
         closedButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Wednesday"));
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Wednesday"), "Wednesday");
             }
         });
 
         closedButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Thursday"));
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Thursday"), "Thursday");
             }
         });
 
         closedButton5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Friday"));
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Friday"), "Friday");
             }
         });
 
         closedButton6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Saturday"));
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Saturday"), "Saturday");
             }
         });
 
         closedButton7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Sunday"));
+                setHoursToCloseOnClick(v, firebaseDatabase.getReference("User Info").child(uid).child("Working Hours").child("Sunday"), "Sunday");
             }
         });
 
@@ -271,13 +272,13 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         mondayHoursReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
+                String openTime = dataSnapshot.child("openTime").getValue(String.class);
+                String closeTime = dataSnapshot.child("closeTime").getValue(String.class);
 
-                if (value == null){
+                if ( (openTime == null && closeTime == null) || (openTime == "CLOSED" && closeTime == "CLOSED")) {
                     mondayWorkingHoursTextView.setText("Monday: CLOSED");
-
                 } else {
-                    mondayWorkingHoursTextView.setText("Monday: " + value);
+                    mondayWorkingHoursTextView.setText("Monday: " + openTime + " - " + closeTime);
                 }
             }
 
@@ -290,12 +291,13 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         tuesdayHoursReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
+                String openTime = dataSnapshot.child("openTime").getValue(String.class);
+                String closeTime = dataSnapshot.child("closeTime").getValue(String.class);
 
-                if (value == null){
+                if ( (openTime == null && closeTime == null) || (openTime == "CLOSED" && closeTime == "CLOSED")) {
                     tuesdayWorkingHoursTextView.setText("Tuesday: CLOSED");
                 } else {
-                    tuesdayWorkingHoursTextView.setText("Tuesday: " + value);
+                    tuesdayWorkingHoursTextView.setText("Tuesday: " + openTime + " - " + closeTime);
                 }
             }
 
@@ -309,12 +311,13 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         wednesdayHoursReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
+                String openTime = dataSnapshot.child("openTime").getValue(String.class);
+                String closeTime = dataSnapshot.child("closeTime").getValue(String.class);
 
-                if (value == null){
+                if ( (openTime == null && closeTime == null) || (openTime == "CLOSED" && closeTime == "CLOSED")) {
                     wednesdayWorkingHoursTextView.setText("Wednesday: CLOSED");
                 } else {
-                    wednesdayWorkingHoursTextView.setText("Wednesday: " + value);
+                    wednesdayWorkingHoursTextView.setText("Wednesday: " + openTime + " - " + closeTime);
                 }
             }
 
@@ -328,12 +331,13 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         thursdayHoursReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
+                String openTime = dataSnapshot.child("openTime").getValue(String.class);
+                String closeTime = dataSnapshot.child("closeTime").getValue(String.class);
 
-                if (value == null){
+                if ( (openTime == null && closeTime == null) || (openTime == "CLOSED" && closeTime == "CLOSED")) {
                     thursdayWorkingHoursTextView.setText("Thursday: CLOSED");
                 } else {
-                    thursdayWorkingHoursTextView.setText("Thursday: " + value);
+                    thursdayWorkingHoursTextView.setText("Thursday: " + openTime + " - " + closeTime);
                 }
             }
 
@@ -347,12 +351,13 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         fridayHoursReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
+                String openTime = dataSnapshot.child("openTime").getValue(String.class);
+                String closeTime = dataSnapshot.child("closeTime").getValue(String.class);
 
-                if (value == null){
+                if ( (openTime == null && closeTime == null) || (openTime == "CLOSED" && closeTime == "CLOSED")) {
                     fridayWorkingHoursTextView.setText("Friday: CLOSED");
                 } else {
-                    fridayWorkingHoursTextView.setText("Friday: " + value);
+                    fridayWorkingHoursTextView.setText("Friday: " + openTime + " - " + closeTime);
                 }
             }
 
@@ -366,12 +371,13 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         saturdayHoursReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
+                String openTime = dataSnapshot.child("openTime").getValue(String.class);
+                String closeTime = dataSnapshot.child("closeTime").getValue(String.class);
 
-                if (value == null){
+                if ( (openTime == null && closeTime == null) || (openTime == "CLOSED" && closeTime == "CLOSED")) {
                     saturdayWorkingHoursTextView.setText("Saturday: CLOSED");
                 } else {
-                    saturdayWorkingHoursTextView.setText("Saturday: " + value);
+                    saturdayWorkingHoursTextView.setText("Saturday: " + openTime + " - " + closeTime);
                 }
             }
 
@@ -385,12 +391,13 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         sundayHoursReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
+                String openTime = dataSnapshot.child("openTime").getValue(String.class);
+                String closeTime = dataSnapshot.child("closeTime").getValue(String.class);
 
-                if (value == null){
+                if ( (openTime == null && closeTime == null) || (openTime == "CLOSED" && closeTime == "CLOSED")) {
                     sundayWorkingHoursTextView.setText("Sunday: CLOSED");
                 } else {
-                    sundayWorkingHoursTextView.setText("Sunday: " + value);
+                    sundayWorkingHoursTextView.setText("Sunday: " + openTime + " - " + closeTime);
                 }
             }
 
@@ -402,7 +409,7 @@ public class BranchAddWorkingHours extends AppCompatActivity {
     }
 
 
-    private void editHoursOnClick(View view, EditText startTimeEditText, EditText endTimeEditText, DatabaseReference referenceToWorkingHours) {
+    private void editHoursOnClick(View view, EditText startTimeEditText, EditText endTimeEditText, final DatabaseReference referenceToWorkingHours, final String day) {
         String startTime = startTimeEditText.getText().toString().trim();
         String endTime = endTimeEditText.getText().toString().trim();
 
@@ -415,12 +422,12 @@ public class BranchAddWorkingHours extends AppCompatActivity {
             return;
         }
         else {
-            String validateStartTime = ValidateString.validateTime(startTime);
+            final String validateStartTime = ValidateString.validateTime(startTime);
             if (validateStartTime.equals("-1")) {
                 Toast.makeText(BranchAddWorkingHours.this, "Please enter a valid open time. Use the time format specified above.", Toast.LENGTH_SHORT).show();
                 return;
             } else {
-                String validateEndTime = ValidateString.validateTime(endTime);
+                final String validateEndTime = ValidateString.validateTime(endTime);
                 if (validateEndTime.equals("-1")) {
                     Toast.makeText(BranchAddWorkingHours.this, "Please enter a valid close time. Use the time format specified above.", Toast.LENGTH_SHORT).show();
                     return;
@@ -428,19 +435,70 @@ public class BranchAddWorkingHours extends AppCompatActivity {
                 else {
                     if (validateStartTime.equals(validateEndTime)){
                         Toast.makeText(BranchAddWorkingHours.this, "Your open time and close time occur at the same time, indicating that your Branch is closed for the day.", Toast.LENGTH_SHORT).show();
-                        referenceToWorkingHours.setValue("CLOSED");
+                        firebaseDatabase.getReference("Users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                String firstName = dataSnapshot.child("firstName").getValue(String.class);
+                                String lastName = dataSnapshot.child("lastName").getValue(String.class);
+
+                                Branch branch = new Branch(firstName, lastName, "Branch Account");
+
+                                WorkingHours todaysHours = new WorkingHours(branch, day, "CLOSED", "CLOSED");
+                                referenceToWorkingHours.setValue(todaysHours);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Toast.makeText(BranchAddWorkingHours.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         return;
                     }
                     else {
-                        referenceToWorkingHours.setValue(validateStartTime + " - " + validateEndTime);
+                        firebaseDatabase.getReference("Users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                               String firstName = dataSnapshot.child("firstName").getValue(String.class);
+                               String lastName = dataSnapshot.child("lastName").getValue(String.class);
+
+                               Branch branch = new Branch(firstName, lastName, "Branch Account");
+
+                               WorkingHours todaysHours = new WorkingHours(branch, day, validateStartTime, validateEndTime);
+                               referenceToWorkingHours.setValue(todaysHours);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Toast.makeText(BranchAddWorkingHours.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 }
             }
         }
     }
 
-    private void setHoursToCloseOnClick(View view, DatabaseReference referenceToWorkingHours) {
-        referenceToWorkingHours.setValue("CLOSED");
+    private void setHoursToCloseOnClick(View view, final DatabaseReference referenceToWorkingHours, final String day) {
+        firebaseDatabase.getReference("Users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String firstName = dataSnapshot.child("firstName").getValue(String.class);
+                String lastName = dataSnapshot.child("lastName").getValue(String.class);
+
+                Branch branch = new Branch(firstName, lastName, "Branch Account");
+
+                WorkingHours todaysHours = new WorkingHours(branch, day, "CLOSED", "CLOSED");
+                referenceToWorkingHours.setValue(todaysHours);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(BranchAddWorkingHours.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void goToWelcomeScreenOnClick(View view){
