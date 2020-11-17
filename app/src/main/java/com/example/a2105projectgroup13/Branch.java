@@ -36,7 +36,17 @@ public class Branch extends User{
 
     public String getPhoneNumber(){return phoneNumber;}
 
-    public void addToWorkingHours(WorkingHours hours){
-        workingHours.add(hours);
+    public void addToWorkingHours(WorkingHours hoursToAdd){
+        if (workingHours.size() < 7) {
+            for (int i = 0; i < workingHours.size(); i++){
+                WorkingHours savedHours = workingHours.get(i);
+                String dayOfHours = savedHours.getDay();
+
+                if (dayOfHours.equals(hoursToAdd.getDay())){
+                    return;
+                }
+            }
+            workingHours.add(hoursToAdd);
+        }
     }
 }
