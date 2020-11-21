@@ -197,7 +197,7 @@ public class ValidateString {
         if (!validateField(streetAddressFormat, addressOrCity)){
             return "-1";
         } else {
-            return addressOrCity;
+            return addressOrCity.substring(0,1).toUpperCase() + addressOrCity.substring(1).toLowerCase();
         }
     }
 

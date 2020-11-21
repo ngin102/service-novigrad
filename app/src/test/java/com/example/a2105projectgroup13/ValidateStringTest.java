@@ -153,4 +153,49 @@ public class ValidateStringTest {
         assertEquals("2.00", ValidateString.validatePrice("2.00"));
         assertEquals("3.00", ValidateString.validatePrice("3.00"));
     }
+
+    @Test
+    public void validateAddressOrCity() {
+        // incorrect formats
+        assertEquals("-1", ValidateString.validateAddressOrCity("1"));
+
+        // allowable formats
+        assertEquals("Novigrad", ValidateString.validateAddressOrCity("NOVIGRAD"));
+        assertEquals("Novigrad", ValidateString.validateAddressOrCity("novigrad"));
+        assertEquals("Novigrad", ValidateString.validateAddressOrCity("Novigrad"));
+        assertEquals("Ottawa-vanier", ValidateString.validateAddressOrCity("OTTawa-Vanier"));
+    }
+
+    @Test
+    public void validatePostalCode() {
+        // incorrect formats
+        assertEquals("-1", ValidateString.validatePostalCode("1"));
+        assertEquals("-1", ValidateString.validatePostalCode("H0H0HH"));
+        assertEquals("-1", ValidateString.validatePostalCode("ABCDEFGHIJK"));
+        assertEquals("-1", ValidateString.validatePostalCode("H0H0H0H0H0H0"));
+        assertEquals("-1", ValidateString.validatePostalCode("H000H0"));
+
+        // allowable formats
+        assertEquals("H0H0H0", ValidateString.validatePostalCode("h0h0h0"));
+        assertEquals("H0H0H0", ValidateString.validatePostalCode("H0H0H0"));
+        assertEquals("H0H0H0", ValidateString.validatePostalCode("h0H0H0"));
+    }
+
+    @Test
+    public void validateTime() {
+        // incorrect formats
+        assertEquals("-1", ValidateString.validateTime("12 am"));
+        assertEquals("-1", ValidateString.validateTime("1212"));
+        assertEquals("-1", ValidateString.validateTime("40:40"));
+        assertEquals("-1", ValidateString.validateTime("ab:cd"));
+        assertEquals("-1", ValidateString.validateTime("01:90"));
+
+        // allowable formats
+        assertEquals("01:00", ValidateString.validateTime("01:00"));
+        assertEquals("12:30", ValidateString.validateTime("12:30"));
+        assertEquals("04:00", ValidateString.validateTime("4:00"));
+    }
+
+
+    //validate address of city, postal code, time
 }
