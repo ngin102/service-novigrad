@@ -12,13 +12,23 @@ public class AdminTest {
     public void validateAdmin() {
         Admin newAdmin = new Admin("Admin", "Admin", "Admin");
 
-        // create a service in admin
+        // add a service, document, and form to the service list
         Service newService = newAdmin.createService("Photo ID", "100.00");
         newAdmin.addToServices(newService);
+        Document newDocument = newAdmin.createDocument("Document", "Document Name", "PDF", "A test document.");
+        Form newForm = newAdmin.createForm("Form", "Name");
 
-        // verify the contents of the new service
+        // verify the contents of the new service, form, and document
         assertEquals("100.00", newService.getPrice());
         assertEquals("Photo ID", newService.getName());
+
+        assertEquals("Document", newDocument.getType());
+        assertEquals("Document Name", newDocument.getName());
+        assertEquals("PDF", newDocument.getFileType());
+        assertEquals("A test document.", newDocument.getDescription());
+
+        assertEquals("Form", newForm.getType());
+        assertEquals("Name", newForm.getName());
 
         // access the service list in admin
         List<Service> serviceList = newAdmin.getServices();
