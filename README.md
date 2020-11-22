@@ -12,7 +12,7 @@ Admin login credentials:
 - Username/Email: admin
 - Password: admin
 
-Branch login credendtials (for Deliverable 3 to simulate service request functionality):
+Branch login credentials (for Deliverable 3 to simulate service request functionality):
 - Username/Email: branch@gmail.com
 - Password: Password123
 
