@@ -236,6 +236,10 @@ public class SetBranchProfile extends AppCompatActivity {
             Toast.makeText(SetBranchProfile.this, "Please enter the new street address.", Toast.LENGTH_SHORT).show();
             return;
         }
+        else if (streetAddress.startsWith("-")){
+            Toast.makeText(SetBranchProfile.this, "You can not start a street address with a hyphen.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         else if (streetAddress.equals("-")){
             Toast.makeText(SetBranchProfile.this, "' - ' is not a valid street address.", Toast.LENGTH_SHORT).show();
             return;
@@ -260,6 +264,10 @@ public class SetBranchProfile extends AppCompatActivity {
 
         if (city.isEmpty()){
             Toast.makeText(SetBranchProfile.this, "Please enter a city name.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if (city.startsWith("-")){
+            Toast.makeText(SetBranchProfile.this, "You can not start a city name with a hyphen.", Toast.LENGTH_SHORT).show();
             return;
         }
         else if (city.equals("-")){

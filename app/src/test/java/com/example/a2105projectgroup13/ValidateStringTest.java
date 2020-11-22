@@ -163,7 +163,23 @@ public class ValidateStringTest {
         assertEquals("Novigrad", ValidateString.validateAddressOrCity("NOVIGRAD"));
         assertEquals("Novigrad", ValidateString.validateAddressOrCity("novigrad"));
         assertEquals("Novigrad", ValidateString.validateAddressOrCity("Novigrad"));
-        assertEquals("Ottawa-vanier", ValidateString.validateAddressOrCity("OTTawa-Vanier"));
+        assertEquals("Ottawa-Vanier", ValidateString.validateAddressOrCity("OTTawa-Vanier"));
+        assertEquals("Ottawa-Vanier", ValidateString.validateAddressOrCity("OTTawa -Vanier"));
+        assertEquals("Novigrad", ValidateString.validateAddressOrCity(" NoVIgrad"));
+        assertEquals("Ottawa-Vanier", ValidateString.validateAddressOrCity("OTTawa  -Vanier"));
+        assertEquals("Ottawa-Vanier", ValidateString.validateAddressOrCity("OTTawa  -    Vanier"));
+        assertEquals("Ottawa-Vanier", ValidateString.validateAddressOrCity("OTTawa  -    Vanier  "));
+        assertEquals("Ottawa-Vanier", ValidateString.validateAddressOrCity("   OTTawa       -    Vanier  "));
+        assertEquals("Avocado-Novigrad-Taco", ValidateString.validateAddressOrCity("  Avocado  -      NoVIgrad    -   Taco"));
+        assertEquals("Novigrad-City City", ValidateString.validateAddressOrCity("NOVIGrad  -       City   City"));
+        assertEquals("Novigrad City", ValidateString.validateAddressOrCity("Novigrad city" ));
+        assertEquals("Novigrad--City",  ValidateString.validateAddressOrCity("Novigrad  -  -  city" ));
+        assertEquals("Novigrad-City City-", ValidateString.validateAddressOrCity("   Novigrad  -  city     City    -" ));
+        assertEquals("Ottawa-Vanier", ValidateString.validateAddressOrCity("OTTawa -       VaniEr    "));
+        assertEquals("Avocado-Novigrad-Taco City", ValidateString.validateAddressOrCity("  AvOcado  -      NoVIgrad    -   Taco       City"));
+        assertEquals("Avocado-Novigrad-Taco-Chicken City", ValidateString.validateAddressOrCity("  AvOcado  -      NoVIgrad    -   Taco      -     cHICKEN      CitY"));
+        assertEquals("Macho--Juice-Cool", ValidateString.validateAddressOrCity(" Macho  -- Juice - Cool"));
+        assertEquals("Macho---Juice-Cool", ValidateString.validateAddressOrCity(" Macho  -- -  Juice - Cool"));
     }
 
     @Test

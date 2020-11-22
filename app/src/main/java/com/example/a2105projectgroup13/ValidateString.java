@@ -1,5 +1,6 @@
 package com.example.a2105projectgroup13;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern; // use the Pattern library to utilize regular expressions ("regex")
 
 /**
@@ -194,10 +195,69 @@ public class ValidateString {
      */
     public static String validateAddressOrCity(String addressOrCity){
         String streetAddressFormat = "^[a-zA-Z\\-\\ ]+$";
+        String validatedAddressOrCity = "";
         if (!validateField(streetAddressFormat, addressOrCity)){
             return "-1";
         } else {
-            return addressOrCity.substring(0,1).toUpperCase() + addressOrCity.substring(1);
+            addressOrCity = addressOrCity.trim();
+            if (!addressOrCity.contains(" ") && !addressOrCity.contains("-")){
+                return addressOrCity.substring(0, 1).toUpperCase() + addressOrCity.substring(1).toLowerCase();
+            }
+
+            if (addressOrCity.contains(" ")) {
+                addressOrCity = addressOrCity.toLowerCase();
+                String[] splitAddressOrCitySpace = addressOrCity.split(" ");
+
+                for (int i = 0; i < splitAddressOrCitySpace.length; i++) {
+                    if (splitAddressOrCitySpace[i].equals("")){
+                        ;
+                    }
+                    else if (splitAddressOrCitySpace[i].equals("-")){
+                        ;
+                    }
+                    else if (!splitAddressOrCitySpace[i].startsWith("-")) {
+                        splitAddressOrCitySpace[i] = splitAddressOrCitySpace[i].substring(0, 1).toUpperCase() + splitAddressOrCitySpace[i].substring(1).toLowerCase();
+                    }
+                    else {
+                        splitAddressOrCitySpace[i] = splitAddressOrCitySpace[i].substring(0, 1) + splitAddressOrCitySpace[i].trim().substring(1, 2).toUpperCase() + splitAddressOrCitySpace[i].substring(2).toLowerCase();
+                    }
+                }
+
+                ArrayList<String> splitAddressOrCitySpaceNoNull = new ArrayList<String>();
+
+                for (int p = 0; p < splitAddressOrCitySpace.length; p++){
+                    if (!splitAddressOrCitySpace[p].equals("")){
+                        splitAddressOrCitySpaceNoNull.add(splitAddressOrCitySpace[p]);
+                    }
+                }
+
+                for (int l = 0; l < splitAddressOrCitySpaceNoNull.size(); l++){
+                    if ( (! splitAddressOrCitySpaceNoNull.get(l).endsWith("-")) && (l != splitAddressOrCitySpaceNoNull.size()-1) && (! splitAddressOrCitySpaceNoNull.get(l+1).endsWith("-")) && (! splitAddressOrCitySpaceNoNull.get(l+1).startsWith("-"))){
+                        validatedAddressOrCity = validatedAddressOrCity + splitAddressOrCitySpaceNoNull.get(l) + " ";
+                    } else if (l == splitAddressOrCitySpaceNoNull.size()-1 || splitAddressOrCitySpaceNoNull.get(l).endsWith("-") || splitAddressOrCitySpaceNoNull.get(l+1).endsWith("-") || splitAddressOrCitySpaceNoNull.get(l+1).startsWith("-") ) {
+                        validatedAddressOrCity = validatedAddressOrCity + splitAddressOrCitySpaceNoNull.get(l);
+                    }
+                }
+            }
+
+            else if ( (!addressOrCity.contains(" ")) && (addressOrCity.contains("-"))){
+                addressOrCity = addressOrCity.toLowerCase();
+                String[] splitAddressOrCityHyphen = addressOrCity.split("-");
+
+                for (int j = 0; j < splitAddressOrCityHyphen.length; j++) {
+                    splitAddressOrCityHyphen[j] =  splitAddressOrCityHyphen[j].substring(0, 1).toUpperCase() +  splitAddressOrCityHyphen[j].substring(1).toLowerCase();
+                }
+
+                for (int l = 0; l < splitAddressOrCityHyphen.length; l++){
+                    if (l != splitAddressOrCityHyphen.length-1){
+                        validatedAddressOrCity = validatedAddressOrCity + splitAddressOrCityHyphen[l] + "-";
+                    } else {
+                        validatedAddressOrCity = validatedAddressOrCity + splitAddressOrCityHyphen[l];
+                    }
+                }
+            }
+
+            return validatedAddressOrCity.trim();
         }
     }
 
