@@ -26,6 +26,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+/**
+ * This class opens a saved file (a Document) from Firebase Storage.
+ */
 public class OpenDocument extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;

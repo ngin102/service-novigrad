@@ -22,6 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import static android.view.View.VISIBLE;
 
+/**
+ * This class is the Branch welcome activity screen.
+ */
 public class BranchWelcomeActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -127,6 +130,9 @@ public class BranchWelcomeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Helper method for initializing instance variables.
+     */
     private void initializeInstanceVariables() {
         //Initialize each instance variable by finding the first view that corresponds with its id.
         offerServicesCreatedByAdminButton = (Button) findViewById(R.id.viewAdminServicesFromBranchButton);
@@ -138,6 +144,10 @@ public class BranchWelcomeActivity extends AppCompatActivity {
         firstNameText = (TextView) findViewById(R.id.nameBranchText);
     }
 
+    /**
+     * Gets (but does not return) the unique user uId of the user who
+     * is currently logged into the app via Firebase Authentication.
+     */
     private void getUid(){
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = firebaseDatabase.getInstance();

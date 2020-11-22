@@ -31,7 +31,6 @@ import java.util.ArrayList;
 /**
  * This class allows a Branch to view and the fields of a form of a service.
  */
-
 public class BranchViewFields extends AppCompatActivity {
     // instance variables
     private DatabaseReference requirementInDatabase;

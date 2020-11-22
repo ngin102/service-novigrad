@@ -20,7 +20,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Set;
 
-
+/**
+ * This class allows a Branch to complete and fill out its profile information.
+ */
 public class SetBranchProfile extends AppCompatActivity {
 
     Button editStreetAddressButton;
@@ -94,7 +96,7 @@ public class SetBranchProfile extends AppCompatActivity {
 
 
     /**
-     Helper method for initializing instance variables.
+     * Helper method for initializing instance variables.
      */
     private void initializeInstanceVariables() {
         //Initialize each instance variable by finding the first view that corresponds with its id.
@@ -119,6 +121,10 @@ public class SetBranchProfile extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
     }
 
+    /**
+     * Gets (but does not return) the unique user uId of the user who
+     * is currently logged into the app via Firebase Authentication.
+     */
     private void getUid(){
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = firebaseDatabase.getInstance();
@@ -127,6 +133,9 @@ public class SetBranchProfile extends AppCompatActivity {
         uid = user.getUid();
     }
 
+    /**
+     * Displays the profile information of the Branch in the TextViews on the activity screen.
+     */
     private void getProfileInfo(){
         uidBranchTextView.setText(uid);
 
@@ -212,6 +221,9 @@ public class SetBranchProfile extends AppCompatActivity {
         });
     }
 
+    /**
+     * Allows the Branch to edit its saved street address.
+     */
     private void editStreetAddressOnClick(View view) {
         String streetNumber = streetNumberEditText.getText().toString().trim();
         String streetAddress = enterAddressEditText.getText().toString().trim();
@@ -240,6 +252,9 @@ public class SetBranchProfile extends AppCompatActivity {
         }
     }
 
+    /**
+     * Allow the Branch to edit its saved city.
+     */
     private void editCityOnClick(View view) {
         String city = cityEditText.getText().toString().trim();
 
@@ -263,6 +278,9 @@ public class SetBranchProfile extends AppCompatActivity {
         }
     }
 
+    /**
+     * Allow the Branch to edit its saved postal code.
+     */
     private void editPostalCodeOnClick(View view) {
         String postalCode = postalCodeEditText.getText().toString().trim();
 
@@ -284,7 +302,9 @@ public class SetBranchProfile extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Allow the Branch to edit its saved phone number.
+     */
     private void editPhoneNumberOnClick(View view) {
         String phoneNumber = enterPhoneEditText.getText().toString().trim();
 
@@ -300,7 +320,9 @@ public class SetBranchProfile extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Enables functionality to go back to the Branch Welcome Activity.
+     */
     private void goToWelcomeScreenOnClick(View view){
         startActivity(new Intent(SetBranchProfile.this, BranchWelcomeActivity.class));
     }

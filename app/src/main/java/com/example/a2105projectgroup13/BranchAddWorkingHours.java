@@ -1,4 +1,3 @@
-
 package com.example.a2105projectgroup13;
 
 import androidx.annotation.NonNull;
@@ -20,7 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
+/**
+ * This class allows a Branch to add working hours to their account.
+ */
 public class BranchAddWorkingHours extends AppCompatActivity {
 
     TextView mondayWorkingHoursTextView;
@@ -187,7 +188,7 @@ public class BranchAddWorkingHours extends AppCompatActivity {
 
 
     /**
-     Helper method for initializing instance variables.
+     * Helper method for initializing instance variables.
      */
     private void initializeInstanceVariables() {
         //Initialize each instance variable by finding the first view that corresponds with its id.
@@ -250,6 +251,10 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
     }
 
+    /**
+     * Gets (but does not return) the unique user uId of the user who
+     * is currently logged into the app via Firebase Authentication.
+     */
     private void getUid(){
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = firebaseDatabase.getInstance();
@@ -258,6 +263,9 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         uid = user.getUid();
     }
 
+    /**
+     * Displays working hours of the Branch in the TextViews on the activity screen.
+     */
     private void getWorkingHours(){
         uidBranchTextView.setText(uid);
 
@@ -408,7 +416,9 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * Allows the Branch to edit its saved working hours.
+     */
     private void editHoursOnClick(View view, EditText startTimeEditText, EditText endTimeEditText, final DatabaseReference referenceToWorkingHours, final String day) {
         String startTime = startTimeEditText.getText().toString().trim();
         String endTime = endTimeEditText.getText().toString().trim();
@@ -480,6 +490,9 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         }
     }
 
+    /**
+     * Allows the Branch to set its working hours to closed on a given day.
+     */
     private void setHoursToCloseOnClick(View view, final DatabaseReference referenceToWorkingHours, final String day) {
         firebaseDatabase.getReference("Users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -501,6 +514,9 @@ public class BranchAddWorkingHours extends AppCompatActivity {
         });
     }
 
+    /**
+     * Enables functionality to go back to the Branch Welcome Activity.
+     */
     private void goToWelcomeScreenOnClick(View view){
         startActivity(new Intent(BranchAddWorkingHours.this, BranchWelcomeActivity.class));
     }

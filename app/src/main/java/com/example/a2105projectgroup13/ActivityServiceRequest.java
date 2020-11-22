@@ -28,6 +28,9 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
+/**
+ * This class displays a Service Request to a Branch.
+ */
 public class ActivityServiceRequest extends AppCompatActivity {
     //instance variables
     private FirebaseAuth firebaseAuth;
@@ -179,6 +182,9 @@ public class ActivityServiceRequest extends AppCompatActivity {
         requestKey = previousScreen.getStringExtra("requestKey");
     }
 
+    /**
+     * Displays the details of the service request in the TextViews on the activity screen.
+     */
     private void getCustomerInfo(){
 
         DatabaseReference customerIDReference = firebaseDatabase.getReference("Service Requests").child(branchId).child(requestKey).child("CustomerID");

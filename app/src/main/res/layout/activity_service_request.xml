@@ -93,14 +93,16 @@
                 android:id="@+id/formsTextView"
                 android:layout_width="90dp"
                 android:layout_height="40dp"
-                android:text="@string/forms"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:text="@string/forms_fields"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/formsInfoTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/placeholder_text_instructions_for_ta_on_how_to_decipher_this_list_go_here" />
+                android:text="@string/this_is_a_scrollable_list_of_the_fields_filled_out_by_the_customer_for_each_form_he_or_she_was_required_to_complete_each_field_is_depicted_in_the_following_format_form_name_field_name_content_customer_submitted"
+                android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -134,7 +136,8 @@
                 android:id="@+id/documentsExplanationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/placeholder_text_instructions_for_ta_on_how_to_decipher_this_list_go_here" />
+                android:text="@string/this_is_a_scrollable_list_of_the_documents_submitted_by_the_customer_tap_on_a_document_to_open_and_view_it_in_the_app"
+                android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout

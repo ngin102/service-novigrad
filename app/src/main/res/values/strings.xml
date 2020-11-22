@@ -178,4 +178,7 @@
     <string name="png">png</string>
     <string name="jpg">jpg</string>
     <string name="view_and_accept_reject_service_requests">View and Accept/Reject Service Requests</string>
+    <string name="this_is_a_scrollable_list_of_the_fields_filled_out_by_the_customer_for_each_form_he_or_she_was_required_to_complete_each_field_is_depicted_in_the_following_format_form_name_field_name_content_customer_submitted">This is a scrollable list of the fields filled out by the Customer for each Form he or she was required to complete. Each field is depicted in the following format, Form name: Field Name: Content Customer submitted</string>
+    <string name="forms_fields">Forms/Fields</string>
+    <string name="this_is_a_scrollable_list_of_the_documents_submitted_by_the_customer_tap_on_a_document_to_open_and_view_it_in_the_app">This is a scrollable list of the Documents submitted by the Customer. Tap on a Document to open and view it in the app.</string>
 </resources>

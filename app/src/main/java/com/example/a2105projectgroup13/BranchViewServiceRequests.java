@@ -24,6 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * This class allows a Branch to view the Service Requests it has received from Customers.
+ */
 public class BranchViewServiceRequests extends AppCompatActivity {
     private DatabaseReference serviceInDatabase;
     private FirebaseDatabase firebaseDatabase;

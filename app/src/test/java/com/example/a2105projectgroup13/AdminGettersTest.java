@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class AdminTest {
+public class AdminGettersTest {
 
     @Test
     public void validateAdmin() {

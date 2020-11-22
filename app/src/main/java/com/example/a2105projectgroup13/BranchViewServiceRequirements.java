@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * This class displays the existing requirements of a service (forms and documents) to the admin.
+ * This class displays the existing requirements of a service (forms and documents) to a Branch.
  */
 public class BranchViewServiceRequirements extends AppCompatActivity {
     // instance variables
@@ -155,7 +155,7 @@ public class BranchViewServiceRequirements extends AppCompatActivity {
     }
 
     /**
-     * Helper method for launching ViewFields to edit form requirements.
+     * Helper method for launching BranchViewFields to edit form requirements.
      * Returns nothing.
      */
     private void moveToFields(final String requirementToViewFields){
