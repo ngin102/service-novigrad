@@ -189,8 +189,8 @@ public class ServiceList extends AppCompatActivity {
 
                             if (uid.hasChild(currentKeyChecker)) {
                                 Service editedService = new Service(newKeyChecker, "Not needed");
-                                FirebaseDatabase.getInstance().getReference("Offered Services").child(uidKey).child(currentKeyChecker).removeValue();
                                 FirebaseDatabase.getInstance().getReference("Offered Services").child(uidKey).child(newKeyChecker).setValue(editedService);
+                                FirebaseDatabase.getInstance().getReference("Offered Services").child(uidKey).child(currentKeyChecker).removeValue();
                             }
 
                         }

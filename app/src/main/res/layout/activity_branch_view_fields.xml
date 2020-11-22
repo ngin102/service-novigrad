@@ -43,7 +43,7 @@
             android:id="@+id/fieldsInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/this_is_the_list_of_the_requirements_of_your_selected_service_single_press_on_a_form_to_view_its_fields_if_an_admin_changes_the_name_of_this_service_while_you_are_viewing_this_screen_please_return_to_one_of_the_service_lists_and_select_this_service_again_but_with_its_updated_name"
+            android:text="@string/this_is_the_fields_for_your_selected_form_if_an_admin_changes_the_name_of_the_service_for_this_form_or_anything_pertaining_to_the_service_please_return_to_one_of_the_service_lists_and_select_this_service_with_this_form_again_but_with_its_updated_name"
             android:textAlignment="center"
             android:textSize="12sp" />
 
