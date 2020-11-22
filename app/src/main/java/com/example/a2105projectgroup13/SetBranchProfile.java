@@ -240,6 +240,10 @@ public class SetBranchProfile extends AppCompatActivity {
             Toast.makeText(SetBranchProfile.this, "You can not start a street address with a hyphen.", Toast.LENGTH_SHORT).show();
             return;
         }
+        else if (streetAddress.endsWith("-")) {
+            Toast.makeText(SetBranchProfile.this, "You can not end a street address with a hyphen.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         else if (streetAddress.equals("-")){
             Toast.makeText(SetBranchProfile.this, "' - ' is not a valid street address.", Toast.LENGTH_SHORT).show();
             return;
