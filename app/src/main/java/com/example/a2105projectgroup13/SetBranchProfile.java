@@ -266,6 +266,11 @@ public class SetBranchProfile extends AppCompatActivity {
             Toast.makeText(SetBranchProfile.this, "' - ' is not a city name.", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        else if (city.endsWith("-")){
+            Toast.makeText(SetBranchProfile.this, "A city name that ends with ' - ' is not valid.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         else {
             String validateCity = ValidateString.validateAddressOrCity(city);
             if (validateCity.equals("-1")) {
