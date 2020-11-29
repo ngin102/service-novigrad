@@ -170,7 +170,7 @@ public class Login extends AppCompatActivity {
                                         } else if (value.equals("Admin Account")) {
                                             startActivity(new Intent(Login.this, AdminWelcomeActivity.class));
                                         } else {
-                                            startActivity(new Intent(Login.this, MainActivity.class));
+                                            startActivity(new Intent(Login.this, CustomerWelcomeActivity.class));
                                         }
 
                                     }

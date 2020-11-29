@@ -328,7 +328,7 @@ public class Register extends AppCompatActivity {
                             }
 
                             else {
-                                startActivity(new Intent(Register.this, MainActivity.class));
+                                startActivity(new Intent(Register.this, CustomerWelcomeActivity.class));
                             }
 
                         }

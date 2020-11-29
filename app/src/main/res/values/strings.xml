@@ -184,4 +184,8 @@
     <string name="this_is_the_fields_for_your_selected_form_if_an_admin_changes_the_name_of_the_service_for_this_form_or_anything_pertaining_to_the_service_please_return_to_one_of_the_service_lists_and_select_this_service_with_this_form_again_but_with_its_updated_name">This is the fields for your selected Form. If an Admin changes the name of the Service for this Form or anything pertaining to the Service, please return to one of the Service Lists and select this Service with this Form again but with its updated name.</string>
     <string name="the_following_is_the_list_of_services_you_are_currently_offering_to_your_customers_single_press_on_a_service_to_view_its_requirement_press_and_hold_on_a_service_to_gert_the_option_to_stop_offering_it">The following is the list of Services you are currently offering to your Customers. Single press on a Service to view its Requirements. Press and hold on a Service to get the option to stop offering it.</string>
     <string name="the_following_is_the_list_of_all_services_offered_by_the_admin_single_press_on_a_service_to_view_its_requirements_press_and_hold_on_a_service_to_get_the_option_to_offer_it">The following is the list of all Services offered by the Admin. Single press on a Service to view its Requirements. Press and hold on a Service to get the option to offer it.</string>
+    <string name="you_are_a_customer_account">You are a Customer Account!</string>
+    <string name="branch_list">Branch List</string>
+    <string name="this_is_the_list_of_all_service_novigrad_branches">This is the list of all Service Novigrad Branches.</string>
+    <string name="view_branch_list">View Branch List</string>
 </resources>

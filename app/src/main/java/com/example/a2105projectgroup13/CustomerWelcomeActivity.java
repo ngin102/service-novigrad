@@ -1,10 +1,12 @@
 package com.example.a2105projectgroup13;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +19,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 /**
- * This class is the main activity of the Service Novigrad app.
- * It is the Welcome Screen.
+ * This class is the Customer Welcome Screen.
  */
-public class MainActivity extends AppCompatActivity {
+public class CustomerWelcomeActivity extends AppCompatActivity {
     //Variables required to retrieve information from Firebase Authentication and Firebase Database:
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -28,23 +29,22 @@ public class MainActivity extends AppCompatActivity {
 
     //Text that appears on screen:
     private TextView firstNameText;
-    private TextView accountTypeText;
+
+    private Button viewBranchListButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_customer_welcome);
 
-        firstNameText = (TextView) findViewById(R.id.firstNameText);
-        accountTypeText = (TextView) findViewById(R.id.accountTypeText);
+        initializeInstanceVariables();
 
         //The unique user uId of the user who is currently logged in to the app.
         getUid();
 
         //Get the references to the user's first name and account type in Firebase Database based on the user's unique uId.
         DatabaseReference firstName = firebaseDatabase.getReference("Users").child(uid).child("firstName");
-        DatabaseReference accountType = firebaseDatabase.getReference("Users").child(uid).child("accountType");
 
         //Use dataSnapshot to set a TextView to display the user's first name.
         firstName.addValueEventListener(new ValueEventListener() {
@@ -56,23 +56,31 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                Toast.makeText(CustomerWelcomeActivity.this, "ERROR", Toast.LENGTH_SHORT).show();;
             }
         });
 
-        //Use dataSnapshot to set a TextView to display the user's account type.
-        accountType.addValueEventListener(new ValueEventListener() {
+        viewBranchListButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                accountTypeText.setText(value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();;
+            public void onClick(View view){
+                Intent moveToBranchList = new Intent(CustomerWelcomeActivity.this, CustomerViewBranchList.class);
+                startActivity(moveToBranchList);
             }
         });
+
+    }
+
+    /**
+     * Helper method for initializing instance variables.
+     */
+    private void initializeInstanceVariables() {
+        //Initialize each instance variable by finding the first view that corresponds with its id.
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = firebaseDatabase.getInstance();
+
+        firstNameText = (TextView) findViewById(R.id.firstNameText);
+
+        viewBranchListButton = (Button) findViewById(R.id.viewBranchListButton);
 
     }
 
