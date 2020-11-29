@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CustomerViewBranchList"></activity>
+        <activity android:name=".CustomerBranchProfile"></activity>
+        <activity android:name=".CustomerViewBranchList" />
         <activity android:name=".BranchSearch" />
         <activity android:name=".OpenDocument" />
         <activity android:name=".BranchViewServiceRequests" />

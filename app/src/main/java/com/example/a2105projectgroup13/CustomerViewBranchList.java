@@ -40,6 +40,7 @@ public class CustomerViewBranchList extends AppCompatActivity {
         usersInDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                branchArrayList.clear();
                 for (DataSnapshot user : snapshot.getChildren()) {
                     if (user.child("accountType").getValue(String.class).equals("Branch Account")){
                         branchArrayList.add(user.getKey());
@@ -57,6 +58,18 @@ public class CustomerViewBranchList extends AppCompatActivity {
                 Toast.makeText(CustomerViewBranchList.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
 
+        });
+
+        //Only for fields
+        branchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String branchToView = branchArrayList.get(i);
+
+                Intent moveToCustomerBranchProfile = new Intent(CustomerViewBranchList.this, CustomerBranchProfile.class);
+                moveToCustomerBranchProfile.putExtra("branchID", branchToView);
+                startActivity(moveToCustomerBranchProfile);
+            }
         });
     }
 

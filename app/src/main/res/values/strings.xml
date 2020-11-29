@@ -188,4 +188,7 @@
     <string name="branch_list">Branch List</string>
     <string name="this_is_the_list_of_all_service_novigrad_branches">This is the list of all Service Novigrad Branches.</string>
     <string name="view_branch_list">View Branch List</string>
+    <string name="offered_services_tap_on_service_to_apply">Offered Services: (Tap on Service to apply)</string>
+    <string name="leave_rating_and_review">Leave Rating and Review</string>
+    <string name="back_to_branch_list">Back To Branch List</string>
 </resources>
