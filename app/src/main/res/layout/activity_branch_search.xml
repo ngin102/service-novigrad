@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BranchSearch">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/branchSearchTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Search for Branch"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/searchInstructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select the type of search and fill in the requisite information."
+            android:textAlignment="center" />
+
+        <LinearLayout
+            android:id="@+id/searchOptionsLV"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_margin="8dp"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/searchChoiceRG"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <RadioButton
+                    android:id="@+id/searchByAddressRB"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="Address" />
+
+                <RadioButton
+                    android:id="@+id/searchByHoursRB"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:text="Working Hours" />
+
+                <RadioButton
+                    android:id="@+id/searchByServiceRB"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:text="Service" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/searchButton"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text="Search" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/addressOptionLV"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/cityTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="City: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName2"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Oxenfurt"
+                android:inputType="textPersonName" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/hoursOptionLV"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <RadioGroup
+                android:id="@+id/dayRG"
+                android:layout_height="match_parent"
+                android:layout_weight="1.25">
+
+                <RadioButton
+                    android:id="@+id/monButton"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Monday" />
+
+                <RadioButton
+                    android:id="@+id/tuesButton"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Tuesday" />
+
+                <RadioButton
+                    android:id="@+id/wedButton"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Wednesday" />
+
+                <RadioButton
+                    android:id="@+id/thurButton"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Thursday" />
+
+                <RadioButton
+                    android:id="@+id/friButton"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Friday" />
+
+                <RadioButton
+                    android:id="@+id/satButton"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Saturday" />
+
+                <RadioButton
+                    android:id="@+id/sunButton"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Sunday" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/hoursTextView"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:text="Time you wish to visit:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/timeEditText"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:ems="10"
+                android:hint="13:00 OR 15"
+                android:inputType="textPersonName" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/serviceOptionLV"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/serviceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Health Card"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/branchList"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="2">
+
+        </ListView>
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Back to previous menu" />
+
+        <TextView
+            android:id="@+id/searchInstructions2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Select the type of search and fill in the requisite information."
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
