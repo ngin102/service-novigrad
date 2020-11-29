@@ -197,4 +197,6 @@
     <string name="this_is_a_scrollable_list_of_the_documents_you_must_submit_single_press_on_a_document_to_start_the_process_of_uploading_it">This is a scrollable list of the Documents you must submit. Single press on a Document to start the process of uploading it.</string>
     <string name="apply">Apply</string>
     <string name="this_is_a_scrollable_list_of_fields_for_each_form_you_must_fill_out_fill_out_each_field_in_the_textboxes_provided">This is a scrollable list of Fields for each Form you must fill out. Fill out each Field in the textboxes provided.</string>
+    <string name="unuploaded">Unuploaded</string>
+    <string name="upload">Upload</string>
 </resources>

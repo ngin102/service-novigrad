@@ -8,12 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +35,6 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
 
     ArrayList<String> documentsArrayList = new ArrayList<String>();
-
     ArrayList<String> displayDocumentsArrayList = new ArrayList<String>();
 
     Intent previousScreen;
@@ -46,8 +42,6 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
     String customerId;
     String serviceName;
 
-    //ListView formFilledFieldsListView
-    ListView documentsListView;
 
     TextView changeableCustomerIDTextView;
     TextView changeableServiceNameTextView;
@@ -57,10 +51,8 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
 
     DatabaseReference serviceReference;
 
-    Form form;
-    Document document;
-
     LinearLayout formsAndFieldsInputList;
+    LinearLayout documentsList;
 
     Button applyButton;
 
@@ -81,7 +73,6 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
         setRequestNumber();
 
         //Forms/Fields List
-
         serviceReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -122,15 +113,37 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
 
                 for (DataSnapshot requirement : snapshot.getChildren()) {
                     if (! requirement.hasChild("fields") && ! requirement.getKey().equals("price")) {
-                        document = requirement.getValue(Document.class);
-                        documentsArrayList.add(requirement.getKey());
-                        displayDocumentsArrayList.add(document.toString());
+                        final String requirementName = requirement.getKey();
+
+                        final Document selectedDocument = requirement.getValue(Document.class);
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        final View uploadingDocument = inflater.inflate(R.layout.upload_document, null);
+
+                        TextView uploadDocumentName = (TextView) uploadingDocument.findViewById(R.id.uploadDocumentName);
+                        uploadDocumentName.setText(requirementName);
+
+                        TextView uploadStatus = (TextView) uploadingDocument.findViewById(R.id.uploadStatus);
+                        uploadStatus.setText("UNUPLOADED");
+
+                        TextView uploadDocumentInfo = (TextView) uploadingDocument.findViewById(R.id.uploadDocumentInfo);
+                        uploadDocumentInfo.setText("File type: " + selectedDocument.getFileType() + "\n" + "Description: " + selectedDocument.getDescription());
+
+                        Button uploadButton = (Button) uploadingDocument.findViewById(R.id.uploadButton);
+
+                        uploadButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view){
+                            filename = requirementName;
+                            Toast.makeText(CustomerApplyServiceRequests.this, "Upload a file for " + filename + ".", Toast.LENGTH_LONG).show();
+                            openGallery();
+                            }
+                        });
+
+                        documentsList.addView(uploadingDocument);
                     }
                 }
 
-
-                ArrayAdapter arrayAdapter = new ArrayAdapter(CustomerApplyServiceRequests.this, android.R.layout.simple_list_item_1, displayDocumentsArrayList);
-                documentsListView.setAdapter(arrayAdapter);
             }
 
             @Override
@@ -140,21 +153,15 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
         });
 
 
+
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 applyOnClick(view);
             }
         });
-
-        documentsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                filename = documentsArrayList.get(i);
-                openGallery();
-            }
-        });
     }
+
 
     /**
      * Initializes all of the instance variables.
@@ -166,7 +173,7 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
 
         //initialize ListViews
        // formFilledFieldsListView = (ListView)findViewById(R.id.applyFormFieldsListView);
-        documentsListView = (ListView)findViewById(R.id.applyDocumentsListView);
+        documentsList = findViewById(R.id.applyDocumentsList);
 
         //initialize TextViews
         changeableCustomerIDTextView = (TextView)findViewById(R.id.applyChangeableCustomerIDTextView);
@@ -198,6 +205,7 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
         storageReference = firebaseStorage.getReference();
     }
 
+
     /**
      * Displays the details of the service request in the TextViews on the activity screen.
      */
@@ -218,6 +226,10 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * Set the request number of this Service Request.
+     */
     private void setRequestNumber(){
         DatabaseReference requestsReference = firebaseDatabase.getReference("Service Requests").child(branchId);
 
@@ -235,16 +247,25 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * Get the request number of this Service Request.
+     */
     private String getRequestNumber(){
         return changeableServiceRequestTextView.getText().toString().trim();
     }
 
+
+    /**
+     * Get the price of this Service.
+     */
     private String getPrice(){
         return changeableServicePriceTextView.getText().toString().trim();
     }
 
+
     /**
-     * Method which checks that all fields are filled by the Customer.
+     * Method that checks that all fields are filled by the Customer.
      * Returns true if the fields are filled appropriately, or false if they are not.
      */
     private boolean validateForEmptyFields(){
@@ -263,6 +284,31 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
         return true;
     }
 
+
+    /**
+     * Method that checks that all fields are filled by the Customer.
+     * Returns true if the fields are filled appropriately, or false if they are not.
+     */
+    private boolean validateForUnuploadedDocuments(){
+        for (int i = 0; i < documentsList.getChildCount(); i++){
+            View document = documentsList.getChildAt(i);
+
+            TextView uploadDocumentName = (TextView) document.findViewById(R.id.uploadDocumentName);
+            String documentName = uploadDocumentName.getText().toString();
+
+            TextView uploadDocumentStatus = (TextView) document.findViewById(R.id.uploadStatus);
+            String uploadStatus = uploadDocumentStatus.getText().toString();
+
+            if (uploadStatus.equals("UNUPLOADED")){
+                Toast.makeText(CustomerApplyServiceRequests.this, "Please upload the " + documentName + "!", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
     /**
      * Method to upload a photo.
      */
@@ -274,7 +320,24 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(CustomerApplyServiceRequests.this, "Successfully uploaded " + filename + "!", Toast.LENGTH_SHORT).show();
+                        int j = 0;
+                        boolean found = false;
+                        while (j < documentsList.getChildCount() && found == false){
+                            View uploadingDocument = documentsList.getChildAt(j);
+
+                            TextView uploadDocumentName = (TextView) uploadingDocument.findViewById(R.id.uploadDocumentName);
+                            String documentInfo = uploadDocumentName.getText().toString();
+
+                            if (documentInfo.equals(filename)){
+                                TextView uploadStatus = (TextView) uploadingDocument.findViewById(R.id.uploadStatus);
+                                uploadStatus.setText("UPLOADED");
+                                found = true;
+                                Toast.makeText(CustomerApplyServiceRequests.this, "Successfully uploaded " + filename + "!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            j++;
+
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -284,6 +347,7 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
                     }
                 });
     }
+
 
     /**
      * Method to open Android Gallery.
@@ -305,6 +369,7 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
         }
     }
 
+
     /**
      * Method for uploading the Customer's inputs for the fields.
      */
@@ -312,49 +377,40 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
         final String requestNumber = getRequestNumber();
         final String price = getPrice();
 
-        for (int i = 0; i < documentsArrayList.size(); i++){
-            final String currentDocumentName = documentsArrayList.get(i);
+        if (validateForEmptyFields() == true && validateForUnuploadedDocuments() == true) {
+            //Store field inputs in Firebase
+            for (int i = 0; i < formsAndFieldsInputList.getChildCount(); i++) {
+                View selectedField = formsAndFieldsInputList.getChildAt(i);
+                EditText userInput = (EditText) selectedField.findViewById(R.id.fieldInputEditText);
+                String input = userInput.getText().toString().trim();
 
-            firebaseStorage.getReference().child(branchId + "/" + requestNumber + "/" + currentDocumentName).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    if (validateForEmptyFields() == true) {
-                        for (int i = 0; i < formsAndFieldsInputList.getChildCount(); i++) {
-                            View selectedField = formsAndFieldsInputList.getChildAt(i);
-                            EditText userInput = (EditText) selectedField.findViewById(R.id.fieldInputEditText);
-                            String input = userInput.getText().toString().trim();
+                TextView formNameTextView = (TextView) selectedField.findViewById(R.id.applyFormName);
+                String formName = formNameTextView.getText().toString().trim();
 
-                            TextView formNameTextView = (TextView) selectedField.findViewById(R.id.applyFormName);
-                            String formName = formNameTextView.getText().toString().trim();
+                TextView fieldNameTextView = (TextView) selectedField.findViewById(R.id.applyFieldName);
+                String fieldName = fieldNameTextView.getText().toString().trim();
+                fieldName = fieldName.substring(0, fieldName.length() - 1);
 
-                            TextView fieldNameTextView = (TextView) selectedField.findViewById(R.id.applyFieldName);
-                            String fieldName = fieldNameTextView.getText().toString().trim();
-                            fieldName = fieldName.substring(0, fieldName.length() - 1);
+                firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Fields").child(formName + " " + fieldName).setValue(input);
+            }
 
-                            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Fields").child(formName + " " + fieldName).setValue(input);
-                        }
+            //Store uploaded file names in Firebase
+            for (int j = 0; j < documentsList.getChildCount(); j++){
+                View document = documentsList.getChildAt(j);
 
-                        firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Price").setValue(price);
-                        firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Service").setValue(serviceName);
-                        firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("CustomerID").setValue(customerId);
+                TextView uploadDocumentName = (TextView) document.findViewById(R.id.uploadDocumentName);
+                String documentName = uploadDocumentName.getText().toString();
 
-                        for (int j = 0; j < documentsArrayList.size(); j++) {
-                            String currentDocumentName2 = documentsArrayList.get(j);
-                            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Documents").child(currentDocumentName2).setValue(currentDocumentName2);
-                        }
+                firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Documents").child(documentName).setValue(documentName);
+            }
 
-                        firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Status").setValue("Pending");
-                        Toast.makeText(CustomerApplyServiceRequests.this, "Request application sent!", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    Toast.makeText(CustomerApplyServiceRequests.this, "Please upload a file for the " + currentDocumentName, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            });
+            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Price").setValue(price);
+            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Service").setValue(serviceName);
+            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("CustomerID").setValue(customerId);
+
+            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Status").setValue("Pending");
+            Toast.makeText(CustomerApplyServiceRequests.this, "Request application sent!", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 }
