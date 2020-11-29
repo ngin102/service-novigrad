@@ -95,4 +95,9 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
     }
+
+    private void onSearchButtonClicked(View view) {
+        Intent moveToBranchSearch = new Intent(CustomerWelcomeActivity.this, BranchSearch.class);
+        startActivity(moveToBranchSearch);
+    }
 }
