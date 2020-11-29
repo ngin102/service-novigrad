@@ -33,7 +33,7 @@
             android:textAlignment="center" />
 
         <LinearLayout
-            android:id="@+id/searchOptionsLV"
+            android:id="@+id/searchOptions"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_margin="8dp"
@@ -73,7 +73,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/addressOptionLV"
+            android:id="@+id/addressOption"
             android:layout_width="match_parent"
             android:layout_margin="8dp"
             android:layout_weight="0.5"
@@ -88,7 +88,7 @@
                 android:textAlignment="center" />
 
             <LinearLayout
-                android:id="@+id/cityLV"
+                android:id="@+id/city"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -113,7 +113,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/hoursOptionLV"
+            android:id="@+id/hoursOption"
             android:layout_width="match_parent"
             android:layout_margin="8dp"
             android:layout_weight="1.5"
@@ -128,7 +128,7 @@
                 android:textAlignment="center" />
 
             <LinearLayout
-                android:id="@+id/timeDateLV"
+                android:id="@+id/timeDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -203,7 +203,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/serviceOptionLV"
+            android:id="@+id/serviceOption"
             android:layout_width="match_parent"
             android:layout_margin="8dp"
             android:layout_weight="0.5"
@@ -218,7 +218,7 @@
                 android:textAlignment="center" />
 
             <LinearLayout
-                android:id="@+id/serviceLV"
+                android:id="@+id/serviceListLL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
