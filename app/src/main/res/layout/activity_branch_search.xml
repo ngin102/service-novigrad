@@ -49,26 +49,30 @@
                     android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="Address" />
+                    android:text="Address"
+                    android:onClick="onRadioButtonClicked"/>/>
 
                 <RadioButton
                     android:id="@+id/searchByHoursRB"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
-                    android:text="Working Hours" />
+                    android:text="Working Hours"
+                    android:onClick="onRadioButtonClicked"/>/>
 
                 <RadioButton
                     android:id="@+id/searchByServiceRB"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
-                    android:text="Service" />
+                    android:text="Service"
+                    android:onClick="onRadioButtonClicked"/>/>
             </RadioGroup>
 
             <Button
                 android:id="@+id/searchButton"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:text="Search" />
+                android:text="Search"
+                android:onClick="onSearchButtonClicked"/>
 
         </LinearLayout>
 
@@ -90,7 +94,7 @@
             <LinearLayout
                 android:id="@+id/city"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -102,7 +106,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName2"
+                    android:id="@+id/citySearch"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
@@ -110,6 +114,31 @@
                     android:inputType="textPersonName" />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/addressTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address: "
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/addressSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="221B Baker Street"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -142,43 +171,50 @@
                         android:id="@+id/monButton"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Monday" />
+                        android:text="Monday"
+                        android:onClick="setDayOnClick"/>
 
                     <RadioButton
                         android:id="@+id/tuesButton"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Tuesday" />
+                        android:text="Tuesday"
+                        android:onClick="setDayOnClick"/>
 
                     <RadioButton
                         android:id="@+id/wedButton"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Wednesday" />
+                        android:text="Wednesday"
+                        android:onClick="setDayOnClick"/>
 
                     <RadioButton
                         android:id="@+id/thurButton"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Thursday" />
+                        android:text="Thursday"
+                        android:onClick="setDayOnClick"/>
 
                     <RadioButton
                         android:id="@+id/friButton"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Friday" />
+                        android:text="Friday"
+                        android:onClick="setDayOnClick"/>
 
                     <RadioButton
                         android:id="@+id/satButton"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Saturday" />
+                        android:text="Saturday"
+                        android:onClick="setDayOnClick"/>
 
                     <RadioButton
                         android:id="@+id/sunButton"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Sunday" />
+                        android:text="Sunday"
+                        android:onClick="setDayOnClick"/>
 
                 </RadioGroup>
 
@@ -232,7 +268,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName3"
+                    android:id="@+id/serviceEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -246,7 +282,6 @@
         <ListView
             android:id="@+id/branchList"
             android:layout_width="match_parent"
-            android:layout_margin="8dp"
             android:layout_weight="1">
 
         </ListView>
@@ -255,7 +290,8 @@
             android:id="@+id/backButton"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="Back to previous menu" />
+            android:text="Back to previous menu"
+            android:onClick="onBackButtonClicked"/>
 
     </LinearLayout>
 
