@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomerApplyServiceRequests">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/applyChangeableServiceRequestTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="@string/service_request"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/applyCustomerIDTextView"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/customerid" />
+
+
+            <TextView
+                android:id="@+id/applyChangeableCustomerIDTextView"
+                android:layout_width="313dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/customeridnocolon" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/applyBranchIDTextView"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/branchid" />
+
+
+            <TextView
+                android:id="@+id/applyChangeableBranchIDTextView"
+                android:layout_width="313dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/branchid2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/applyServiceRequestedTextView"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="@string/service_requested" />
+
+            <TextView
+                android:id="@+id/applyChangeableServiceNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/service_name2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/applyPricePaidTextView"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:text="@string/price_of_service" />
+
+            <TextView
+                android:id="@+id/applyChangeableServicePriceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/applyFormsTextView"
+                android:layout_width="131dp"
+                android:layout_height="39dp"
+                android:text="@string/forms_fields"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/applyFormsInfoTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/this_is_a_scrollable_list_of_fields_for_each_form_you_must_fill_out_fill_out_each_field_in_the_textboxes_provided"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="205dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:id="@+id/scrollFormsAndFields"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/formsAndFieldsInputList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/applyDocumentsTextView"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:text="@string/documentscolon"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:id="@+id/applyDocumentsExplanationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/this_is_a_scrollable_list_of_the_documents_you_must_submit_single_press_on_a_document_to_start_the_process_of_uploading_it"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/applyDocumentsListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/applyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/apply" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

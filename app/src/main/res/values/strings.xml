@@ -191,4 +191,10 @@
     <string name="offered_services_tap_on_service_to_apply">Offered Services: (Tap on Service to apply)</string>
     <string name="leave_rating_and_review">Leave Rating and Review</string>
     <string name="back_to_branch_list">Back To Branch List</string>
+    <string name="branchid">BranchID:</string>
+    <string name="branchid2">BranchID</string>
+    <string name="this_is_a_scrollable_list_of_the_fields_for_each_form_you_must_fill_out_press_and_hold_down_on_a_field_to_get_the_option_to_fill_it_out">This is a scrollable list of the Fields for each Form you must fill out. Press and hold down on a Field to get the option to fill it out.</string>
+    <string name="this_is_a_scrollable_list_of_the_documents_you_must_submit_single_press_on_a_document_to_start_the_process_of_uploading_it">This is a scrollable list of the Documents you must submit. Single press on a Document to start the process of uploading it.</string>
+    <string name="apply">Apply</string>
+    <string name="this_is_a_scrollable_list_of_fields_for_each_form_you_must_fill_out_fill_out_each_field_in_the_textboxes_provided">This is a scrollable list of Fields for each Form you must fill out. Fill out each Field in the textboxes provided.</string>
 </resources>

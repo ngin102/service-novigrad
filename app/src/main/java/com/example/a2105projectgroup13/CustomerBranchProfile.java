@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -80,6 +81,18 @@ public class CustomerBranchProfile extends AppCompatActivity {
             public void onClick(View view){
                 Intent move = new Intent(CustomerBranchProfile.this, CustomerViewBranchList.class);
                 startActivity(move);
+            }
+        });
+
+        offeredServicesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String viewOfferedService = offeredServicesArrayList.get(i);
+
+                Intent moveToApply = new Intent(CustomerBranchProfile.this, CustomerApplyServiceRequests.class);
+                moveToApply.putExtra("branchID", branchUid);
+                moveToApply.putExtra("serviceName", viewOfferedService);
+                startActivity(moveToApply);
             }
         });
     }
