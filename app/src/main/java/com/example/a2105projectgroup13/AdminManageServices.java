@@ -12,7 +12,7 @@ import android.widget.Button;
  namely: NewService and ServiceList.
  */
 
-public class ManageServices extends AppCompatActivity {
+public class AdminManageServices extends AppCompatActivity {
 
     private Button addServiceButton;
     private Button viewServicesButton;
@@ -32,7 +32,7 @@ public class ManageServices extends AppCompatActivity {
         addServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(ManageServices.this, NewService.class));
+                startActivity(new Intent(AdminManageServices.this, AdminNewService.class));
             }
         });
 
@@ -40,14 +40,14 @@ public class ManageServices extends AppCompatActivity {
         viewServicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(ManageServices.this, ServiceList.class));
+                startActivity(new Intent(AdminManageServices.this, AdminViewServiceList.class));
             }
         });
 
         returnToAdminWelcomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(ManageServices.this, AdminWelcomeActivity.class));
+                startActivity(new Intent(AdminManageServices.this, AdminWelcomeActivity.class));
             }
         });
     }

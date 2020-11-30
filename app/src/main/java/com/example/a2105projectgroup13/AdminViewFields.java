@@ -16,23 +16,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
  * This class allows the Admin to view and edit the fields of a form of a service.
  */
 
-public class ViewFields extends AppCompatActivity {
+public class AdminViewFields extends AppCompatActivity {
     // instance variables
     private DatabaseReference requirementInDatabase;
     private FirebaseDatabase firebaseDatabase;
@@ -75,7 +71,7 @@ public class ViewFields extends AppCompatActivity {
         backToServiceListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent moveToServices = new Intent(ViewFields.this, ServiceList.class);
+                Intent moveToServices = new Intent(AdminViewFields.this, AdminViewServiceList.class);
                 startActivity(moveToServices);
             }
         });
@@ -84,7 +80,7 @@ public class ViewFields extends AppCompatActivity {
         backToRequirementListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent moveToRequirements = new Intent(ViewFields.this, ViewServiceRequirements.class);
+                Intent moveToRequirements = new Intent(AdminViewFields.this, AdminViewServiceRequirements.class);
                 moveToRequirements.putExtra("serviceName", serviceName);
                 startActivity(moveToRequirements);
             }
@@ -94,7 +90,7 @@ public class ViewFields extends AppCompatActivity {
         addFieldButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent moveToFields = new Intent(ViewFields.this, AddField.class);
+                Intent moveToFields = new Intent(AdminViewFields.this, AdminAddField.class);
                 moveToFields.putExtra("serviceName", serviceName);
                 moveToFields.putExtra("requirementName", requirementName);
                 startActivity(moveToFields);
@@ -112,13 +108,13 @@ public class ViewFields extends AppCompatActivity {
                     fieldKeyArrayList.add(field.getKey());
                 }
 
-                ArrayAdapter arrayAdapter = new ArrayAdapter(ViewFields.this, android.R.layout.simple_list_item_1, fieldArrayList);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(AdminViewFields.this, android.R.layout.simple_list_item_1, fieldArrayList);
                 fieldList.setAdapter(arrayAdapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -149,7 +145,7 @@ public class ViewFields extends AppCompatActivity {
                     String fieldValue = field.getValue(String.class);
 
                     if (fieldValue.toLowerCase().equals(newValue.toLowerCase())){
-                        Toast.makeText(ViewFields.this, "There is already a field with this name. Please choose a new field name.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminViewFields.this, "There is already a field with this name. Please choose a new field name.", Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
@@ -159,7 +155,7 @@ public class ViewFields extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -175,7 +171,7 @@ public class ViewFields extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.getChildrenCount() == 1){
-                    Toast.makeText(ViewFields.this, "Can not delete field. You must have at least one field in your Form.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminViewFields.this, "Can not delete field. You must have at least one field in your Form.", Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -199,17 +195,17 @@ public class ViewFields extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(ViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AdminViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
                         }
                     });
 
-                    Toast.makeText(ViewFields.this, "Field deleted.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminViewFields.this, "Field deleted.", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminViewFields.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -245,13 +241,13 @@ public class ViewFields extends AppCompatActivity {
             public void onClick(View view){
                 String newValue = editTextFieldNameOnList.getText().toString().trim();
                 if (newValue.equals("")){
-                    Toast.makeText(ViewFields.this, "Please enter a field name.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminViewFields.this, "Please enter a field name.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 String validatedNewValue = ValidateString.validateServiceName(newValue);
                 if (validatedNewValue.equals("-1")) {
-                    Toast.makeText(ViewFields.this, "Invalid Field name. Make sure your Field name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminViewFields.this, "Invalid Field name. Make sure your Field name is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     newValue = validatedNewValue;

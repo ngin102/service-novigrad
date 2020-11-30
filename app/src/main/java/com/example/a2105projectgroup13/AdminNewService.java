@@ -8,20 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.*;
-
-public class NewService extends AppCompatActivity {
+public class AdminNewService extends AppCompatActivity {
     private EditText editTextServiceName;
     private EditText editTextNumberPrice;
     private Button continueButton;
@@ -65,7 +61,7 @@ public class NewService extends AppCompatActivity {
         //validate the price
         String validatedPrice = ValidateString.validatePrice(price);
         if (validatedPrice == "-1") {
-            Toast.makeText(NewService.this, "Please enter a valid form of price", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminNewService.this, "Please enter a valid form of price", Toast.LENGTH_SHORT).show();
             return;
         } else {
             price = validatedPrice;
@@ -73,20 +69,20 @@ public class NewService extends AppCompatActivity {
 
         //Checks if the inputted serviceName is empty. Prompts user to enter a service name.
         if (serviceName.equals("")){
-            Toast.makeText(NewService.this, "Please enter a service name.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminNewService.this, "Please enter a service name.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         //Checks if the inputted price is empty. Prompts user to enter a valid price.
         if (price.equals("")){
-            Toast.makeText(NewService.this, "Please enter a price.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminNewService.this, "Please enter a price.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         //Verifies that the inputted serviceName begins with a letter and is alphanumeric.
         String validatedServiceName = ValidateString.validateServiceName(serviceName);
         if (validatedServiceName.equals("-1")) {
-            Toast.makeText(NewService.this, "Invalid Service name. Make sure your Service name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminNewService.this, "Invalid Service name. Make sure your Service name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
             return;
         } else {
             serviceName = validatedServiceName;
@@ -104,7 +100,7 @@ public class NewService extends AppCompatActivity {
                     String storedServiceName = service.getKey();
 
                     if (storedServiceName.toLowerCase().equals(newServiceName.toLowerCase())){
-                        Toast.makeText(NewService.this, "There is already a Service with this name. Please choose a new Service name.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminNewService.this, "There is already a Service with this name. Please choose a new Service name.", Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
@@ -114,21 +110,21 @@ public class NewService extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) { //Stops process if a service of the same name is on Firebase.
-                            Toast.makeText(NewService.this, "A service already exists under this name. Please use a different name for your service.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminNewService.this, "A service already exists under this name. Please use a different name for your service.", Toast.LENGTH_SHORT).show();
                             return;
                         }else{
-                            firebaseDatabase.getReference("Services").child(serviceToAdd.getName()).child("price").setValue( serviceToAdd.getPrice() ).addOnCompleteListener(NewService.this, new OnCompleteListener<Void>() {
+                            firebaseDatabase.getReference("Services").child(serviceToAdd.getName()).child("price").setValue( serviceToAdd.getPrice() ).addOnCompleteListener(AdminNewService.this, new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) { //Adds info to Firebase if there were no complications.
-                                        Toast.makeText(NewService.this, "Service created. Now add Forms and Documents.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AdminNewService.this, "Service created. Now add Forms and Documents.", Toast.LENGTH_SHORT).show();
                                         finish();
-                                        Intent moveToNextScreen = new Intent(NewService.this, AddFormsAndDocuments.class);
+                                        Intent moveToNextScreen = new Intent(AdminNewService.this, AdminAddFormsAndDocuments.class);
                                         moveToNextScreen.putExtra("serviceName", serviceToAdd.getName());
                                         startActivity(moveToNextScreen);
                                     } else {
                                         //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
-                                        Toast.makeText(NewService.this, "There was a problem creating this Service.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AdminNewService.this, "There was a problem creating this Service.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -137,7 +133,7 @@ public class NewService extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Toast.makeText(NewService.this, "There was a problem creating this Service.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminNewService.this, "There was a problem creating this Service.", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -145,7 +141,7 @@ public class NewService extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(NewService.this, "ERROR.", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminNewService.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
 

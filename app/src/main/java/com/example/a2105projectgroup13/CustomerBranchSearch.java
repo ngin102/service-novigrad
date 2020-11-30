@@ -3,13 +3,11 @@ package com.example.a2105projectgroup13;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,7 +15,6 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class BranchSearch extends AppCompatActivity {
+public class CustomerBranchSearch extends AppCompatActivity {
     private DatabaseReference offeredServicesRef, userInfoRef, serviceRef;
     private FirebaseDatabase firebaseDatabase;
 
@@ -61,14 +58,14 @@ public class BranchSearch extends AppCompatActivity {
                 }
 
                 //displays the serviceArrayList onto the spinner
-                ArrayAdapter arrayAdapter = new ArrayAdapter(BranchSearch.this, android.R.layout.simple_spinner_item, serviceArrayList);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(CustomerBranchSearch.this, android.R.layout.simple_spinner_item, serviceArrayList);
                 serviceSpinner.setAdapter(arrayAdapter);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(BranchSearch.this, "ERROR. CANNOT ACCESS SERVICES IN DATABASE.", Toast.LENGTH_LONG).show();
+                Toast.makeText(CustomerBranchSearch.this, "ERROR. CANNOT ACCESS SERVICES IN DATABASE.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -79,7 +76,7 @@ public class BranchSearch extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String branchToView = branchArrayList.get(i);
 
-                Intent moveToCustomerBranchProfile = new Intent(BranchSearch.this, CustomerBranchProfile.class);
+                Intent moveToCustomerBranchProfile = new Intent(CustomerBranchSearch.this, CustomerBranchProfile.class);
                 moveToCustomerBranchProfile.putExtra("branchID", branchToView);
                 startActivity(moveToCustomerBranchProfile);
             }
@@ -140,7 +137,7 @@ public class BranchSearch extends AppCompatActivity {
                 }
 
                 //displays the branchArrayList onto the ListView
-                ArrayAdapter arrayAdapter = new ArrayAdapter(BranchSearch.this, android.R.layout.simple_list_item_1, branchArrayList);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(CustomerBranchSearch.this, android.R.layout.simple_list_item_1, branchArrayList);
                 branchList.setAdapter(arrayAdapter);
 
             }
@@ -148,7 +145,7 @@ public class BranchSearch extends AppCompatActivity {
             // display error if there is a problem displaying the data from the database
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(BranchSearch.this, "ERROR. CANNOT ACCESS DATABASE.", Toast.LENGTH_LONG).show();
+                Toast.makeText(CustomerBranchSearch.this, "ERROR. CANNOT ACCESS DATABASE.", Toast.LENGTH_LONG).show();
             }
 
         });
@@ -184,7 +181,7 @@ public class BranchSearch extends AppCompatActivity {
                 }
 
                 //displays the branchArrayList onto the ListView
-                ArrayAdapter arrayAdapter = new ArrayAdapter(BranchSearch.this, android.R.layout.simple_list_item_1, branchArrayList);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(CustomerBranchSearch.this, android.R.layout.simple_list_item_1, branchArrayList);
                 branchList.setAdapter(arrayAdapter);
 
             }
@@ -192,7 +189,7 @@ public class BranchSearch extends AppCompatActivity {
             // display error if there is a problem displaying the data from the database
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(BranchSearch.this, "ERROR. CANNOT ACCESS DATABASE.", Toast.LENGTH_LONG).show();
+                Toast.makeText(CustomerBranchSearch.this, "ERROR. CANNOT ACCESS DATABASE.", Toast.LENGTH_LONG).show();
             }
 
         });
@@ -313,7 +310,7 @@ public class BranchSearch extends AppCompatActivity {
     }
 
     public void onBackButtonClicked(View view) {
-        Intent moveToCustomerWelcomeActivity = new Intent(BranchSearch.this, CustomerWelcomeActivity.class);
+        Intent moveToCustomerWelcomeActivity = new Intent(CustomerBranchSearch.this, CustomerWelcomeActivity.class);
         startActivity(moveToCustomerWelcomeActivity);
     }
 

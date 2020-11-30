@@ -25,12 +25,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * This class displays the existing requirements of a service (forms and documents) to the admin.
  */
-public class ViewServiceRequirements extends AppCompatActivity {
+public class AdminViewServiceRequirements extends AppCompatActivity {
     // instance variables
     private DatabaseReference serviceInDatabase;
     private FirebaseDatabase firebaseDatabase;
@@ -82,7 +81,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
         addFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent moveToForms = new Intent(ViewServiceRequirements.this, NewForm.class);
+                Intent moveToForms = new Intent(AdminViewServiceRequirements.this, AdminNewForm.class);
                 moveToForms.putExtra("serviceName", serviceName);
                 startActivity(moveToForms);
             }
@@ -92,7 +91,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
         addDocumentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent moveToDocuments = new Intent(ViewServiceRequirements.this, NewDocument.class);
+                Intent moveToDocuments = new Intent(AdminViewServiceRequirements.this, AdminNewDocument.class);
                 moveToDocuments.putExtra("serviceName2", serviceName);
                 startActivity(moveToDocuments);
             }
@@ -104,7 +103,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
         backToServiceListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent moveToServices = new Intent(ViewServiceRequirements.this, ServiceList.class);
+                Intent moveToServices = new Intent(AdminViewServiceRequirements.this, AdminViewServiceList.class);
                 startActivity(moveToServices);
             }
         });
@@ -143,7 +142,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
                     }
                 }
 
-                ArrayAdapter arrayAdapter = new ArrayAdapter(ViewServiceRequirements.this, android.R.layout.simple_list_item_1, requirementWithDetailsArrayList);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(AdminViewServiceRequirements.this, android.R.layout.simple_list_item_1, requirementWithDetailsArrayList);
                 requirementList.setAdapter(arrayAdapter);
 
             }
@@ -151,7 +150,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
             // display error if there is a problem displaying the data from the database
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminViewServiceRequirements.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -190,7 +189,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
      * Returns nothing.
      */
     private void moveToFields(final String requirementToViewFields){
-        Intent moveToView = new Intent(ViewServiceRequirements.this, ViewFields.class);
+        Intent moveToView = new Intent(AdminViewServiceRequirements.this, AdminViewFields.class);
         moveToView.putExtra("selectedServiceName", serviceName);
         moveToView.putExtra("requirementName", requirementToViewFields);
         startActivity(moveToView);
@@ -201,7 +200,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
      * Returns nothing.
      */
     private void moveToDocumentDetails(String requirementToViewDetails){
-        Intent moveToView2 = new Intent(ViewServiceRequirements.this, EditDocument.class);
+        Intent moveToView2 = new Intent(AdminViewServiceRequirements.this, AdminEditDocument.class);
         moveToView2.putExtra("selectedServiceName", serviceName);
         moveToView2.putExtra("requirementName", requirementToViewDetails);
         startActivity(moveToView2);
@@ -220,18 +219,18 @@ public class ViewServiceRequirements extends AppCompatActivity {
         //validate the price
         String validatedPrice = ValidateString.validatePrice(price);
         if (validatedPrice == "-1") {
-            Toast.makeText(ViewServiceRequirements.this, "Please enter a valid form of price", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminViewServiceRequirements.this, "Please enter a valid form of price", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         // update the price
-        priceReference.setValue(ValidateString.validatePrice(price)).addOnCompleteListener(ViewServiceRequirements.this, new OnCompleteListener<Void>() {
+        priceReference.setValue(ValidateString.validatePrice(price)).addOnCompleteListener(AdminViewServiceRequirements.this, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(ViewServiceRequirements.this, "Price updated!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminViewServiceRequirements.this, "Price updated!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ViewServiceRequirements.this, "There was a problem updating the price. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminViewServiceRequirements.this, "There was a problem updating the price. Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -246,7 +245,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
         //Getting the specified service reference
         DatabaseReference serviceReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName).child(requirement);
         serviceReference.removeValue();
-        Toast.makeText(ViewServiceRequirements.this, "Requirement deleted.", Toast.LENGTH_LONG).show();
+        Toast.makeText(AdminViewServiceRequirements.this, "Requirement deleted.", Toast.LENGTH_LONG).show();
         return true;
     }
 
@@ -265,7 +264,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
                     String storedRequirementName = requirement.getKey();
 
                     if (storedRequirementName.toLowerCase().equals(newKeyChecker.toLowerCase())) {
-                        Toast.makeText(ViewServiceRequirements.this, "There is already a Form with this name. Please choose a new Form name.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminViewServiceRequirements.this, "There is already a Form with this name. Please choose a new Form name.", Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
@@ -274,7 +273,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.hasChild(newKeyChecker)) {
-                            Toast.makeText(ViewServiceRequirements.this, "There already exists a requirement by this name. Choose another requirement name.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AdminViewServiceRequirements.this, "There already exists a requirement by this name. Choose another requirement name.", Toast.LENGTH_LONG).show();
                             return;
                         } else {
                             //Moving reference in Firebase.
@@ -285,10 +284,10 @@ public class ViewServiceRequirements extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isComplete()) {
-                                                Toast.makeText(ViewServiceRequirements.this, "Changed requirement name.", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(AdminViewServiceRequirements.this, "Changed requirement name.", Toast.LENGTH_LONG).show();
 
                                             } else {
-                                                Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(AdminViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
@@ -296,7 +295,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AdminViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
@@ -308,7 +307,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AdminViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
@@ -318,7 +317,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminViewServiceRequirements.this, "ERROR.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -326,7 +325,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ViewServiceRequirements.this, "ERROR.", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminViewServiceRequirements.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -353,7 +352,7 @@ public class ViewServiceRequirements extends AppCompatActivity {
                 public void onClick(View view) {
                     String newPrice = editTextNewPrice.getText().toString().trim();
                     if (newPrice.equals("")) {
-                        Toast.makeText(ViewServiceRequirements.this, "Please enter a price.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminViewServiceRequirements.this, "Please enter a price.", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     updatePrice(newPrice);
@@ -391,13 +390,13 @@ public class ViewServiceRequirements extends AppCompatActivity {
                 public void onClick(View view){
                     String newKey = editTextNewRequirementName.getText().toString().trim();
                     if (newKey.equals("")){
-                        Toast.makeText(ViewServiceRequirements.this, "Please enter a Form name.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminViewServiceRequirements.this, "Please enter a Form name.", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
                     String validatedNewKey = ValidateString.validateServiceName(newKey);
                     if (validatedNewKey.equals("-1")) {
-                        Toast.makeText(ViewServiceRequirements.this, "Invalid Form name. Make sure your Form name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminViewServiceRequirements.this, "Invalid Form name. Make sure your Form name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
                         newKey = validatedNewKey;

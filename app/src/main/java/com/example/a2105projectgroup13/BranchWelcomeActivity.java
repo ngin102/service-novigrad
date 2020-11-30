@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -95,7 +93,7 @@ public class BranchWelcomeActivity extends AppCompatActivity {
         viewBranchProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent moveToProfile = new Intent(BranchWelcomeActivity.this, SetBranchProfile.class);
+                Intent moveToProfile = new Intent(BranchWelcomeActivity.this, BranchSetProfile.class);
                 moveToProfile.putExtra("uid", uid);
                 startActivity(moveToProfile);
             }

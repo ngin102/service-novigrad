@@ -63,7 +63,7 @@ import static android.view.View.VISIBLE;
  * These issues did not seem to persist when we tested our app on an Android phone and an Android tablet, which were connected to
  * two different Wifi networks.
  */
-public class Register extends AppCompatActivity {
+public class UserRegister extends AppCompatActivity {
     //Declare instance variables.
         //Each variable corresponds with its id in the xml.
 
@@ -107,7 +107,7 @@ public class Register extends AppCompatActivity {
         alreadyRegistered.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(Register.this, Login.class));
+                startActivity(new Intent(UserRegister.this, UserLogin.class));
             }
         });
 
@@ -175,7 +175,7 @@ public class Register extends AppCompatActivity {
         //If any one of the text fields has been left empty and unfilled out by the user, give the user this error message.
         //The user will then be forced to fix any issues before re-initiating the registration process by clicking on the Register button again.
         if (firstName.isEmpty() || lastName.isEmpty() || emailAddress.isEmpty() || password.isEmpty()) {
-            Toast.makeText(Register.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserRegister.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(INVISIBLE);
             return;
         }
@@ -187,7 +187,7 @@ public class Register extends AppCompatActivity {
         //The user will then be forced to select a button before re-initiating the registration process by clicking on the Register button again.
         String accountType = checkRadioButtonChoice(accountTypeRadioGroup);
         if (accountType.equals("-1")){
-            Toast.makeText(Register.this, "Please select an account type.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserRegister.this, "Please select an account type.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(INVISIBLE);
             return;
         }
@@ -210,25 +210,25 @@ public class Register extends AppCompatActivity {
         //If the methods from the ValidateString class do not return "-1," the user's text inputs have met the required formatting standards.
         //The strings initialized earlier (firstName, lastName, emailAddress and password) will be set to the outputs from the ValidateString methods.
         if (validatedFirstName.equals("-1")) {
-            Toast.makeText(Register.this, "Invalid first name. Make sure not to use hyphens or accented characters. Please try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserRegister.this, "Invalid first name. Make sure not to use hyphens or accented characters. Please try again.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(INVISIBLE);
             return;
         } else {
             firstName = validatedFirstName;
         } if (validatedLastName.equals("-1")){
-            Toast.makeText(Register.this, "Invalid last name. Make sure not to use hyphens or accented characters. Please try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserRegister.this, "Invalid last name. Make sure not to use hyphens or accented characters. Please try again.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(INVISIBLE);
             return;
         } else {
             lastName = validatedLastName;
         } if (validatedEmail.equals("-1")){
-            Toast.makeText(Register.this, "Invalid email address. Please try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserRegister.this, "Invalid email address. Please try again.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(INVISIBLE);
             return;
         } else {
             emailAddress = validatedEmail;
         } if (validatedPassword.equals("-1")){
-            Toast.makeText(Register.this, "Passwords must be alphanumeric, and must contain 1+ numbers, 1+ uppercase letters, and 8+ characters total.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserRegister.this, "Passwords must be alphanumeric, and must contain 1+ numbers, 1+ uppercase letters, and 8+ characters total.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(INVISIBLE);
             return;
         } else {
@@ -246,7 +246,7 @@ public class Register extends AppCompatActivity {
         final String finalEmailAddress = emailAddress;
         final String finalPassword = password;
 
-        firebaseAuth.createUserWithEmailAndPassword(emailAddress, password).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(emailAddress, password).addOnCompleteListener(UserRegister.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -254,18 +254,18 @@ public class Register extends AppCompatActivity {
                     //information (first name, last name and account type) in Firebase Database.
                     //This method will store this information under the user's unique uId created by Firebase Authentication.
                     //The unique uIc itself can be found in the Database under the path "Users."
-                    firebaseDatabase.getReference("Users").child(firebaseAuth.getCurrentUser().getUid()).setValue(userInfo).addOnCompleteListener(Register.this, new OnCompleteListener<Void>() {
+                    firebaseDatabase.getReference("Users").child(firebaseAuth.getCurrentUser().getUid()).setValue(userInfo).addOnCompleteListener(UserRegister.this, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 //Since the user's information has been successfully stored in Firebase Database, the registration process is completed!
-                                Toast.makeText(Register.this, "Account registered!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserRegister.this, "Account registered!", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(INVISIBLE);
                                 login(finalEmailAddress, finalPassword);
 
                             } else {
                                 //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
-                                Toast.makeText(Register.this, "There was a problem saving your account information. Please try again.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserRegister.this, "There was a problem saving your account information. Please try again.", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(INVISIBLE);
                             }
                         }
@@ -274,7 +274,7 @@ public class Register extends AppCompatActivity {
                     //If the registration in Firebase Authentication was not successful, give the user this message prompt.
                     //Firebase Authentication will check if an email address has already been registered to an account, so we can include this in the possible reasons why the
                     //registration process was unsuccessful.
-                    Toast.makeText(Register.this, "There was a problem registering your account. You may already be registered. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserRegister.this, "There was a problem registering your account. You may already be registered. Please try again.", Toast.LENGTH_SHORT).show();
                     //If he or she wants to try again to register an account, the user must click on the register button again.
                     progressBar.setVisibility(INVISIBLE);
                 }
@@ -307,7 +307,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(Register.this, "Welcome!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserRegister.this, "Welcome!", Toast.LENGTH_SHORT).show();
                     getLoginUid();
                     DatabaseReference accountType = firebaseDatabase.getReference("Users").child(loginUid).child("accountType");
 
@@ -320,27 +320,27 @@ public class Register extends AppCompatActivity {
                             String value = dataSnapshot.getValue(String.class);
 
                             if (value.equals("Branch Account") ){
-                                startActivity(new Intent(Register.this, BranchWelcomeActivity.class));
+                                startActivity(new Intent(UserRegister.this, BranchWelcomeActivity.class));
                             }
 
                             else if (value.equals("Admin Account")){
-                                startActivity(new Intent(Register.this, AdminWelcomeActivity.class));
+                                startActivity(new Intent(UserRegister.this, AdminWelcomeActivity.class));
                             }
 
                             else {
-                                startActivity(new Intent(Register.this, CustomerWelcomeActivity.class));
+                                startActivity(new Intent(UserRegister.this, CustomerWelcomeActivity.class));
                             }
 
                         }
 
                         @Override
                         public void onCancelled(DatabaseError error) {
-                            Toast.makeText(Register.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                            Toast.makeText(UserRegister.this, "ERROR", Toast.LENGTH_SHORT).show();;
                         }
                     });
 
                 } else {
-                    Toast.makeText(Register.this, "The password and/or email was incorrect.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserRegister.this, "The password and/or email was incorrect.", Toast.LENGTH_SHORT).show();
                 }
                 progressBar.setVisibility(INVISIBLE);
             }

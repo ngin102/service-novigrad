@@ -18,12 +18,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Set;
-
 /**
  * This class allows a Branch to complete and fill out its profile information.
  */
-public class SetBranchProfile extends AppCompatActivity {
+public class BranchSetProfile extends AppCompatActivity {
 
     Button editStreetAddressButton;
     Button editCityButton;
@@ -160,7 +158,7 @@ public class SetBranchProfile extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(SetBranchProfile.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                Toast.makeText(BranchSetProfile.this, "ERROR", Toast.LENGTH_SHORT).show();;
             }
         });
 
@@ -178,7 +176,7 @@ public class SetBranchProfile extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(SetBranchProfile.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                Toast.makeText(BranchSetProfile.this, "ERROR", Toast.LENGTH_SHORT).show();;
             }
         });
 
@@ -197,7 +195,7 @@ public class SetBranchProfile extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(SetBranchProfile.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                Toast.makeText(BranchSetProfile.this, "ERROR", Toast.LENGTH_SHORT).show();;
             }
         });
 
@@ -216,7 +214,7 @@ public class SetBranchProfile extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(SetBranchProfile.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                Toast.makeText(BranchSetProfile.this, "ERROR", Toast.LENGTH_SHORT).show();;
             }
         });
     }
@@ -229,29 +227,29 @@ public class SetBranchProfile extends AppCompatActivity {
         String streetAddress = enterAddressEditText.getText().toString().trim();
 
         if (streetNumber.isEmpty()){
-            Toast.makeText(SetBranchProfile.this, "Please enter the new street number.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "Please enter the new street number.", Toast.LENGTH_SHORT).show();
             return;
         }
         else if (streetAddress.isEmpty()){
-            Toast.makeText(SetBranchProfile.this, "Please enter the new street address.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "Please enter the new street address.", Toast.LENGTH_SHORT).show();
             return;
         }
         else if (streetAddress.startsWith("-")){
-            Toast.makeText(SetBranchProfile.this, "You can not start a street address with a hyphen.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "You can not start a street address with a hyphen.", Toast.LENGTH_SHORT).show();
             return;
         }
         else if (streetAddress.endsWith("-")) {
-            Toast.makeText(SetBranchProfile.this, "You can not end a street address with a hyphen.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "You can not end a street address with a hyphen.", Toast.LENGTH_SHORT).show();
             return;
         }
         else if (streetAddress.equals("-")){
-            Toast.makeText(SetBranchProfile.this, "' - ' is not a valid street address.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "' - ' is not a valid street address.", Toast.LENGTH_SHORT).show();
             return;
         }
         else {
             String validateStreetAddress = ValidateString.validateAddressOrCity(streetAddress);
             if (validateStreetAddress.equals("-1")) {
-                Toast.makeText(SetBranchProfile.this, "Street addresses can only be alphabetic; they can also include hyphens. Please enter a valid street address.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BranchSetProfile.this, "Street addresses can only be alphabetic; they can also include hyphens. Please enter a valid street address.", Toast.LENGTH_SHORT).show();
                 return;
             } else {
                 DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Street Address");
@@ -267,26 +265,26 @@ public class SetBranchProfile extends AppCompatActivity {
         String city = cityEditText.getText().toString().trim();
 
         if (city.isEmpty()){
-            Toast.makeText(SetBranchProfile.this, "Please enter a city name.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "Please enter a city name.", Toast.LENGTH_SHORT).show();
             return;
         }
         else if (city.startsWith("-")){
-            Toast.makeText(SetBranchProfile.this, "You can not start a city name with a hyphen.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "You can not start a city name with a hyphen.", Toast.LENGTH_SHORT).show();
             return;
         }
         else if (city.equals("-")){
-            Toast.makeText(SetBranchProfile.this, "' - ' is not a city name.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "' - ' is not a city name.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         else if (city.endsWith("-")){
-            Toast.makeText(SetBranchProfile.this, "A city name that ends with ' - ' is not valid.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "A city name that ends with ' - ' is not valid.", Toast.LENGTH_SHORT).show();
             return;
         }
         else {
             String validateCity = ValidateString.validateAddressOrCity(city);
             if (validateCity.equals("-1")) {
-                Toast.makeText(SetBranchProfile.this, "City names can only be alphabetic; they can also include hyphens. Please enter a valid city name.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BranchSetProfile.this, "City names can only be alphabetic; they can also include hyphens. Please enter a valid city name.", Toast.LENGTH_SHORT).show();
                 return;
             } else {
                 DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("City");
@@ -302,15 +300,15 @@ public class SetBranchProfile extends AppCompatActivity {
         String postalCode = postalCodeEditText.getText().toString().trim();
 
         if (postalCode.isEmpty()){
-            Toast.makeText(SetBranchProfile.this, "Please enter a postal code.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "Please enter a postal code.", Toast.LENGTH_SHORT).show();
             return;
         } else if (postalCode.length() != 6){
-            Toast.makeText(SetBranchProfile.this, "Postal codes are 6 characters long. Please enter a valid postal code.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "Postal codes are 6 characters long. Please enter a valid postal code.", Toast.LENGTH_SHORT).show();
             return;
         } else {
             String validatePostalCode = ValidateString.validatePostalCode(postalCode);
             if (validatePostalCode.equals("-1")){
-                Toast.makeText(SetBranchProfile.this, "Postal codes are 6 characters long. Postal codes follow the format 'A0A0A0', where A is any letter and 0 is any number. Please enter a valid postal code.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BranchSetProfile.this, "Postal codes are 6 characters long. Postal codes follow the format 'A0A0A0', where A is any letter and 0 is any number. Please enter a valid postal code.", Toast.LENGTH_SHORT).show();
                 return;
             } else {
                 DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Postal Code");
@@ -326,10 +324,10 @@ public class SetBranchProfile extends AppCompatActivity {
         String phoneNumber = enterPhoneEditText.getText().toString().trim();
 
         if (phoneNumber.isEmpty()){
-            Toast.makeText(SetBranchProfile.this, "Please indicate the new phone number.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "Please indicate the new phone number.", Toast.LENGTH_SHORT).show();
             return;
         } else if (phoneNumber.length() != 10){
-            Toast.makeText(SetBranchProfile.this, "Phone numbers are 10 characters long. Please enter a valid phone number.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BranchSetProfile.this, "Phone numbers are 10 characters long. Please enter a valid phone number.", Toast.LENGTH_SHORT).show();
             return;
         } else {
             DatabaseReference phoneNumberReference = firebaseDatabase.getReference("User Info").child(uid).child("Phone Number");
@@ -341,6 +339,6 @@ public class SetBranchProfile extends AppCompatActivity {
      * Enables functionality to go back to the Branch Welcome Activity.
      */
     private void goToWelcomeScreenOnClick(View view){
-        startActivity(new Intent(SetBranchProfile.this, BranchWelcomeActivity.class));
+        startActivity(new Intent(BranchSetProfile.this, BranchWelcomeActivity.class));
     }
 }

@@ -31,7 +31,7 @@ import static android.view.View.VISIBLE;
  * Using an Android Emulator, registering takes an indeterminate time (for an undetermined reason). However, registration
  * is consistently fast when the program is run on a real device.
  */
-public class Login extends AppCompatActivity {
+public class UserLogin extends AppCompatActivity {
 
     //Login text fields that will receive user input:
     private EditText editTextEmailAddress, editTextPassword;
@@ -64,7 +64,7 @@ public class Login extends AppCompatActivity {
         notRegistered.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Login.this, Register.class));
+                startActivity(new Intent(UserLogin.this, UserRegister.class));
             }
         });
 
@@ -127,14 +127,14 @@ public class Login extends AppCompatActivity {
         //The email must be a possible email address to continue.
         String validateEmail = ValidateString.validateEmail(email);
         if (validateEmail.equals("-1")) {
-            Toast.makeText(Login.this, "Invalid email address. Please try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserLogin.this, "Invalid email address. Please try again.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(INVISIBLE);
             return;
         }
 
         //Both an email and password must be inputted by the user in order to continue.
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(Login.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserLogin.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(INVISIBLE);
             return;
         }
@@ -153,9 +153,9 @@ public class Login extends AppCompatActivity {
                             if (snapshot.getValue() == null) {
                                 FirebaseUser signedInUser = firebaseAuth.getCurrentUser();
                                 signedInUser.delete();
-                                Toast.makeText(Login.this, "This account was recently deleted by the Admin. Please register again.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserLogin.this, "This account was recently deleted by the Admin. Please register again.", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(Login.this, "Welcome!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserLogin.this, "Welcome!", Toast.LENGTH_SHORT).show();
                                 DatabaseReference accountType = firebaseDatabase.getReference("Users").child(uid).child("accountType");
                                 //Sends logged in user to the main screen.
                                 //An Admin will go to the Admin Main Activity.
@@ -166,18 +166,18 @@ public class Login extends AppCompatActivity {
                                         String value = dataSnapshot.getValue(String.class);
 
                                         if (value.equals("Branch Account")) {
-                                            startActivity(new Intent(Login.this, BranchWelcomeActivity.class));
+                                            startActivity(new Intent(UserLogin.this, BranchWelcomeActivity.class));
                                         } else if (value.equals("Admin Account")) {
-                                            startActivity(new Intent(Login.this, AdminWelcomeActivity.class));
+                                            startActivity(new Intent(UserLogin.this, AdminWelcomeActivity.class));
                                         } else {
-                                            startActivity(new Intent(Login.this, CustomerWelcomeActivity.class));
+                                            startActivity(new Intent(UserLogin.this, CustomerWelcomeActivity.class));
                                         }
 
                                     }
 
                                     @Override
                                     public void onCancelled(DatabaseError error) {
-                                        Toast.makeText(Login.this, "ERROR", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(UserLogin.this, "ERROR", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -186,13 +186,13 @@ public class Login extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError error) {
-                            Toast.makeText(Login.this, "ERROR", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserLogin.this, "ERROR", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
 
                 else {
-                    Toast.makeText(Login.this, "The password and/or email was incorrect.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserLogin.this, "The password and/or email was incorrect.", Toast.LENGTH_SHORT).show();
                 }
                 progressBar.setVisibility(INVISIBLE);
             }

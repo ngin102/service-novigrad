@@ -18,13 +18,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class EditDocument extends AppCompatActivity {
+public class AdminEditDocument extends AppCompatActivity {
     Button editDescriptionButton;
     EditText editTextDescription;
     Button cancelButton;
@@ -61,7 +58,7 @@ public class EditDocument extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent moveToRequirements1 = new Intent(EditDocument.this, ViewServiceRequirements.class);
+                Intent moveToRequirements1 = new Intent(AdminEditDocument.this, AdminViewServiceRequirements.class);
                 moveToRequirements1.putExtra("serviceName", serviceName);
                 moveToRequirements1.putExtra("requirementName", requirementName);
                 startActivity(moveToRequirements1);
@@ -76,25 +73,25 @@ public class EditDocument extends AppCompatActivity {
 
                 // require the admin to provide a description for a document
                 if (newDescription.equals("")) {
-                    Toast.makeText(EditDocument.this, "Please enter a description", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminEditDocument.this, "Please enter a description", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 // if the description is not empty, then overwrite the existing description
                 // after the task is complete, navigate to moveToRequirements
-                documentInfoReference.child("description").setValue(newDescription).addOnCompleteListener(EditDocument.this, new OnCompleteListener<Void>() {
+                documentInfoReference.child("description").setValue(newDescription).addOnCompleteListener(AdminEditDocument.this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(EditDocument.this, "The description has been updated.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminEditDocument.this, "The description has been updated.", Toast.LENGTH_SHORT).show();
                             finish();
 
-                            Intent moveToRequirements = new Intent(EditDocument.this, ViewServiceRequirements.class);
+                            Intent moveToRequirements = new Intent(AdminEditDocument.this, AdminViewServiceRequirements.class);
                             moveToRequirements.putExtra("serviceName", serviceName);
                             startActivity(moveToRequirements);
                         } else {
                             // display an error if the overwrite was unsuccessful
-                            Toast.makeText(EditDocument.this, "There was a problem updating the description.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminEditDocument.this, "There was a problem updating the description.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -108,24 +105,24 @@ public class EditDocument extends AppCompatActivity {
                 String chooseFileType = checkRadioButtonChoice(chooseFileTypeRadioGroup);
                 // display an error if the admin hasn't selected a file type
                 if (chooseFileType.equals("-1")) {
-                    Toast.makeText(EditDocument.this, "Please select a file type.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminEditDocument.this, "Please select a file type.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                documentInfoReference.child("fileType").setValue(chooseFileType).addOnCompleteListener(EditDocument.this, new OnCompleteListener<Void>() {
+                documentInfoReference.child("fileType").setValue(chooseFileType).addOnCompleteListener(AdminEditDocument.this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(EditDocument.this, "The file type has been updated.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminEditDocument.this, "The file type has been updated.", Toast.LENGTH_SHORT).show();
                             finish();
 
-                            Intent moveToRequirements = new Intent(EditDocument.this, ViewServiceRequirements.class);
+                            Intent moveToRequirements = new Intent(AdminEditDocument.this, AdminViewServiceRequirements.class);
                             moveToRequirements.putExtra("serviceName", serviceName);
                             startActivity(moveToRequirements);
                         } else {
                             // display an error if the type overwrite is unsuccesful
                             // after the task is complete, navigate to moveToRequirements
-                            Toast.makeText(EditDocument.this, "There was a problem updating the description.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminEditDocument.this, "There was a problem updating the description.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

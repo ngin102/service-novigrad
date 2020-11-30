@@ -1,12 +1,10 @@
 package com.example.a2105projectgroup13;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -90,7 +88,7 @@ public class BranchViewServiceRequests extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String requestToView = serviceRequestArrayList.get(i);
-                Intent moveToNextScreen = new Intent(BranchViewServiceRequests.this, ActivityServiceRequest.class);
+                Intent moveToNextScreen = new Intent(BranchViewServiceRequests.this, BranchApproveDenyServiceRequests.class);
                 moveToNextScreen.putExtra("requestKey", requestToView);
                 startActivity(moveToNextScreen);
             }

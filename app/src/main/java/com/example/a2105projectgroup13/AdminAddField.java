@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
  by the user as a String).
  */
 
-public class AddField extends AppCompatActivity {
+public class AdminAddField extends AppCompatActivity {
 
     Button addFieldButton;
     Button cancelButton;
@@ -57,7 +57,7 @@ public class AddField extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent moveToRequirements1 = new Intent(AddField.this, ViewFields.class);
+                Intent moveToRequirements1 = new Intent(AdminAddField.this, AdminViewFields.class);
                 moveToRequirements1.putExtra("selectedServiceName", serviceName);
                 moveToRequirements1.putExtra("requirementName", requirementName);
                 startActivity(moveToRequirements1);
@@ -70,13 +70,13 @@ public class AddField extends AppCompatActivity {
                 newField = editTextFieldName.getText().toString().trim();
 
                 if (newField.equals("")){
-                    Toast.makeText(AddField.this, "Please enter a field name.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminAddField.this, "Please enter a field name.", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 String validatedNewField = ValidateString.validateServiceName(newField);
                 if (validatedNewField.equals("-1")) {
-                    Toast.makeText(AddField.this, "Invalid Field name. Make sure your Field name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAddField.this, "Invalid Field name. Make sure your Field name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     newField = validatedNewField;
@@ -90,25 +90,25 @@ public class AddField extends AppCompatActivity {
                         for (DataSnapshot field : snapshot.getChildren()) {
                             String fieldValue = field.getValue(String.class);
                             if (fieldValue.toLowerCase().equals( newField.toLowerCase() ) ) {
-                                Toast.makeText(AddField.this, "There is already a field with this name. Please choose a different field name.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(AdminAddField.this, "There is already a field with this name. Please choose a different field name.", Toast.LENGTH_LONG).show();
                                 return;
                             }
                         }
 
-                        allFieldsReference.child(String.valueOf(childrenCount)).setValue(newField).addOnCompleteListener(AddField.this, new OnCompleteListener<Void>() {
+                        allFieldsReference.child(String.valueOf(childrenCount)).setValue(newField).addOnCompleteListener(AdminAddField.this, new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(AddField.this, "Field added to Form.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AdminAddField.this, "Field added to Form.", Toast.LENGTH_SHORT).show();
                                     //finish();
 
-                                    Intent moveToRequirements = new Intent(AddField.this, ViewFields.class);
+                                    Intent moveToRequirements = new Intent(AdminAddField.this, AdminViewFields.class);
                                     moveToRequirements.putExtra("selectedServiceName", serviceName);
                                     moveToRequirements.putExtra("requirementName", requirementName);
                                     startActivity(moveToRequirements);
                                 } else {
                                     //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
-                                    Toast.makeText(AddField.this, "There was a problem adding this Field to your Form.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AdminAddField.this, "There was a problem adding this Field to your Form.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -118,7 +118,7 @@ public class AddField extends AppCompatActivity {
                      //Notifies the user that there was a database error.
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(AddField.this, "ERROR.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminAddField.this, "ERROR.", Toast.LENGTH_LONG).show();
                     }
                 });
             }

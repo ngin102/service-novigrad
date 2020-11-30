@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -27,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
  */
 
 
-public class NewDocument extends AppCompatActivity {
+public class AdminNewDocument extends AppCompatActivity {
     private EditText editTextDocumentName;
     private EditText editTextDescription;
     private Button chooseImageButton;
@@ -106,20 +105,20 @@ public class NewDocument extends AppCompatActivity {
 
         // display an error if the document name is empty
         if (documentName.equals("")){
-            Toast.makeText(NewDocument.this, "Please enter a name for the Document.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminNewDocument.this, "Please enter a name for the Document.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // display an error if the document description is empty
         if (description.equals("")){
-            Toast.makeText(NewDocument.this, "Please enter a description for the Document.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminNewDocument.this, "Please enter a description for the Document.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // display an error if the document file type is unspecified
         String chooseFileType = checkRadioButtonChoice(chooseFileTypeRadioGroup);
         if (chooseFileType.equals("-1")){
-            Toast.makeText(NewDocument.this, "Please select a file type.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminNewDocument.this, "Please select a file type.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -129,7 +128,7 @@ public class NewDocument extends AppCompatActivity {
             // display an error if the document name is invalid
             String validatedDocumentName = ValidateString.validateServiceName(documentName);
             if (validatedDocumentName.equals("-1")) {
-                Toast.makeText(NewDocument.this, "Invalid Document name. Make sure your Document name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminNewDocument.this, "Invalid Document name. Make sure your Document name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
                 return;
             } else { // if validation is succesful, put the document name in the proper format per the validation
                 documentName = validatedDocumentName;
@@ -150,7 +149,7 @@ public class NewDocument extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(NewDocument.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminNewDocument.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -164,7 +163,7 @@ public class NewDocument extends AppCompatActivity {
                         String storedRequirementName = requirement.getKey();
 
                         if (storedRequirementName.toLowerCase().equals(newDocumentName.toLowerCase())) {
-                            Toast.makeText(NewDocument.this, "There is already a requirement with this name. Please choose a new Requirement name.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AdminNewDocument.this, "There is already a requirement with this name. Please choose a new Requirement name.", Toast.LENGTH_LONG).show();
                             return;
                         }
                     }
@@ -174,22 +173,22 @@ public class NewDocument extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             // display and error if a requirement already exists with the name specified by the Admin
                             if (dataSnapshot.exists()) {
-                                Toast.makeText(NewDocument.this, "A requirement already exists under this name. Please use a different name for your Document.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AdminNewDocument.this, "A requirement already exists under this name. Please use a different name for your Document.", Toast.LENGTH_SHORT).show();
                                 return;
                             } else { // add the new document to the database
-                                firebaseDatabase.getReference("Services").child(serviceName).child(documentToAddToService.getName()).setValue(documentToAddToService).addOnCompleteListener(NewDocument.this, new OnCompleteListener<Void>() {
+                                firebaseDatabase.getReference("Services").child(serviceName).child(documentToAddToService.getName()).setValue(documentToAddToService).addOnCompleteListener(AdminNewDocument.this, new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            Toast.makeText(NewDocument.this, "Document added to service", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AdminNewDocument.this, "Document added to service", Toast.LENGTH_SHORT).show();
                                             finish();
 
-                                            Intent moveToAdd = new Intent(NewDocument.this, ViewServiceRequirements.class);
+                                            Intent moveToAdd = new Intent(AdminNewDocument.this, AdminViewServiceRequirements.class);
                                             moveToAdd.putExtra("serviceName", serviceName);
                                             startActivity(moveToAdd);
                                         } else {
                                             //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
-                                            Toast.makeText(NewDocument.this, "There was a problem adding this Document to your service.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AdminNewDocument.this, "There was a problem adding this Document to your service.", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -199,14 +198,14 @@ public class NewDocument extends AppCompatActivity {
                         // display an error if there is a problem creating the document
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(NewDocument.this, "There was a problem creating this Document.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminNewDocument.this, "There was a problem creating this Document.", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(NewDocument.this, "ERROR.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminNewDocument.this, "ERROR.", Toast.LENGTH_LONG).show();
                 }
             });
 

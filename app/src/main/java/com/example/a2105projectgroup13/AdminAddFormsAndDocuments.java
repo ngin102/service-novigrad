@@ -13,7 +13,7 @@ import android.widget.TextView;
  Service Novigrad services: NewForm, NewDocument, and ManageServices.
  */
 
-public class AddFormsAndDocuments extends AppCompatActivity {
+public class AdminAddFormsAndDocuments extends AppCompatActivity {
     private Intent previousScreen;
     private String serviceName;
 
@@ -39,7 +39,7 @@ public class AddFormsAndDocuments extends AppCompatActivity {
         addFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent moveToForms = new Intent(AddFormsAndDocuments.this, NewForm.class);
+                Intent moveToForms = new Intent(AdminAddFormsAndDocuments.this, AdminNewForm.class);
                 moveToForms.putExtra("serviceName", serviceName);
                 startActivity(moveToForms);
             }
@@ -50,7 +50,7 @@ public class AddFormsAndDocuments extends AppCompatActivity {
         addDocumentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent moveToDocuments = new Intent(AddFormsAndDocuments.this, NewDocument.class);
+                Intent moveToDocuments = new Intent(AdminAddFormsAndDocuments.this, AdminNewDocument.class);
                 moveToDocuments.putExtra("serviceName2", serviceName);
                 startActivity(moveToDocuments);
             }
@@ -62,7 +62,7 @@ public class AddFormsAndDocuments extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 finish();
-                startActivity(new Intent(AddFormsAndDocuments.this, ManageServices.class));
+                startActivity(new Intent(AdminAddFormsAndDocuments.this, AdminManageServices.class));
             }
         });
     }

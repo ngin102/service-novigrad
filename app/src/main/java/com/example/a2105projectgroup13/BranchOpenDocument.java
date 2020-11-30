@@ -4,14 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -29,7 +24,7 @@ import com.google.firebase.storage.StorageReference;
 /**
  * This class opens a saved file (a Document) from Firebase Storage.
  */
-public class OpenDocument extends AppCompatActivity {
+public class BranchOpenDocument extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
@@ -55,12 +50,12 @@ public class OpenDocument extends AppCompatActivity {
                 String filename = snapshot.getValue(String.class);
 
                 StorageReference referenceToDocument = firebaseStorage.getReference().child(branchId + "/" + requestKey + "/" + filename);
-                Toast.makeText(OpenDocument.this, "Loading " + filename + "...", Toast.LENGTH_LONG).show();
+                Toast.makeText(BranchOpenDocument.this, "Loading " + filename + "...", Toast.LENGTH_LONG).show();
 
                 referenceToDocument.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Glide.with(OpenDocument.this)
+                        Glide.with(BranchOpenDocument.this)
                                 .load(uri)
                                 .into(documentImageView);
                     }
@@ -75,7 +70,7 @@ public class OpenDocument extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(OpenDocument.this, "ERROR.", Toast.LENGTH_LONG).show();
+                Toast.makeText(BranchOpenDocument.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
     }

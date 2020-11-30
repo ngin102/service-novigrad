@@ -12,6 +12,7 @@ public class Branch extends User{
     private String phoneNumber;
     private List<Service> services;
     private List<WorkingHours> workingHours;
+    private List<Review> reviews;
 
     public Branch(){
     }
@@ -20,6 +21,7 @@ public class Branch extends User{
         super(firstName, lastName, accountType);
         this.services = new ArrayList<Service>();
         this.workingHours = new ArrayList<WorkingHours>();
+        this.reviews = new ArrayList<Review>();
         this.address = "Not set";
         this.phoneNumber = "Not set";
     }

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,7 +70,7 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
         searchBranchListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                Intent moveToBranchSearch = new Intent(CustomerWelcomeActivity.this, BranchSearch.class);
+                Intent moveToBranchSearch = new Intent(CustomerWelcomeActivity.this, CustomerBranchSearch.class);
                 startActivity(moveToBranchSearch);
             }
         });

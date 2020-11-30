@@ -23,12 +23,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static android.view.View.INVISIBLE;
 /**
  This class allows the Admin to add a new form to the database.
  */
 
-public class NewForm extends AppCompatActivity {
+public class AdminNewForm extends AppCompatActivity {
     private EditText editTextFormName;
     private LinearLayout fieldList;
     private Button addFieldButton;
@@ -115,7 +114,7 @@ public class NewForm extends AppCompatActivity {
 
             // display an error if a field is empty
             if (fieldName.isEmpty()) {
-                Toast.makeText(NewForm.this, "Please name all fields or remove unnamed fields.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminNewForm.this, "Please name all fields or remove unnamed fields.", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
@@ -140,7 +139,7 @@ public class NewForm extends AppCompatActivity {
 
                 // display an error if there is a duplicate field
                 if (stringFieldNameOne.equals(stringFieldNameTwo)) {
-                    Toast.makeText(NewForm.this, "Please remove duplicate fields.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminNewForm.this, "Please remove duplicate fields.", Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -157,13 +156,13 @@ public class NewForm extends AppCompatActivity {
 
         // display and error if the form's name is empty
         if (formName.equals("")){
-            Toast.makeText(NewForm.this, "Please enter a name for the Form.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminNewForm.this, "Please enter a name for the Form.", Toast.LENGTH_SHORT).show();
             return;
         }
         // display and error if the form's name is invalid
         String validatedFormName = ValidateString.validateServiceName(formName);
         if (validatedFormName.equals("-1")) {
-            Toast.makeText(NewForm.this, "Invalid Form name. Make sure your Form name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminNewForm.this, "Invalid Form name. Make sure your Form name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
             return;
         } else {
             formName = validatedFormName;
@@ -171,7 +170,7 @@ public class NewForm extends AppCompatActivity {
 
         // display and error if the form has no fields
         if (fieldList.getChildCount() == 0){
-            Toast.makeText(NewForm.this, "Please specify the fields that will be in the Form.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AdminNewForm.this, "Please specify the fields that will be in the Form.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -185,7 +184,7 @@ public class NewForm extends AppCompatActivity {
 
                 String validatedFieldName = ValidateString.validateServiceName(fieldName);
                 if (validatedFieldName.equals("-1")) {
-                    Toast.makeText(NewForm.this, "Invalid Field name. Make sure your Field name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminNewForm.this, "Invalid Field name. Make sure your Field name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     fieldName = validatedFieldName;
@@ -214,7 +213,7 @@ public class NewForm extends AppCompatActivity {
                 // display an error if there is a problem finding the service in the database
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(NewForm.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminNewForm.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -227,7 +226,7 @@ public class NewForm extends AppCompatActivity {
                         String storedRequirementName = requirement.getKey();
 
                         if (storedRequirementName.toLowerCase().equals(newFormName.toLowerCase())) {
-                            Toast.makeText(NewForm.this, "There is already a requirement with this name. Please choose a new Form name.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AdminNewForm.this, "There is already a requirement with this name. Please choose a new Form name.", Toast.LENGTH_LONG).show();
                             return;
                         }
                     }
@@ -237,10 +236,10 @@ public class NewForm extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()) {
-                                Toast.makeText(NewForm.this, "A requirement already exists under this name. Please use a different name for your Form.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AdminNewForm.this, "A requirement already exists under this name. Please use a different name for your Form.", Toast.LENGTH_SHORT).show();
                                 return;
                             } else {
-                                firebaseDatabase.getReference("Services").child(serviceName).child(formToAddToService.getName()).setValue(formToAddToService).addOnCompleteListener(NewForm.this, new OnCompleteListener<Void>() {
+                                firebaseDatabase.getReference("Services").child(serviceName).child(formToAddToService.getName()).setValue(formToAddToService).addOnCompleteListener(AdminNewForm.this, new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
@@ -250,15 +249,15 @@ public class NewForm extends AppCompatActivity {
                                                 fieldsInFirebase.child(Integer.toString(i)).setValue(fieldToAdd);
                                             }
 
-                                            Toast.makeText(NewForm.this, "Form added to service", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AdminNewForm.this, "Form added to service", Toast.LENGTH_SHORT).show();
                                             finish();
 
-                                            Intent moveToAdd = new Intent(NewForm.this, ViewServiceRequirements.class);
+                                            Intent moveToAdd = new Intent(AdminNewForm.this, AdminViewServiceRequirements.class);
                                             moveToAdd.putExtra("serviceName", serviceName);
                                             startActivity(moveToAdd);
                                         } else {
                                             //If the user's information was not successfully stored in Firebase Database, give the user this message prompt.
-                                            Toast.makeText(NewForm.this, "There was a problem adding this Form to your service.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AdminNewForm.this, "There was a problem adding this Form to your service.", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -268,14 +267,14 @@ public class NewForm extends AppCompatActivity {
                         // display an error if there was a problem saving the form to the database
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(NewForm.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminNewForm.this, "There was a problem creating this Form.", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(NewForm.this, "ERROR.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AdminNewForm.this, "ERROR.", Toast.LENGTH_LONG).show();
                 }
             });
 

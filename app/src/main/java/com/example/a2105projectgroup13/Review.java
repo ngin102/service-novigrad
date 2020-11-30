@@ -33,7 +33,7 @@ public class Review {
     }
 
     public String toString(){
-        return getReviewer().getFirstName() + " " + getReviewer().getLastName() + " wrote:" + "\n" + "  Rating: " + getRating() + "/5" +
+        return getReviewer().getFirstName() + " " + getReviewer().getLastName() + " wrote:" + "\n" + "    Rating: " + getRating() + "/5" +
                 "\n" + "    Comment: " + getComment();
     }
 

@@ -13,12 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,11 +24,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
+
 /**
  * This class displays a list of services to the Admin.
  */
-public class ServiceList extends AppCompatActivity {
+public class AdminViewServiceList extends AppCompatActivity {
     private DatabaseReference serviceInDatabase;
     private FirebaseDatabase firebaseDatabase;
 
@@ -54,7 +52,7 @@ public class ServiceList extends AppCompatActivity {
         returnToManageServicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(ServiceList.this, ManageServices.class));
+                startActivity(new Intent(AdminViewServiceList.this, AdminManageServices.class));
             }
         });
 
@@ -78,20 +76,20 @@ public class ServiceList extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(ServiceList.this, "ERROR", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminViewServiceList.this, "ERROR", Toast.LENGTH_SHORT).show();
                         }
                     });
 
                     serviceArrayList.add(key);
                 }
 
-                ArrayAdapter arrayAdapter = new ArrayAdapter(ServiceList.this, android.R.layout.simple_list_item_1, serviceArrayList);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(AdminViewServiceList.this, android.R.layout.simple_list_item_1, serviceArrayList);
                 serviceList.setAdapter(arrayAdapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminViewServiceList.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -109,7 +107,7 @@ public class ServiceList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String serviceToViewRequirements = serviceArrayList.get(i);
-                Intent moveToView = new Intent(ServiceList.this, ViewServiceRequirements.class);
+                Intent moveToView = new Intent(AdminViewServiceList.this, AdminViewServiceRequirements.class);
                 moveToView.putExtra("serviceName", serviceToViewRequirements);
                 startActivity(moveToView);
             }
@@ -130,7 +128,7 @@ public class ServiceList extends AppCompatActivity {
                     String storedServiceName = service.getKey();
 
                     if (storedServiceName.toLowerCase().equals(newKeyChecker.toLowerCase())) {
-                        Toast.makeText(ServiceList.this, "There is already a Service with this name. Please choose a new Service name.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminViewServiceList.this, "There is already a Service with this name. Please choose a new Service name.", Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
@@ -140,7 +138,7 @@ public class ServiceList extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.hasChild(newKeyChecker)) {
-                            Toast.makeText(ServiceList.this, "There already exists a Service by this name. Choose another Service name.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AdminViewServiceList.this, "There already exists a Service by this name. Choose another Service name.", Toast.LENGTH_LONG).show();
                             return;
                         } else {
                             //Moving reference in Firebase.
@@ -151,10 +149,10 @@ public class ServiceList extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isComplete()) {
-                                                Toast.makeText(ServiceList.this, "Changed Service name.", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(AdminViewServiceList.this, "Changed Service name.", Toast.LENGTH_LONG).show();
 
                                             } else {
-                                                Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(AdminViewServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
@@ -162,7 +160,7 @@ public class ServiceList extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AdminViewServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
@@ -172,7 +170,7 @@ public class ServiceList extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminViewServiceList.this, "ERROR.", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -198,7 +196,7 @@ public class ServiceList extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminViewServiceList.this, "ERROR.", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -208,7 +206,7 @@ public class ServiceList extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminViewServiceList.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -219,7 +217,7 @@ public class ServiceList extends AppCompatActivity {
         //Getting the specified service reference
         DatabaseReference serviceReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName);
         serviceReference.removeValue();
-        Toast.makeText(ServiceList.this, "Service deleted.", Toast.LENGTH_LONG).show();
+        Toast.makeText(AdminViewServiceList.this, "Service deleted.", Toast.LENGTH_LONG).show();
 
         FirebaseDatabase.getInstance().getReference("Offered Services").addValueEventListener(new ValueEventListener() {
             @Override
@@ -236,7 +234,7 @@ public class ServiceList extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ServiceList.this, "ERROR.", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminViewServiceList.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -275,13 +273,13 @@ public class ServiceList extends AppCompatActivity {
             public void onClick(View view){
                 String newKey = editTextServiceNameOnList.getText().toString().trim();
                 if (newKey.equals("")){
-                    Toast.makeText(ServiceList.this, "Please enter a Service name.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminViewServiceList.this, "Please enter a Service name.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 String validatedNewKey = ValidateString.validateServiceName(newKey);
                 if (validatedNewKey.equals("-1")) {
-                    Toast.makeText(ServiceList.this, "Invalid Service name. Make sure your Service name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminViewServiceList.this, "Invalid Service name. Make sure your Service name begins with a letter and is only alphanumeric. Please try again.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     newKey = validatedNewKey;
