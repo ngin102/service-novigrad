@@ -199,4 +199,15 @@
     <string name="this_is_a_scrollable_list_of_fields_for_each_form_you_must_fill_out_fill_out_each_field_in_the_textboxes_provided">This is a scrollable list of Fields for each Form you must fill out. Fill out each Field in the textboxes provided.</string>
     <string name="unuploaded">Unuploaded</string>
     <string name="upload">Upload</string>
+    <string name="this_is_a_scrollable_list_of_all_reviews_for_this_branch">This is a scrollable list of all reviews for this Branch.</string>
+    <string name="review_list">Review List</string>
+    <string name="submit_review">Submit Review</string>
+    <string name="write_a_review">Write a Review</string>
+    <string name="rating_out_of_5">Rating (Out of 5)</string>
+    <string name="write_a_comment_about_the_branch">Write a comment about the Branch.</string>
+    <string name="back_to_branch_profile">Back to Branch Profile</string>
+    <string name="a_list_of_reviews_for_this_branch">A list of reviews for this Branch.</string>
+    <string name="back_to_previous_menu">Back to previous menu</string>
+    <string name="rating">Rating:</string>
+    <string name="reviews">Reviews</string>
 </resources>

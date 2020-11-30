@@ -38,6 +38,7 @@ public class CustomerBranchProfile extends AppCompatActivity {
     TextView uidBranchTextView;
 
     Button backToBranchListButton;
+    Button leaveRatingAndReviewButton;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference offeredServicesReference;
@@ -95,6 +96,15 @@ public class CustomerBranchProfile extends AppCompatActivity {
                 startActivity(moveToApply);
             }
         });
+
+        leaveRatingAndReviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent moveToReview = new Intent(CustomerBranchProfile.this, CustomerReviewBranch.class);
+                moveToReview.putExtra("branchID", branchUid);
+                startActivity(moveToReview);
+            }
+        });
     }
 
     /**
@@ -123,7 +133,7 @@ public class CustomerBranchProfile extends AppCompatActivity {
 
         //Return to Branch List
         backToBranchListButton = findViewById(R.id.backToBranchListButton1);
-
+        leaveRatingAndReviewButton = findViewById(R.id.leaveRatingAndReviewButton);
 
         firebaseDatabase = firebaseDatabase.getInstance();
 

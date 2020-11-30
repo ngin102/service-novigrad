@@ -172,7 +172,6 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
 
         //initialize ListViews
-       // formFilledFieldsListView = (ListView)findViewById(R.id.applyFormFieldsListView);
         documentsList = findViewById(R.id.applyDocumentsList);
 
         //initialize TextViews
