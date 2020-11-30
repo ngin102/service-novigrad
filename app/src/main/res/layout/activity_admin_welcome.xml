@@ -32,5 +32,11 @@
             android:layout_height="wrap_content"
             android:text="@string/manage_and_delete_users" />
 
+        <Button
+            android:id="@+id/adminLogOutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log_out" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

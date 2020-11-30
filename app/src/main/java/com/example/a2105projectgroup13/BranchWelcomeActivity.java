@@ -33,6 +33,7 @@ public class BranchWelcomeActivity extends AppCompatActivity {
     private Button viewOfferedServicesButton;
     private Button viewWorkingHoursButton;
     private Button viewServiceRequestsButton;
+    private Button branchLogOutButton;
 
     //Text that appears on screen:
     private TextView firstNameText;
@@ -109,6 +110,13 @@ public class BranchWelcomeActivity extends AppCompatActivity {
             }
         });
 
+        branchLogOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                logOut();
+            }
+        });
+
 
         //Get the references to the user's first name and account type in Firebase Database based on the user's unique uId.
         DatabaseReference firstName = firebaseDatabase.getReference("Users").child(uid).child("firstName");
@@ -138,6 +146,7 @@ public class BranchWelcomeActivity extends AppCompatActivity {
         viewBranchProfileButton = (Button) findViewById(R.id.viewBranchProfileButton);
         viewWorkingHoursButton = (Button) findViewById(R.id.viewWorkingHoursButton);
         viewServiceRequestsButton = (Button)findViewById(R.id.viewServiceRequestsButton);
+        branchLogOutButton = (Button)findViewById(R.id.branchLogOutButton);
 
         firstNameText = (TextView) findViewById(R.id.nameBranchText);
     }
@@ -152,5 +161,15 @@ public class BranchWelcomeActivity extends AppCompatActivity {
 
         FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
+    }
+
+    /**
+     * Method to logout of the user's account.
+     */
+    private void logOut(){
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(BranchWelcomeActivity.this, UserLogin.class));
+        finish();
+        Toast.makeText(BranchWelcomeActivity.this, "You are now logged out!", Toast.LENGTH_SHORT).show();
     }
 }

@@ -358,4 +358,13 @@ public class UserRegister extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
         loginUid = user.getUid();
     }
+
+    /**
+     * Override onBackPressed to disable the Back Button.
+     * This prevents a logged out User who has returned to the Register activity from
+     * entering back into previous activities where he or she was still logged in.
+     */
+    @Override
+    public void onBackPressed() {
+    }
 }

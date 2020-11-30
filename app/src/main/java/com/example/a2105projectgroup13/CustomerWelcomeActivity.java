@@ -29,7 +29,7 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
     //Text that appears on screen:
     private TextView firstNameText;
 
-    private Button viewBranchListButton, searchBranchListButton;
+    private Button customerLogOutButton, viewBranchListButton, searchBranchListButton;
 
 
     @Override
@@ -74,6 +74,15 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
                 startActivity(moveToBranchSearch);
             }
         });
+
+
+        customerLogOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                logOut();
+            }
+        });
+
     }
 
     /**
@@ -88,6 +97,8 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
 
         viewBranchListButton = (Button) findViewById(R.id.viewBranchListButton);
         searchBranchListButton = (Button) findViewById(R.id.searchBranchList);
+
+        customerLogOutButton = (Button)findViewById(R.id.customerLogOutButton);
 
     }
 
@@ -109,4 +120,14 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
     }
 
  */
+
+    /**
+     * Method to logout of the user's account.
+     */
+    private void logOut(){
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(CustomerWelcomeActivity.this, UserLogin.class));
+        finish();
+        Toast.makeText(CustomerWelcomeActivity.this, "You are now logged out!", Toast.LENGTH_SHORT).show();
+    }
 }

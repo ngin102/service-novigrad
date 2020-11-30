@@ -210,4 +210,7 @@
     <string name="back_to_previous_menu">Back to previous menu</string>
     <string name="rating">Rating:</string>
     <string name="reviews">Reviews</string>
+    <string name="back_to_welcome_screen">Back to Welcome Screen</string>
+    <string name="log_out">Log Out</string>
+    <string name="search_branch_list">Search branch list</string>
 </resources>

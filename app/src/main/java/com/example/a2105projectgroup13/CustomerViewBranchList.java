@@ -26,6 +26,8 @@ public class CustomerViewBranchList extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference usersInDatabase;
 
+    private Button backToBranchWelcomeButton;
+
     private ListView branchList;
     private ArrayList<String> branchArrayList = new ArrayList<String>();
 
@@ -70,6 +72,15 @@ public class CustomerViewBranchList extends AppCompatActivity {
                 startActivity(moveToCustomerBranchProfile);
             }
         });
+
+
+        backToBranchWelcomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent moveToWelcomeScreen = new Intent(CustomerViewBranchList.this, CustomerWelcomeActivity.class);
+                startActivity(moveToWelcomeScreen);
+            }
+        });
     }
 
     /**
@@ -83,6 +94,7 @@ public class CustomerViewBranchList extends AppCompatActivity {
 
         branchList = (ListView) findViewById(R.id.branchList);
 
-    }
+        backToBranchWelcomeButton = (Button) findViewById(R.id.backToBranchWelcomeButton);
 
+    }
 }
