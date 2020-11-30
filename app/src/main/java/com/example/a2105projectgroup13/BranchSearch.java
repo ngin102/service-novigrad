@@ -116,21 +116,20 @@ public class BranchSearch extends AppCompatActivity {
     ///////Search functions
 
     /**
-     * Is called when either the data changes in the database or is called by the search button in
-     * the activity. It is always called within a loop, so it only looks at one
+     * Is called by the search button in the activity.
      */
     private void searchByAddress() {
         userInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                final String city = citySearch.getText().toString().trim(); //sets the city and address to what is in the editTexts
-                final String address = addressSearch.getText().toString().trim();
+                final String city = citySearch.getText().toString().toUpperCase().trim(); //sets the city and address to what is in the editTexts
+                final String address = addressSearch.getText().toString().toUpperCase().trim();
                 branchArrayList.clear();
 
                 for (DataSnapshot branchUser : snapshot.getChildren()) {
                     try {
-                        if (String.valueOf(branchUser.child("City").getValue()).contains(city) && //Compares the city inputted to the branch city location stored
-                                String.valueOf(branchUser.child("Street Address").getValue()).contains(address)) { //Compares the address inputted to the branch address stored
+                        if (String.valueOf(branchUser.child("City").getValue()).toUpperCase().contains(city) && //Compares the city inputted to the branch city location stored
+                                String.valueOf(branchUser.child("Street Address").getValue()).toUpperCase().contains(address)) { //Compares the address inputted to the branch address stored
                             branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
                         }
                     } catch (Exception e) {
@@ -164,7 +163,37 @@ public class BranchSearch extends AppCompatActivity {
      * searches
      */
     private void searchByService() {
+        offeredServicesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                final String service = serviceEditText.getText().toString().toUpperCase().trim(); //sets the city and address to what is in the editTexts
+                branchArrayList.clear();
 
+                for (DataSnapshot branchUser : snapshot.getChildren()) {
+                    for (DataSnapshot offeredService: branchUser.getChildren()) {
+                        try {
+                            if (String.valueOf(offeredService.getKey()).toUpperCase().contains(service)) { //Compares the address inputted to the branch address stored
+                                branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                //displays the branchArrayList onto the ListView
+                ArrayAdapter arrayAdapter = new ArrayAdapter(BranchSearch.this, android.R.layout.simple_list_item_1, branchArrayList);
+                branchList.setAdapter(arrayAdapter);
+
+            }
+
+            // display error if there is a problem displaying the data from the database
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(BranchSearch.this, "ERROR. CANNOT ACCESS DATABASE.", Toast.LENGTH_LONG).show();
+            }
+
+        });
     }
 
     //////RadioButton onClick functions
