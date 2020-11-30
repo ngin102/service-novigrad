@@ -73,14 +73,14 @@ public class ValidateString {
     // public class methods (intended for convenience and clarity)
 
     /**
-    Validates a name.
-    Returns "-1" if the name cannot be validated.
-    If the name can be validated (i.e. it is composed of 2-20 alphabetical characters), then
-    return the validated form (Uppercase first letter, lowercase for all other letters).
-
-    Note: hyphenated names like Robinson-Ethier and Jean-Luc would fail validation.
-    Note: accented names like Bélanger and Amélie would fail validation.
-    */
+     * Validates a name.
+     * Returns "-1" if the name cannot be validated.
+     * If the name can be validated (i.e. it is composed of 2-20 alphabetical characters), then
+     * return the validated form (Uppercase first letter, lowercase for all other letters).
+     * <p>
+     * Note: hyphenated names like Robinson-Ethier and Jean-Luc would fail validation.
+     * Note: accented names like Bélanger and Amélie would fail validation.
+     */
     public static String validateName(String name) {
         String nameRegex = "^[a-zA-Z]{2,20}$"; // regex to check that a name has alphabetical characters and correct length (2-20 chars)
         if (!validateField(nameRegex, name)) { // check if the user has given us an invalid name
@@ -93,11 +93,11 @@ public class ValidateString {
     }
 
     /**
-    Validates a username.
-    Returns "-1" if the username cannot be validated.
-    If the name can be validated (i.e. it is composed of 2-22 word characters: [a-zA-Z_0-9), then
-    return the original username.
-    */
+     * Validates a username.
+     * Returns "-1" if the username cannot be validated.
+     * If the name can be validated (i.e. it is composed of 2-22 word characters: [a-zA-Z_0-9), then
+     * return the original username.
+     */
     public static String validateUsername(String username) {
         String usernameCharactersLength = "?[\\w]{4,22}$"; // regex to check that a username only has word characters [a-zA-Z_0-9], and is correct length (4-22 chars)
         if (!validateField(usernameCharactersLength, username)) { // check if the user has given us an invalid username
@@ -108,10 +108,10 @@ public class ValidateString {
     }
 
     /**
-    Validates an email.
-    Returns "-1" if the username cannot be validated.
-    If the email can be validated, then assume the email is real and return the email.
-    */
+     * Validates an email.
+     * Returns "-1" if the username cannot be validated.
+     * If the email can be validated, then assume the email is real and return the email.
+     */
     public static String validateEmail(String email) {
         String emailFormat = "^[\\w]+[@][\\w]+[.][\\w]+$"; // regex to check that an email is the proper format
         if (!validateField(emailFormat, email)) { // check if the user has given us a valid email format
@@ -122,12 +122,12 @@ public class ValidateString {
     }
 
     /**
-    Validates a password.
-    Returns "-1" if the password cannot be validated.
-    If the password can be validated, then the password is returned.
-    Passwords must contain 1+ numbers, 1+ uppercase letters, and 8+ characters total.
-    Passwords must be alphanumeric (this will change in future Deliverables).
-    */
+     * Validates a password.
+     * Returns "-1" if the password cannot be validated.
+     * If the password can be validated, then the password is returned.
+     * Passwords must contain 1+ numbers, 1+ uppercase letters, and 8+ characters total.
+     * Passwords must be alphanumeric (this will change in future Deliverables).
+     */
     public static String validatePassword(String password) {
         String passwordFormat = "^(?=.*[A-Z])(?=.*\\d)[\\w]{8,}$"; // regex to check that the password is the proper format: 1+ nums, 1+ uppercase, 8+ characters
         if (!validateField(passwordFormat, password)) { // check if the password is invalid
@@ -138,8 +138,8 @@ public class ValidateString {
     }
 
     /**
-     Validates a service name.
-     Any service name is valid, as this is the admin.
+     * Validates a service name.
+     * Any service name is valid, as this is the admin.
      */
     public static String validateServiceName(String serviceName) {
 
@@ -165,13 +165,13 @@ public class ValidateString {
     }
 
     /**
-     Validates a price.
-     Prices are valid if they are of the forms:
-     1) 0.00
-     2) [num] (e.g. 3)
-     3) [num].[num][num] (e.g. 3.12)
-     Returns "-1" if the price cannot be validated.
-     Returns the second form if the num is valid.
+     * Validates a price.
+     * Prices are valid if they are of the forms:
+     * 1) 0.00
+     * 2) [num] (e.g. 3)
+     * 3) [num].[num][num] (e.g. 3.12)
+     * Returns "-1" if the price cannot be validated.
+     * Returns the second form if the num is valid.
      */
     public static String validatePrice(String price) {
         String priceFormat = "^(([1-9]+[0-9]*)|[0])([.][0-9]{2})?$";
@@ -187,20 +187,20 @@ public class ValidateString {
     }
 
     /**
-     Validates an address.
-     Returns "-1" if the address is an invalid format.
-     Returns the given string if the format is allowed.
-
-     An address is valid if it contains only letters, spaces, and hyphens.
+     * Validates an address.
+     * Returns "-1" if the address is an invalid format.
+     * Returns the given string if the format is allowed.
+     * <p>
+     * An address is valid if it contains only letters, spaces, and hyphens.
      */
-    public static String validateAddressOrCity(String addressOrCity){
+    public static String validateAddressOrCity(String addressOrCity) {
         String streetAddressFormat = "^[a-zA-Z\\-\\ ]+$";
         String validatedAddressOrCity = "";
-        if (!validateField(streetAddressFormat, addressOrCity)){
+        if (!validateField(streetAddressFormat, addressOrCity)) {
             return "-1";
         } else {
             addressOrCity = addressOrCity.trim();
-            if (!addressOrCity.contains(" ") && !addressOrCity.contains("-")){
+            if (!addressOrCity.contains(" ") && !addressOrCity.contains("-")) {
                 return addressOrCity.substring(0, 1).toUpperCase() + addressOrCity.substring(1).toLowerCase();
             }
 
@@ -209,47 +209,42 @@ public class ValidateString {
                 String[] splitAddressOrCitySpace = addressOrCity.split(" ");
 
                 for (int i = 0; i < splitAddressOrCitySpace.length; i++) {
-                    if (splitAddressOrCitySpace[i].equals("")){
+                    if (splitAddressOrCitySpace[i].equals("")) {
                         ;
-                    }
-                    else if (splitAddressOrCitySpace[i].equals("-")){
+                    } else if (splitAddressOrCitySpace[i].equals("-")) {
                         ;
-                    }
-                    else if (!splitAddressOrCitySpace[i].startsWith("-")) {
+                    } else if (!splitAddressOrCitySpace[i].startsWith("-")) {
                         splitAddressOrCitySpace[i] = splitAddressOrCitySpace[i].substring(0, 1).toUpperCase() + splitAddressOrCitySpace[i].substring(1).toLowerCase();
-                    }
-                    else {
+                    } else {
                         splitAddressOrCitySpace[i] = splitAddressOrCitySpace[i].substring(0, 1) + splitAddressOrCitySpace[i].trim().substring(1, 2).toUpperCase() + splitAddressOrCitySpace[i].substring(2).toLowerCase();
                     }
                 }
 
                 ArrayList<String> splitAddressOrCitySpaceNoNull = new ArrayList<String>();
 
-                for (int p = 0; p < splitAddressOrCitySpace.length; p++){
-                    if (!splitAddressOrCitySpace[p].equals("")){
+                for (int p = 0; p < splitAddressOrCitySpace.length; p++) {
+                    if (!splitAddressOrCitySpace[p].equals("")) {
                         splitAddressOrCitySpaceNoNull.add(splitAddressOrCitySpace[p]);
                     }
                 }
 
-                for (int l = 0; l < splitAddressOrCitySpaceNoNull.size(); l++){
-                    if ( (! splitAddressOrCitySpaceNoNull.get(l).endsWith("-")) && (l != splitAddressOrCitySpaceNoNull.size()-1) && (! splitAddressOrCitySpaceNoNull.get(l+1).endsWith("-")) && (! splitAddressOrCitySpaceNoNull.get(l+1).startsWith("-"))){
+                for (int l = 0; l < splitAddressOrCitySpaceNoNull.size(); l++) {
+                    if ((!splitAddressOrCitySpaceNoNull.get(l).endsWith("-")) && (l != splitAddressOrCitySpaceNoNull.size() - 1) && (!splitAddressOrCitySpaceNoNull.get(l + 1).endsWith("-")) && (!splitAddressOrCitySpaceNoNull.get(l + 1).startsWith("-"))) {
                         validatedAddressOrCity = validatedAddressOrCity + splitAddressOrCitySpaceNoNull.get(l) + " ";
-                    } else if (l == splitAddressOrCitySpaceNoNull.size()-1 || splitAddressOrCitySpaceNoNull.get(l).endsWith("-") || splitAddressOrCitySpaceNoNull.get(l+1).endsWith("-") || splitAddressOrCitySpaceNoNull.get(l+1).startsWith("-") ) {
+                    } else if (l == splitAddressOrCitySpaceNoNull.size() - 1 || splitAddressOrCitySpaceNoNull.get(l).endsWith("-") || splitAddressOrCitySpaceNoNull.get(l + 1).endsWith("-") || splitAddressOrCitySpaceNoNull.get(l + 1).startsWith("-")) {
                         validatedAddressOrCity = validatedAddressOrCity + splitAddressOrCitySpaceNoNull.get(l);
                     }
                 }
-            }
-
-            else if ( (!addressOrCity.contains(" ")) && (addressOrCity.contains("-"))){
+            } else if ((!addressOrCity.contains(" ")) && (addressOrCity.contains("-"))) {
                 addressOrCity = addressOrCity.toLowerCase();
                 String[] splitAddressOrCityHyphen = addressOrCity.split("-");
 
                 for (int j = 0; j < splitAddressOrCityHyphen.length; j++) {
-                    splitAddressOrCityHyphen[j] =  splitAddressOrCityHyphen[j].substring(0, 1).toUpperCase() +  splitAddressOrCityHyphen[j].substring(1).toLowerCase();
+                    splitAddressOrCityHyphen[j] = splitAddressOrCityHyphen[j].substring(0, 1).toUpperCase() + splitAddressOrCityHyphen[j].substring(1).toLowerCase();
                 }
 
-                for (int l = 0; l < splitAddressOrCityHyphen.length; l++){
-                    if (l != splitAddressOrCityHyphen.length-1){
+                for (int l = 0; l < splitAddressOrCityHyphen.length; l++) {
+                    if (l != splitAddressOrCityHyphen.length - 1) {
                         validatedAddressOrCity = validatedAddressOrCity + splitAddressOrCityHyphen[l] + "-";
                     } else {
                         validatedAddressOrCity = validatedAddressOrCity + splitAddressOrCityHyphen[l];
@@ -262,21 +257,21 @@ public class ValidateString {
     }
 
     /**
-     Validates a postal code, returning "-1" if the string is in an invalid format,
-     or returning the postal code (with all capitals) if the format is correct.
+     * Validates a postal code, returning "-1" if the string is in an invalid format,
+     * or returning the postal code (with all capitals) if the format is correct.
      */
-    public static String validatePostalCode(String postalCode){
+    public static String validatePostalCode(String postalCode) {
         String postalCodeFormat = "^([a-zA-Z][0-9]){3}$";
-        if (! validateField(postalCodeFormat, postalCode)){
+        if (!validateField(postalCodeFormat, postalCode)) {
             return "-1";
         } else {
-            return postalCode.substring(0,1).toUpperCase() + postalCode.substring(1,2) + postalCode.substring(2,3).toUpperCase() + postalCode.substring(3,4) + postalCode.substring(4,5).toUpperCase() + postalCode.substring(5);
+            return postalCode.substring(0, 1).toUpperCase() + postalCode.substring(1, 2) + postalCode.substring(2, 3).toUpperCase() + postalCode.substring(3, 4) + postalCode.substring(4, 5).toUpperCase() + postalCode.substring(5);
         }
     }
 
     /**
-     Validates a time, returning "-1" if the string is in an invalid format,
-     or returning the time (in the format 00:00, where 00 is any two digit number between 00 and 24) if the format is correct.
+     * Validates a time, returning "-1" if the string is in an invalid format,
+     * or returning the time (in the format 00:00, where 00 is any two digit number between 00 and 24) if the format is correct.
      */
     public static String validateTime(String time) {
         String timeFormat1 = "^(0?[0-9]|1[0-9]|2[0-3])([:][0-5][0-9])?$";
@@ -285,13 +280,28 @@ public class ValidateString {
         } else {
             if (time.length() > 1 && time.substring(1, 2).equals(":")) {
                 return "0" + time;
-            } else if (time.length() == 1){
+            } else if (time.length() == 1) {
                 return "0" + time + ":00";
-            } else if (time.length() == 2){
+            } else if (time.length() == 2) {
                 return time + ":00";
             } else {
                 return time;
             }
         }
     }
+
+    /**
+     * Validates a date of birth, returning "-1" if the string is in an invalid format,
+     * or returning the date of birth in the format
+     */
+    public static String validateDateOfBirth(String dateOfBirth) {
+        String dateFormat = "^(0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/][0-9][0-9][0-9][0-9]?$";
+        if (!validateField(dateFormat, dateOfBirth)) {
+            return "-1";
+        } else {
+            return dateOfBirth;
+        }
+    }
 }
+
+

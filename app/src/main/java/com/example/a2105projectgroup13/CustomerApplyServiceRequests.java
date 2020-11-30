@@ -390,6 +390,56 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
                 String fieldName = fieldNameTextView.getText().toString().trim();
                 fieldName = fieldName.substring(0, fieldName.length() - 1);
 
+                //Validating fields in Driver's License, Health Card and Photo ID
+                    //Fields used in these Forms:
+                        //* First name and Last name
+                        //* Date of Birth
+                        //* Address
+                        //* License Type (G1, G2 or G)
+
+                //Validating for First name and Last name (and their variations, including 'Name')
+                if (fieldName.toLowerCase().contains("first name") || fieldName.toLowerCase().contains("firstname")
+                    || fieldName.toLowerCase().contains("last name") || fieldName.toLowerCase().contains("lastname")
+                    || fieldName.toLowerCase().contains("name") ){
+
+                    String validatedInput = ValidateString.validateName(input);
+                    if (validatedInput.equals("-1")) {
+                        Toast.makeText(CustomerApplyServiceRequests.this, "Invalid name. Names must be alphanumeric and must at least be two characters long.", Toast.LENGTH_SHORT).show();
+                        firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                        return;
+
+                    } else {
+                        input = validatedInput;
+                    }
+                }
+
+                //Validating for Date of Birth
+                if (fieldName.toLowerCase().contains("date of birth") || fieldName.toLowerCase().contains("dateofbirth")
+                    || fieldName.toLowerCase().contains("day of birth") || fieldName.toLowerCase().contains("dayofbirth")
+                    || fieldName.toLowerCase().contains("birthday") || fieldName.toLowerCase().contains("birthdate")
+                    || fieldName.toLowerCase().contains("birth date")){
+
+                    String validatedInput = ValidateString.validateDateOfBirth(input);
+                    if (validatedInput.equals("-1")) {
+                        Toast.makeText(CustomerApplyServiceRequests.this, "Invalid date of birth. Use the format mm/dd/yyyy, where mm is any two digit integer between 00 and 12, dd is any two digit integer between 01 and 31 and yyyy is any four digit integer,", Toast.LENGTH_SHORT).show();
+                        firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                        return;
+
+                    } else {
+                        input = validatedInput;
+                    }
+                }
+
+
+                //Validating for License Type (G1, G2 or G)
+                if (fieldName.toLowerCase().contains("license type") || fieldName.toLowerCase().contains("license type (g1, g2 or g)") || fieldName.toLowerCase().contains("licensetype")){
+                    if (!input.toLowerCase().equals("g") && !input.toLowerCase().equals("g1") && !input.toLowerCase().equals("g2")) {
+                        Toast.makeText(CustomerApplyServiceRequests.this, "Invalid license type. A license type must be g1, g2 or g.", Toast.LENGTH_SHORT).show();
+                        firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                        return;
+                    }
+                }
+
                 firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Fields").child(formName + " " + fieldName).setValue(input);
             }
 

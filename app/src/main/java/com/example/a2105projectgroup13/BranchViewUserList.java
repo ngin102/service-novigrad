@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
  * This class allows the Admin to view and delete user accounts.
  */
 
-public class UserList extends AppCompatActivity {
+public class BranchViewUserList extends AppCompatActivity {
     // instance variables
     private DatabaseReference usersInDatabase;
     private FirebaseDatabase firebaseDatabase;
@@ -62,13 +61,13 @@ public class UserList extends AppCompatActivity {
                    // usersArrayList.add(userToAdd.getFirstName() + " " + userToAdd.getLastName() + ": " + userToAdd.getAccountType());
                 }
 
-                ArrayAdapter arrayAdapter = new ArrayAdapter(UserList.this, android.R.layout.simple_list_item_1, usersArrayList);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(BranchViewUserList.this, android.R.layout.simple_list_item_1, usersArrayList);
                 usersList.setAdapter(arrayAdapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(UserList.this, "ERROR.", Toast.LENGTH_LONG).show();
+                Toast.makeText(BranchViewUserList.this, "ERROR.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -88,7 +87,7 @@ public class UserList extends AppCompatActivity {
         //Getting the specified User reference
         DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("Users").child(uid);
         userReference.removeValue();
-        Toast.makeText(UserList.this, "User deleted.", Toast.LENGTH_LONG).show();
+        Toast.makeText(BranchViewUserList.this, "User deleted.", Toast.LENGTH_LONG).show();
         return true;
     }
 
@@ -118,7 +117,7 @@ public class UserList extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(UserList.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                Toast.makeText(BranchViewUserList.this, "ERROR", Toast.LENGTH_SHORT).show();;
             }
         });
 
@@ -132,7 +131,7 @@ public class UserList extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(UserList.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                Toast.makeText(BranchViewUserList.this, "ERROR", Toast.LENGTH_SHORT).show();;
             }
         });
 
@@ -146,7 +145,7 @@ public class UserList extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Toast.makeText(UserList.this, "ERROR", Toast.LENGTH_SHORT).show();;
+                Toast.makeText(BranchViewUserList.this, "ERROR", Toast.LENGTH_SHORT).show();;
             }
         });
 
