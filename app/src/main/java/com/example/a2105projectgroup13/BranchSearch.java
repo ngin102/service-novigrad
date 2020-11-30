@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,17 +27,19 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class BranchSearch extends AppCompatActivity {
-    private DatabaseReference offeredServicesRef, userInfoRef;
+    private DatabaseReference offeredServicesRef, userInfoRef, serviceRef;
     private FirebaseDatabase firebaseDatabase;
 
     private LinearLayout addressOption, hoursOption, serviceOption;
     private ListView branchList;
     private EditText citySearch, addressSearch, timeEditText, serviceEditText;
     private RadioButton searchByAddressRB, searchByHoursRB, searchByServiceRB;
+    private Spinner serviceSpinner;
 
     private String day;
 
     private ArrayList<String> branchArrayList;
+    private ArrayList<String> serviceArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,40 +47,34 @@ public class BranchSearch extends AppCompatActivity {
         setContentView(R.layout.activity_branch_search);
 
         initializeInstanceVariables();
-/*
-        //TODO: implement eventHandler for each search type
-        offeredServicesRef.addValueEventListener(new ValueEventListener() {
+
+        serviceRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                branchArrayList.clear();
-                for (DataSnapshot branchOfferingService : snapshot.getChildren()) {
-                    if (searchByAdddressRB.isChecked()) { //Chooses the appropriate search option based off of which radioButton is pressed
-                        searchByAddress(branchOfferingService.getKey());
-                    } else if (searchByHoursRB.isChecked()) {
-                        searchByHours(branchOfferingService);
-                    } else if (searchByServiceRB.isChecked()) {
-                        searchByService(serviceEditText.toString(), branchOfferingService);
+                //serviceArrayList.clear();
+                for (DataSnapshot service : snapshot.getChildren()) {
+                    try {
+                        serviceArrayList.add(String.valueOf(service.getKey())); //Finally it adds the branchId to branchArrayList
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
 
-                //displays the branchArrayList onto the ListView
-                ArrayAdapter arrayAdapter = new ArrayAdapter(BranchSearch.this, android.R.layout.simple_list_item_1, branchArrayList);
-                branchList.setAdapter(arrayAdapter);
+                //displays the serviceArrayList onto the spinner
+                ArrayAdapter arrayAdapter = new ArrayAdapter(BranchSearch.this, android.R.layout.simple_spinner_item, serviceArrayList);
+                serviceSpinner.setAdapter(arrayAdapter);
 
             }
 
-            // display error if there is a problem displaying the data from the database
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(BranchSearch.this, "ERROR. CANNOT ACCESS DATABASE.", Toast.LENGTH_LONG).show();
+                Toast.makeText(BranchSearch.this, "ERROR. CANNOT ACCESS SERVICES IN DATABASE.", Toast.LENGTH_LONG).show();
             }
-
         });
-
- */
 
         //When a branch is pressed, the user is moved to their branch profile
         branchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String branchToView = branchArrayList.get(i);
@@ -99,6 +96,7 @@ public class BranchSearch extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
         offeredServicesRef = firebaseDatabase.getReference("Offered Services");
         userInfoRef = firebaseDatabase.getReference("User Info");
+        serviceRef = firebaseDatabase.getReference("Services");
 
         branchList = (ListView) findViewById(R.id.branchList);
         branchArrayList = new ArrayList<String>();
@@ -106,11 +104,15 @@ public class BranchSearch extends AppCompatActivity {
         citySearch = (EditText) findViewById(R.id.citySearch);
         addressSearch = (EditText) findViewById(R.id.addressSearch);
         timeEditText = (EditText) findViewById(R.id.timeEditText);
-        serviceEditText = (EditText) findViewById(R.id.serviceEditText);
 
         searchByAddressRB = (RadioButton) findViewById(R.id.searchByAddressRB);
         searchByHoursRB = (RadioButton) findViewById(R.id.searchByHoursRB);
         searchByServiceRB = (RadioButton) findViewById(R.id.searchByServiceRB);
+
+        serviceSpinner = (Spinner) findViewById(R.id.serviceSpinner);
+        serviceArrayList = new ArrayList<String>();
+
+
     }
 
     ///////Search functions
@@ -166,13 +168,13 @@ public class BranchSearch extends AppCompatActivity {
         offeredServicesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                final String service = serviceEditText.getText().toString().toUpperCase().trim(); //sets the city and address to what is in the editTexts
+                final String service = serviceSpinner.getSelectedItem().toString(); //sets the city and address to what is in the spinner
                 branchArrayList.clear();
 
                 for (DataSnapshot branchUser : snapshot.getChildren()) {
-                    for (DataSnapshot offeredService: branchUser.getChildren()) {
+                    for (DataSnapshot offeredService : branchUser.getChildren()) {
                         try {
-                            if (String.valueOf(offeredService.getKey()).toUpperCase().contains(service)) { //Compares the address inputted to the branch address stored
+                            if (String.valueOf(offeredService.getKey()).equals(service)) { //Compares the address inputted to the branch address stored
                                 branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
                             }
                         } catch (Exception e) {
@@ -210,22 +212,22 @@ public class BranchSearch extends AppCompatActivity {
             case R.id.searchByAddressRB://searchByAddress is available for the user's search
                 if (checked)
                     addressOption.setVisibility(View.VISIBLE);
-                    hoursOption.setVisibility(View.GONE);
-                    serviceOption.setVisibility(View.GONE);
-                    break;
+                hoursOption.setVisibility(View.GONE);
+                serviceOption.setVisibility(View.GONE);
+                break;
             case R.id.searchByHoursRB://searchByHours is available for the user's search
                 if (checked)
                     addressOption.setVisibility(View.GONE);
-                    hoursOption.setVisibility(View.VISIBLE);
-                    serviceOption.setVisibility(View.GONE);
+                hoursOption.setVisibility(View.VISIBLE);
+                serviceOption.setVisibility(View.GONE);
 
                 break;
             case R.id.searchByServiceRB://searchByService is available for the user's search
                 if (checked)
                     addressOption.setVisibility(View.GONE);
-                    hoursOption.setVisibility(View.GONE);
-                    serviceOption.setVisibility(View.VISIBLE);
-                    break;
+                hoursOption.setVisibility(View.GONE);
+                serviceOption.setVisibility(View.VISIBLE);
+                break;
         }
     }
 

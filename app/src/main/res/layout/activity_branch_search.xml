@@ -288,14 +288,11 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/serviceEditText"
-                    android:layout_width="0dp"
+                <Spinner
+                    android:id="@+id/serviceSpinner"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Health Card"
-                    android:inputType="textPersonName" />
+                    android:layout_weight="1" />
             </LinearLayout>
 
         </LinearLayout>
