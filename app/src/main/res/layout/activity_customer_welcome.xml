@@ -68,8 +68,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Search branch list"
-                android:onClick="onSearchButtonClicked"/>
+                android:text="Search branch list" />
         </LinearLayout>
 
     </LinearLayout>

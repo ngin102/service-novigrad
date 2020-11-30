@@ -42,7 +42,8 @@
             <RadioGroup
                 android:id="@+id/searchChoiceRG"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_width="wrap_content">
 
                 <RadioButton
                     android:id="@+id/searchByAddressRB"
@@ -50,21 +51,24 @@
                     android:layout_weight="1"
                     android:checked="true"
                     android:text="Address"
-                    android:onClick="onRadioButtonClicked"/>/>
+                    android:onClick="onRadioButtonClicked"
+                    android:layout_height="wrap_content" />/>
 
                 <RadioButton
                     android:id="@+id/searchByHoursRB"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:text="Working Hours"
-                    android:onClick="onRadioButtonClicked"/>/>
+                    android:onClick="onRadioButtonClicked"
+                    android:layout_height="wrap_content" />/>
 
                 <RadioButton
                     android:id="@+id/searchByServiceRB"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:text="Service"
-                    android:onClick="onRadioButtonClicked"/>/>
+                    android:onClick="onRadioButtonClicked"
+                    android:layout_height="wrap_content" />/>
             </RadioGroup>
 
             <Button
@@ -72,13 +76,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:text="Search"
-                android:onClick="onSearchButtonClicked"/>
+                android:onClick="onSearchButtonClicked"
+                android:layout_width="wrap_content" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/addressOption"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="0.5"
             android:orientation="vertical"
@@ -94,6 +100,7 @@
             <LinearLayout
                 android:id="@+id/city"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -107,6 +114,7 @@
 
                 <EditText
                     android:id="@+id/citySearch"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
@@ -118,6 +126,7 @@
             <LinearLayout
                 android:id="@+id/address"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -144,6 +153,7 @@
         <LinearLayout
             android:id="@+id/hoursOption"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1.5"
             android:orientation="vertical"
@@ -164,62 +174,71 @@
 
                 <RadioGroup
                     android:id="@+id/dayRG"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1.25">
 
                     <RadioButton
                         android:id="@+id/monButton"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Monday"
-                        android:onClick="setDayOnClick"/>
+                        android:onClick="setDayOnClick"
+                        android:text="Monday" />
 
                     <RadioButton
                         android:id="@+id/tuesButton"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Tuesday"
-                        android:onClick="setDayOnClick"/>
+                        android:onClick="setDayOnClick"
+                        android:text="Tuesday" />
 
                     <RadioButton
                         android:id="@+id/wedButton"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Wednesday"
-                        android:onClick="setDayOnClick"/>
+                        android:onClick="setDayOnClick"
+                        android:text="Wednesday" />
 
                     <RadioButton
                         android:id="@+id/thurButton"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Thursday"
-                        android:onClick="setDayOnClick"/>
+                        android:onClick="setDayOnClick"
+                        android:text="Thursday" />
 
                     <RadioButton
                         android:id="@+id/friButton"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Friday"
-                        android:onClick="setDayOnClick"/>
+                        android:onClick="setDayOnClick"
+                        android:text="Friday" />
 
                     <RadioButton
                         android:id="@+id/satButton"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Saturday"
-                        android:onClick="setDayOnClick"/>
+                        android:onClick="setDayOnClick"
+                        android:text="Saturday" />
 
                     <RadioButton
                         android:id="@+id/sunButton"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Sunday"
-                        android:onClick="setDayOnClick"/>
+                        android:onClick="setDayOnClick"
+                        android:text="Sunday" />
 
                 </RadioGroup>
 
                 <TextView
                     android:id="@+id/hoursTextView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="sans-serif"
@@ -229,6 +248,7 @@
 
                 <EditText
                     android:id="@+id/timeEditText"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:ems="10"
@@ -241,6 +261,7 @@
         <LinearLayout
             android:id="@+id/serviceOption"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="0.5"
             android:orientation="vertical"
@@ -279,19 +300,27 @@
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/branchList"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_weight="1">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        </ListView>
+            <ListView
+                android:id="@+id/branchList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/backButton"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="Back to previous menu"
-            android:onClick="onBackButtonClicked"/>
+            android:onClick="onBackButtonClicked"
+            android:text="Back to previous menu" />
 
     </LinearLayout>
 

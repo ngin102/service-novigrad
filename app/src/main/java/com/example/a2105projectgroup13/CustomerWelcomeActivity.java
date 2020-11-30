@@ -30,7 +30,7 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
     //Text that appears on screen:
     private TextView firstNameText;
 
-    private Button viewBranchListButton;
+    private Button viewBranchListButton, searchBranchListButton;
 
 
     @Override
@@ -68,6 +68,13 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
             }
         });
 
+        searchBranchListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent moveToBranchSearch = new Intent(CustomerWelcomeActivity.this, BranchSearch.class);
+                startActivity(moveToBranchSearch);
+            }
+        });
     }
 
     /**
@@ -81,6 +88,7 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
         firstNameText = (TextView) findViewById(R.id.firstNameText);
 
         viewBranchListButton = (Button) findViewById(R.id.viewBranchListButton);
+        searchBranchListButton = (Button) findViewById(R.id.searchBranchList);
 
     }
 
@@ -95,9 +103,11 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
     }
-
+/*
     private void onSearchButtonClicked(View view) {
         Intent moveToBranchSearch = new Intent(CustomerWelcomeActivity.this, BranchSearch.class);
         startActivity(moveToBranchSearch);
     }
+
+ */
 }
