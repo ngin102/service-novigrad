@@ -34,7 +34,7 @@ public class AdminWelcomeActivity extends AppCompatActivity {
         deleteUsersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(AdminWelcomeActivity.this, BranchViewUserList.class));
+                startActivity(new Intent(AdminWelcomeActivity.this, AdminViewUserList.class));
             }
         });
 

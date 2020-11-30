@@ -36,7 +36,7 @@
         <activity android:name=".AdminManageServices" />
         <activity android:name=".AdminNewDocument" />
         <activity android:name=".AdminNewForm" />
-        <activity android:name=".BranchViewUserList" />
+        <activity android:name=".AdminViewUserList" />
         <activity android:name=".AdminWelcomeActivity" />
         <activity android:name=".UserLogin" />
         <activity android:name=".UserRegister">
