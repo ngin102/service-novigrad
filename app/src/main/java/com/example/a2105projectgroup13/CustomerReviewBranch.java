@@ -28,6 +28,10 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
+/**
+ * This class allows a Customer to view reviews left by Customers for a certain Branch
+ * or to submit a review for a Branch.
+ */
 public class CustomerReviewBranch extends AppCompatActivity {
     //instance variables
     FirebaseAuth firebaseAuth;

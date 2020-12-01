@@ -21,6 +21,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * This class allows a Customer to view a list of all Service Novigrad Branches by
+ * each Branch's uId.
+ */
 public class CustomerViewBranchList extends AppCompatActivity {
     // instance variables
     private FirebaseDatabase firebaseDatabase;

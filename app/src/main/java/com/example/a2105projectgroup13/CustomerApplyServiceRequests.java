@@ -29,6 +29,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
+/**
+ * This class allows a Customer to submit a Service Request by filling out all required fields
+ * and uploading all required Documents.
+ */
 public class CustomerApplyServiceRequests extends AppCompatActivity {
     //instance variables
     FirebaseAuth firebaseAuth;
@@ -83,14 +87,33 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
                         for (DataSnapshot fields : requirement.child("fields").getChildren()){
                             String currentFieldName = fields.getValue(String.class);
 
-                            LayoutInflater inflater = getLayoutInflater();
-                            final View field = inflater.inflate(R.layout.fill_out_field, null);
-                            TextView formName = (TextView) field.findViewById(R.id.applyFormName);
-                            formName.setText(currentFormName + ":");
-                            TextView fieldName = (TextView) field.findViewById(R.id.applyFieldName);
-                            fieldName.setText(currentFieldName + ":");
+                            //If the field name is "Street Address", add the view made specifically for street address input.
+                            if (currentFieldName.toLowerCase().contains("street address") || currentFieldName.toLowerCase().contains("streetaddress")){
+                                LayoutInflater inflater = getLayoutInflater();
+                                final View field = inflater.inflate(R.layout.fill_out_field_street_address, null);
 
-                            formsAndFieldsInputList.addView(field);
+                                TextView formName1 = (TextView) field.findViewById(R.id.applyFormName);
+                                formName1.setText(currentFormName + ":");
+
+                                TextView fieldName1 = (TextView) field.findViewById(R.id.applyFieldName);
+                                fieldName1.setText(currentFieldName + ":");
+
+                                formsAndFieldsInputList.addView(field);
+                            }
+
+                            //If the field name is not "Street Address', add the normal view for field input.
+                            else {
+                                LayoutInflater inflater = getLayoutInflater();
+                                final View field = inflater.inflate(R.layout.fill_out_field, null);
+
+                                TextView formName = (TextView) field.findViewById(R.id.applyFormName);
+                                formName.setText(currentFormName + ":");
+
+                                TextView fieldName = (TextView) field.findViewById(R.id.applyFieldName);
+                                fieldName.setText(currentFieldName + ":");
+
+                                formsAndFieldsInputList.addView(field);
+                            }
                         }
                     }
                 }
@@ -270,13 +293,38 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
     private boolean validateForEmptyFields(){
         for (int i = 0; i < formsAndFieldsInputList.getChildCount(); i++){
             View selectedField = formsAndFieldsInputList.getChildAt(i);
-            EditText userInput = (EditText) selectedField.findViewById(R.id.fieldInputEditText);
-            String input = userInput.getText().toString().trim();
 
-            // display an error if a field is empty
-            if (input.isEmpty()) {
-                Toast.makeText(CustomerApplyServiceRequests.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
-                return false;
+            TextView fieldName = (TextView) selectedField.findViewById(R.id.applyFieldName);
+            String fieldNameString = fieldName.getText().toString().trim();
+
+            if (fieldNameString.toLowerCase().contains("street address") || fieldNameString.toLowerCase().contains("streetaddress") ){
+                EditText userStreetNumberInput = (EditText) selectedField.findViewById(R.id.fieldInputEditTextStreetNumber);
+                String streetNumber = userStreetNumberInput.getText().toString().trim();
+
+                EditText userStreetAddressInput = (EditText) selectedField.findViewById(R.id.fieldInputEditTextStreetAddress);
+                String streetAddress = userStreetAddressInput.getText().toString().trim();
+
+                if (streetNumber.isEmpty()) {
+                    Toast.makeText(CustomerApplyServiceRequests.this, "Please fill out a street number.", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+                if (streetAddress.isEmpty()) {
+                    Toast.makeText(CustomerApplyServiceRequests.this, "Please fill out a street address.", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+            }
+
+            else {
+                EditText userInput = (EditText) selectedField.findViewById(R.id.fieldInputEditText);
+                String input = userInput.getText().toString().trim();
+
+                // display an error if a field is empty
+                if (input.isEmpty()) {
+                    Toast.makeText(CustomerApplyServiceRequests.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
             }
         }
 
@@ -376,71 +424,177 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
         final String requestNumber = getRequestNumber();
         final String price = getPrice();
 
+        //Validating fields in Driver's License, Health Card and Photo ID
+            //Fields used in these Forms:
+                //We have split up the field "Address" into three different fields:
+                    //* Street Address
+                    //* City
+                    //* Postal Code
+
+                //* First name and Last name
+                //* Date of Birth
+                //* License Type (G1, G2 or G)
+
+
         if (validateForEmptyFields() == true && validateForUnuploadedDocuments() == true) {
             //Store field inputs in Firebase
             for (int i = 0; i < formsAndFieldsInputList.getChildCount(); i++) {
                 View selectedField = formsAndFieldsInputList.getChildAt(i);
-                EditText userInput = (EditText) selectedField.findViewById(R.id.fieldInputEditText);
-                String input = userInput.getText().toString().trim();
 
                 TextView formNameTextView = (TextView) selectedField.findViewById(R.id.applyFormName);
                 String formName = formNameTextView.getText().toString().trim();
 
+
                 TextView fieldNameTextView = (TextView) selectedField.findViewById(R.id.applyFieldName);
                 String fieldName = fieldNameTextView.getText().toString().trim();
-                fieldName = fieldName.substring(0, fieldName.length() - 1);
-
-                //Validating fields in Driver's License, Health Card and Photo ID
-                    //Fields used in these Forms:
-                        //* First name and Last name
-                        //* Date of Birth
-                        //* Address
-                        //* License Type (G1, G2 or G)
-
-                //Validating for First name and Last name (and their variations, including 'Name')
-                if (fieldName.toLowerCase().contains("first name") || fieldName.toLowerCase().contains("firstname")
-                    || fieldName.toLowerCase().contains("last name") || fieldName.toLowerCase().contains("lastname")
-                    || fieldName.toLowerCase().contains("name") ){
-
-                    String validatedInput = ValidateString.validateName(input);
-                    if (validatedInput.equals("-1")) {
-                        Toast.makeText(CustomerApplyServiceRequests.this, "Invalid name. Names must be alphanumeric and must at least be two characters long.", Toast.LENGTH_SHORT).show();
-                        firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
-                        return;
-
-                    } else {
-                        input = validatedInput;
-                    }
-                }
-
-                //Validating for Date of Birth
-                if (fieldName.toLowerCase().contains("date of birth") || fieldName.toLowerCase().contains("dateofbirth")
-                    || fieldName.toLowerCase().contains("day of birth") || fieldName.toLowerCase().contains("dayofbirth")
-                    || fieldName.toLowerCase().contains("birthday") || fieldName.toLowerCase().contains("birthdate")
-                    || fieldName.toLowerCase().contains("birth date")){
-
-                    String validatedInput = ValidateString.validateDateOfBirth(input);
-                    if (validatedInput.equals("-1")) {
-                        Toast.makeText(CustomerApplyServiceRequests.this, "Invalid date of birth. Use the format mm/dd/yyyy, where mm is any two digit integer between 00 and 12, dd is any two digit integer between 01 and 31 and yyyy is any four digit integer,", Toast.LENGTH_SHORT).show();
-                        firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
-                        return;
-
-                    } else {
-                        input = validatedInput;
-                    }
-                }
 
 
-                //Validating for License Type (G1, G2 or G)
-                if (fieldName.toLowerCase().contains("license type") || fieldName.toLowerCase().contains("license type (g1, g2 or g)") || fieldName.toLowerCase().contains("licensetype")){
-                    if (!input.toLowerCase().equals("g") && !input.toLowerCase().equals("g1") && !input.toLowerCase().equals("g2")) {
-                        Toast.makeText(CustomerApplyServiceRequests.this, "Invalid license type. A license type must be g1, g2 or g.", Toast.LENGTH_SHORT).show();
+                //If the field is "Street Address," validate the Street Address.
+                if (fieldName.toLowerCase().contains("street address") || fieldName.toLowerCase().contains("streetaddress")) {
+                    EditText userInputStreetNumber = (EditText) selectedField.findViewById(R.id.fieldInputEditTextStreetNumber);
+                    String input1 = userInputStreetNumber.getText().toString().trim();
+
+                    EditText userInputStreetAddress = (EditText) selectedField.findViewById(R.id.fieldInputEditTextStreetAddress);
+                    String input2 = userInputStreetAddress.getText().toString().trim();
+
+                    fieldName = fieldName.substring(0, fieldName.length() - 1);
+
+
+                    if (input2.startsWith("-")){
+                        Toast.makeText(CustomerApplyServiceRequests.this, "You can not start a street address with a hyphen.", Toast.LENGTH_SHORT).show();
                         firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
                         return;
                     }
+                    else if (input2.endsWith("-")) {
+                        Toast.makeText(CustomerApplyServiceRequests.this, "You can not end a street address with a hyphen.", Toast.LENGTH_SHORT).show();
+                        firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                        return;
+                    }
+                    else if (input2.equals("-")){
+                        Toast.makeText(CustomerApplyServiceRequests.this, "' - ' is not a valid street address.", Toast.LENGTH_SHORT).show();
+                        firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                        return;
+                    }
+                    else {
+                        String validateStreetAddress = ValidateString.validateAddressOrCity(input2);
+                        if (validateStreetAddress.equals("-1")) {
+                            Toast.makeText(CustomerApplyServiceRequests.this, "Street addresses can only be alphabetic; they can also include hyphens. Please enter a valid street address.", Toast.LENGTH_SHORT).show();
+                            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                            return;
+                        } else {
+                            input2 = validateStreetAddress;
+                            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Fields").child(formName + " " + fieldName).setValue(input1 + " " + input2);
+                        }
+                    }
                 }
 
-                firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Fields").child(formName + " " + fieldName).setValue(input);
+                //If the field is not "Street Address"...
+                else {
+                    EditText userInput = (EditText) selectedField.findViewById(R.id.fieldInputEditText);
+                    String input = userInput.getText().toString().trim();
+
+                    fieldName = fieldName.substring(0, fieldName.length() - 1);
+
+                    //Validating for First name and Last name (and their variations, including 'Name')
+                    if (fieldName.toLowerCase().contains("first name") || fieldName.toLowerCase().contains("firstname")
+                            || fieldName.toLowerCase().contains("last name") || fieldName.toLowerCase().contains("lastname")
+                            || fieldName.toLowerCase().contains("name")) {
+
+                        String validatedInput = ValidateString.validateName(input);
+                        if (validatedInput.equals("-1")) {
+                            Toast.makeText(CustomerApplyServiceRequests.this, "Invalid name. Names must be alphanumeric and must at least be two characters long.", Toast.LENGTH_SHORT).show();
+                            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                            return;
+
+                        } else {
+                            input = validatedInput;
+                        }
+                    }
+
+                    //Validating for Date of Birth
+                    if (fieldName.toLowerCase().contains("date of birth") || fieldName.toLowerCase().contains("dateofbirth")
+                            || fieldName.toLowerCase().contains("day of birth") || fieldName.toLowerCase().contains("dayofbirth")
+                            || fieldName.toLowerCase().contains("birthday") || fieldName.toLowerCase().contains("birthdate")
+                            || fieldName.toLowerCase().contains("birth date")) {
+
+                        String validatedInput = ValidateString.validateDateOfBirth(input);
+                        if (validatedInput.equals("-1")) {
+                            Toast.makeText(CustomerApplyServiceRequests.this, "Invalid date of birth. Use the format mm/dd/yyyy, where mm is any two digit integer between 00 and 12, dd is any two digit integer between 01 and 31 and yyyy is any four digit integer.", Toast.LENGTH_SHORT).show();
+                            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                            return;
+
+                        } else {
+                            input = validatedInput;
+                        }
+                    }
+
+
+                    //Validating for License Type (G1, G2 or G)
+                    if (fieldName.toLowerCase().contains("license type") || fieldName.toLowerCase().contains("license type (g1, g2 or g)") || fieldName.toLowerCase().contains("licensetype")) {
+                        if (!input.toLowerCase().equals("g") && !input.toLowerCase().equals("g1") && !input.toLowerCase().equals("g2")) {
+                            Toast.makeText(CustomerApplyServiceRequests.this, "Invalid license type. A license type must be g1, g2 or g.", Toast.LENGTH_SHORT).show();
+                            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                            return;
+                        }
+                    }
+
+
+                    //Validating for City name
+                    if (fieldName.toLowerCase().equals("city")){
+                        if (input.startsWith("-")){
+                            Toast.makeText(CustomerApplyServiceRequests.this, "You can not start a city name with a hyphen.", Toast.LENGTH_SHORT).show();
+                            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                            return;
+                        }
+                        else if (input.equals("-")){
+                            Toast.makeText(CustomerApplyServiceRequests.this, "' - ' is not a city name.", Toast.LENGTH_SHORT).show();
+                            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                            return;
+                        }
+
+                        else if (input.endsWith("-")){
+                            Toast.makeText(CustomerApplyServiceRequests.this, "A city name that ends with ' - ' is not valid.", Toast.LENGTH_SHORT).show();
+                            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                            return;
+                        }
+                        else {
+                            String validatedInput = ValidateString.validateAddressOrCity(input);
+                            if (validatedInput.equals("-1")) {
+                                Toast.makeText(CustomerApplyServiceRequests.this, "City names can only be alphabetic; they can also include hyphens. Please enter a valid city name.", Toast.LENGTH_SHORT).show();
+                                firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                                return;
+
+                            } else {
+                                input = validatedInput;
+                            }
+                        }
+                    }
+
+
+                    //Validating for Postal Code
+                    if (fieldName.toLowerCase().contains("postal code") || fieldName.toLowerCase().contains("postalcode")){
+                        if (input.length() != 6){
+                            Toast.makeText(CustomerApplyServiceRequests.this, "Postal codes are 6 characters long. Please enter a valid postal code.", Toast.LENGTH_SHORT).show();
+                            firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                            return;
+                        }
+                        else {
+                            String validatedInput = ValidateString.validatePostalCode(input);
+                            if (validatedInput.equals("-1")) {
+                                Toast.makeText(CustomerApplyServiceRequests.this, "Postal codes are 6 characters long. Postal codes follow the format 'A0A0A0', where A is any letter and 0 is any number. No spaces. Please enter a valid postal code.", Toast.LENGTH_SHORT).show();
+                                firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
+                                return;
+
+                            } else {
+                                input = validatedInput;
+                            }
+                        }
+                    }
+
+                    //Store field input in Firebase.
+                    firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).child("Fields").child(formName + " " + fieldName).setValue(input);
+
+                }
             }
 
             //Store uploaded file names in Firebase

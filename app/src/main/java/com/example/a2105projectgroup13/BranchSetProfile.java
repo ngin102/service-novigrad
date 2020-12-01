@@ -308,7 +308,7 @@ public class BranchSetProfile extends AppCompatActivity {
         } else {
             String validatePostalCode = ValidateString.validatePostalCode(postalCode);
             if (validatePostalCode.equals("-1")){
-                Toast.makeText(BranchSetProfile.this, "Postal codes are 6 characters long. Postal codes follow the format 'A0A0A0', where A is any letter and 0 is any number. Please enter a valid postal code.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BranchSetProfile.this, "Postal codes are 6 characters long. Postal codes follow the format 'A0A0A0', where A is any letter and 0 is any number. No spaces. Please enter a valid postal code.", Toast.LENGTH_SHORT).show();
                 return;
             } else {
                 DatabaseReference addressReference = firebaseDatabase.getReference("User Info").child(uid).child("Postal Code");

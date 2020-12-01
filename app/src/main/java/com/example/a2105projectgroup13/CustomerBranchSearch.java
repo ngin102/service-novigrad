@@ -23,6 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * This class allows a Customer to search for a Branch by address, by the services the Branch offers, or by the Branch's working hours.
+ */
 public class CustomerBranchSearch extends AppCompatActivity {
     private DatabaseReference offeredServicesRef, userInfoRef, serviceRef;
     private FirebaseDatabase firebaseDatabase;

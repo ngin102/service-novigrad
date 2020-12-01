@@ -21,6 +21,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * This class allows a Customer to view a Branch's Profile.
+ * On the Branch Profile, the Customer can:
+ *      * View the Branch's Street Address, City and Postal Code
+ *      * View the Branch's Working Hours
+ *      * View the Branch's uId
+ *      * View all Services the Branch offers (a Customer can tap on one to submit a Service Request for this Service).
+ */
 public class CustomerBranchProfile extends AppCompatActivity {
     TextView mondayWorkingHoursTextView;
     TextView tuesdayWorkingHoursTextView;
