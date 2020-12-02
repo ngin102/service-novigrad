@@ -118,7 +118,11 @@ public class CustomerBranchSearch extends AppCompatActivity {
     ///////Search functions
 
     /**
-     * Is called by the search button in the activity.
+     * First it gets the city (EditText) and address (EditText) and iterates through all of the branch user info.
+     * It checks that the inputted city and address strings are contained in the branch user info.
+     * If both are present in the stored info, the branch is displayed in branchList (ListView)
+     *
+     * It does not need to be an exact match. Capitalization does not matter.
      */
     private void searchByAddress() {
         userInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -155,27 +159,69 @@ public class CustomerBranchSearch extends AppCompatActivity {
     }
 
     /**
-     * searches
+     * First it gets the inputted time (EditText) and day (RadioGroup) and iterates through all of the branch user info.
+     * At each branch user, it checks the working hours under the tab of the selected day. If the inputted
+     * time is during the respective branch's working hours, then it is displayed on the branchList (ListView)
      */
     private void searchByHours() {
-        final String time = timeEditText.toString().trim().replace(":", "");
+        String tmpTime = ValidateString.validateTime(timeEditText.getText().toString().trim());
+        final int time;
+        final String date = day;
+
+        if (tmpTime.equals("-1")) { //if the inputted time is not in the proper format, give an error message and stop running the code
+            Toast.makeText(CustomerBranchSearch.this, "TIME ENTERED IN AN INCORRECT FORMAT.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        time = Integer.parseInt(tmpTime.replace(":", ""));
+
+        userInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                branchArrayList.clear();
+
+                for (DataSnapshot branchUser : snapshot.getChildren()) {
+                    try {
+                        if (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + day + "/closeTime").getValue()).replace(":", "")) > time //First checks if the time entered is before each branch's closing time
+                                && Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + day + "/openTime").getValue()).replace(":", "")) <= time) { //Then checks if it is after or equal to the opening time
+                            branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                //displays the branchArrayList onto the ListView
+                ArrayAdapter arrayAdapter = new ArrayAdapter(CustomerBranchSearch.this, android.R.layout.simple_list_item_1, branchArrayList);
+                branchList.setAdapter(arrayAdapter);
+
+            }
+
+            // display error if there is a problem displaying the data from the database
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(CustomerBranchSearch.this, "ERROR. CANNOT ACCESS DATABASE.", Toast.LENGTH_LONG).show();
+            }
+
+        });
     }
 
     /**
-     * searches
+     * First it gets the inputted service type contained in serviceSpinner, and then iterates over "Offered Services".
+     * It checks each branch for the service and displays the branch on the branchList (ListView) if it offers the selected service.
      */
     private void searchByService() {
         offeredServicesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                final String service = serviceSpinner.getSelectedItem().toString(); //sets the city and address to what is in the spinner
+                final String service = serviceSpinner.getSelectedItem().toString(); //sets the selected service to what is selected in the spinner
                 branchArrayList.clear();
 
                 for (DataSnapshot branchUser : snapshot.getChildren()) {
                     for (DataSnapshot offeredService : branchUser.getChildren()) {
                         try {
-                            if (String.valueOf(offeredService.getKey()).equals(service)) { //Compares the address inputted to the branch address stored
-                                branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
+                            if (String.valueOf(offeredService.getKey()).equals(service)) { //Compares the service inputted to the service stored
+                                branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList if that branch contains the service
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

@@ -253,7 +253,7 @@
                     android:layout_weight="2"
                     android:ems="10"
                     android:hint="13:00 OR 15"
-                    android:inputType="textPersonName" />
+                    android:inputType="time" />
 
             </LinearLayout>
         </LinearLayout>
