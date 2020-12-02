@@ -536,6 +536,10 @@ public class CustomerApplyServiceRequests extends AppCompatActivity {
                             firebaseDatabase.getReference("Service Requests").child(branchId).child(requestNumber).removeValue();
                             return;
                         }
+
+                        else {
+                            input = input.toUpperCase();
+                        }
                     }
 
 
