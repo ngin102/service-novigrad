@@ -29,7 +29,7 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
     //Text that appears on screen:
     private TextView firstNameText;
 
-    private Button customerLogOutButton, viewBranchListButton, searchBranchListButton;
+    private Button customerLogOutButton, viewBranchListButton, searchBranchListButton, viewServiceRequestsStatusButton;
 
 
     @Override
@@ -75,6 +75,14 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
             }
         });
 
+        viewServiceRequestsStatusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent moveToViewStatusServiceRequests = new Intent(CustomerWelcomeActivity.this, CustomerViewStatusServiceRequests.class);
+                startActivity(moveToViewStatusServiceRequests);
+            }
+        });
+
 
         customerLogOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,8 +105,8 @@ public class CustomerWelcomeActivity extends AppCompatActivity {
 
         viewBranchListButton = (Button) findViewById(R.id.viewBranchListButton);
         searchBranchListButton = (Button) findViewById(R.id.searchBranchList);
-
         customerLogOutButton = (Button)findViewById(R.id.customerLogOutButton);
+        viewServiceRequestsStatusButton = (Button)findViewById(R.id.viewServiceRequestsStatusButton);
 
     }
 

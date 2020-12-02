@@ -17,4 +17,10 @@ public class Customer extends User{
         super(firstName, lastName, accountType);
         this.reviews = new ArrayList<Review>();
     }
+
+    public Review createReview(String comment, int rating, Branch branchReviewed){
+        Customer thisCustomer = new Customer(getFirstName(), getLastName(), getAccountType());
+        Review writtenReview = new Review(comment, rating, branchReviewed, thisCustomer);
+        return writtenReview;
+    }
 }

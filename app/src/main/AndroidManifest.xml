@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CustomerReviewBranch"/>
+        <activity android:name=".CustomerViewStatusServiceRequests"></activity>
+        <activity android:name=".CustomerReviewBranch" />
         <activity android:name=".CustomerApplyServiceRequests" />
         <activity android:name=".CustomerBranchProfile" />
         <activity android:name=".CustomerViewBranchList" />

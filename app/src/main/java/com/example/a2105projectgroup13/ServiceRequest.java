@@ -5,17 +5,19 @@ public class ServiceRequest {
     private String status;
     private String branchUid;
     private String customerUid;
+    private String serviceName;
     private Branch branch;
     private Customer customer;
 
     public ServiceRequest(){
     }
 
-    public ServiceRequest (String requestNumber, String status, String branchUid, String customerUid){
+    public ServiceRequest (String requestNumber, String status, String branchUid, String serviceName, String customerUid){
         this.requestNumber = requestNumber;
         this.status = status;
         this.branchUid = branchUid;
         this.customerUid = customerUid;
+        this.serviceName = serviceName;
         this.branch = new Branch();
         this.customer = new Customer();
     }
@@ -36,7 +38,11 @@ public class ServiceRequest {
         return customerUid;
     }
 
+    public String getServiceName(){
+        return serviceName;
+    }
+
     public String toString(){
-        return getBranchUid() + "/n" + getRequestNumber() + "/n" + getStatus();
+        return "Branch: " + getBranchUid() + "\n" + getRequestNumber() + "\n" + "Service: " + getServiceName() + "\n" + "Status: " + getStatus();
     }
 }
