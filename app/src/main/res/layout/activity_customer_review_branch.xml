@@ -35,7 +35,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="50dp"
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:orientation="horizontal">
@@ -61,9 +61,8 @@
 
             <EditText
                 android:id="@+id/ratingEditText"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/rating_out_of_5"
@@ -73,15 +72,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="300dp"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/commentEditText"
-                android:layout_width="0dp"
-                android:layout_height="147dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:autofillHints=""
                 android:ems="10"
                 android:gravity="start|top"
