@@ -22,8 +22,9 @@
 
             <TextView
                 android:id="@+id/welcomeText"
-                android:layout_width="181dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/welcome"
                 android:textAlignment="textEnd"
                 android:textSize="18sp"
@@ -79,9 +80,8 @@
 
             <Button
                 android:id="@+id/viewServiceRequestsStatusButton"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/view_status_of_your_service_requests" />
         </LinearLayout>
 
@@ -92,9 +92,8 @@
 
             <Button
                 android:id="@+id/customerLogOutButton"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="@string/log_out" />
         </LinearLayout>
 
