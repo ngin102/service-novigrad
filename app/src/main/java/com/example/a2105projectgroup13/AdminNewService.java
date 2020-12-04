@@ -119,7 +119,7 @@ public class AdminNewService extends AppCompatActivity {
                                     if (task.isSuccessful()) { //Adds info to Firebase if there were no complications.
                                         Toast.makeText(AdminNewService.this, "Service created. Now add Forms and Documents.", Toast.LENGTH_SHORT).show();
                                         finish();
-                                        Intent moveToNextScreen = new Intent(AdminNewService.this, AdminAddFormsAndDocuments.class);
+                                        Intent moveToNextScreen = new Intent(AdminNewService.this, AdminViewServiceRequirements.class);
                                         moveToNextScreen.putExtra("serviceName", serviceToAdd.getName());
                                         startActivity(moveToNextScreen);
                                     } else {
