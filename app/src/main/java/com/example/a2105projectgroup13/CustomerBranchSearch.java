@@ -175,17 +175,137 @@ public class CustomerBranchSearch extends AppCompatActivity {
 
         time = Integer.parseInt(tmpTime.replace(":", ""));
 
+
         userInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 branchArrayList.clear();
 
                 for (DataSnapshot branchUser : snapshot.getChildren()) {
+                    boolean isAlreadyAdded = false;
                     try {
-                        if (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + day + "/closeTime").getValue()).replace(":", "")) > time //First checks if the time entered is before each branch's closing time
+                       // Toast.makeText(CustomerBranchSearch.this,  Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Monday" + "/closeTime").getValue()).replace(":", "")), Toast.LENGTH_LONG).show();
+                    //Checking for cases where the value of the close time will be lower than the open time.
+                        //For example: the Branch's working hours on Monday are from 12:00 to 3:00 (so the Branch is open from Monday at 12:00 all the way straight through until Tuesday at 3:00)
+                        //If the day to view working hours is Monday, we want to check if the Branch opens on Sunday but doesn't close until some time Monday (the Branch will technically be open during a period of time on Monday in this case).
+
+                        if (isAlreadyAdded == false && day.equals("Monday") && ! branchUser.child("Working Hours/" + "Sunday" + "/closeTime").getValue(String.class).equals("CLOSED")
+                                && ! branchUser.child("Working Hours/" + "Sunday" + "/openTime").getValue(String.class).equals("CLOSED")){
+
+                            if  (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Sunday" + "/closeTime").getValue()).replace(":", "")) //First checks if Sunday's close time is lower than its open time
+                                < Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Sunday" + "/openTime").getValue()).replace(":", ""))) {
+
+                                if (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Sunday" + "/closeTime").getValue()).replace(":", "")) > time) { //Then checks if time entered is less than Sunday's close time
+                                    branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
+                                    isAlreadyAdded = true;
+                                }
+                            }
+                        }
+
+                        //If the day to view working hours is Tuesday, we want to check if the Branch opens on Monday but doesn't close until some time Tuesday (the Branch will technically be open during a period of time on Tuesday in this case).
+                        if (isAlreadyAdded == false && day.equals("Tuesday") && ! branchUser.child("Working Hours/" + "Monday" + "/closeTime").getValue(String.class).equals("CLOSED")
+                                && ! branchUser.child("Working Hours/" + "Monday" + "/openTime").getValue(String.class).equals("CLOSED")){
+
+                            if  (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Monday" + "/closeTime").getValue()).replace(":", "")) //First checks if Monday's close time is lower than its open time
+                                    < Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Monday" + "/openTime").getValue()).replace(":", ""))) {
+
+                                if (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Monday" + "/closeTime").getValue()).replace(":", "")) > time) { //Then checks if time entered is less than Monday's close time
+                                    branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
+                                    isAlreadyAdded = true;
+                                }
+                            }
+                        }
+
+                        //If the day to view working hours is Wednesday, we want to check if the Branch opens on Tuesday but doesn't close until some time Wednesday (the Branch will technically be open during a period of time on Wednesday in this case).
+                        if (isAlreadyAdded == false && day.equals("Wednesday") && ! branchUser.child("Working Hours/" + "Tuesday" + "/closeTime").getValue(String.class).equals("CLOSED")
+                                && ! branchUser.child("Working Hours/" + "Tuesday" + "/openTime").getValue(String.class).equals("CLOSED")){
+
+                            if  (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Tuesday" + "/closeTime").getValue()).replace(":", "")) //First checks if Tuesday's close time is lower than its open time
+                                    < Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Tuesday" + "/openTime").getValue()).replace(":", ""))) {
+
+                                if (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Tuesday" + "/closeTime").getValue()).replace(":", "")) > time) { //Then checks if time entered is less than Tuesday's close time
+                                    branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
+                                    isAlreadyAdded = true;
+                                }
+                            }
+                        }
+
+
+                        //If the day to view working hours is Thursday, we want to check if the Branch opens on Wednesday but doesn't close until some time Thursday (the Branch will technically be open during a period of time on Thursday in this case).
+                        if (isAlreadyAdded == false && day.equals("Thursday") && ! branchUser.child("Working Hours/" + "Wednesday" + "/closeTime").getValue(String.class).equals("CLOSED")
+                                && ! branchUser.child("Working Hours/" + "Wednesday" + "/openTime").getValue(String.class).equals("CLOSED")){
+
+                            if  (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Wednesday" + "/closeTime").getValue()).replace(":", "")) //First checks if Wednesday's close time is lower than its open time
+                                    < Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Wednesday" + "/openTime").getValue()).replace(":", ""))) {
+
+                                if (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Wednesday" + "/closeTime").getValue()).replace(":", "")) > time) { //Then checks if time entered is less than Wednesday's close time
+                                    branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
+                                    isAlreadyAdded = true;
+                                }
+                            }
+                        }
+
+
+                        //If the day to view working hours is Friday, we want to check if the Branch opens on Thursday but doesn't close until some time Friday (the Branch will technically be open during a period of time on Friday in this case).
+                        if (isAlreadyAdded == false && day.equals("Friday") && ! branchUser.child("Working Hours/" + "Thursday" + "/closeTime").getValue(String.class).equals("CLOSED")
+                                && ! branchUser.child("Working Hours/" + "Thursday" + "/openTime").getValue(String.class).equals("CLOSED")){
+
+                            if  (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Thursday" + "/closeTime").getValue()).replace(":", "")) //First checks if Thursday's close time is lower than its open time
+                                    < Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Thursday" + "/openTime").getValue()).replace(":", ""))) {
+
+                                if (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Thursday" + "/closeTime").getValue()).replace(":", "")) > time) { //Then checks if time entered is less than Thursday's close time
+                                    branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
+                                    isAlreadyAdded = true;
+                                }
+                            }
+                        }
+
+
+                        //If the day to view working hours is Saturday, we want to check if the Branch opens on Friday but doesn't close until some time Saturday (the Branch will technically be open during a period of time on Saturday in this case).
+                        if (isAlreadyAdded == false && day.equals("Saturday") && ! branchUser.child("Working Hours/" + "Friday" + "/closeTime").getValue(String.class).equals("CLOSED")
+                                && ! branchUser.child("Working Hours/" + "Friday" + "/openTime").getValue(String.class).equals("CLOSED")){
+
+                            if  (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Friday" + "/closeTime").getValue()).replace(":", "")) //First checks if Friday's close time is lower than its open time
+                                    < Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Friday" + "/openTime").getValue()).replace(":", ""))) {
+
+                                if (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Friday" + "/closeTime").getValue()).replace(":", "")) > time) { //Then checks if time entered is less than Friday's close time
+                                    branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
+                                    isAlreadyAdded = true;
+                                }
+                            }
+                        }
+
+
+                        //If the day to view working hours is Sunday, we want to check if the Branch opens on Saturday but doesn't close until some time Sunday (the Branch will technically be open during a period of time on Sunday in this case).
+                        if (isAlreadyAdded == false && day.equals("Sunday") && ! branchUser.child("Working Hours/" + "Saturday" + "/closeTime").getValue(String.class).equals("CLOSED")
+                                && ! branchUser.child("Working Hours/" + "Saturday" + "/openTime").getValue(String.class).equals("CLOSED")){
+
+                            if  (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Saturday" + "/closeTime").getValue()).replace(":", "")) //First checks if Saturday's close time is lower than its open time
+                                    < Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Saturday" + "/openTime").getValue()).replace(":", ""))) {
+
+                                if (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + "Saturday" + "/closeTime").getValue()).replace(":", "")) > time) { //Then checks if time entered is less than Saturday's close time
+                                    branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
+                                    isAlreadyAdded = true;
+                                }
+                            }
+                        }
+
+
+                        if (isAlreadyAdded == false && Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + day + "/closeTime").getValue()).replace(":", "")) //First checks if the close time is lower than the open time
+                                < Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + day + "/openTime").getValue()).replace(":", ""))) {
+                            if (Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + day + "/openTime").getValue()).replace(":", "")) < time) { //Then checks if time entered is greater than the open time
+                                branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
+                                isAlreadyAdded = true;
+                            }
+                        }
+
+                    //If the value of the close time is greater than the open time...
+                        if (isAlreadyAdded == false && Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + day + "/closeTime").getValue()).replace(":", "")) > time //First checks if the time entered is before each branch's closing time
                                 && Integer.parseInt(String.valueOf(branchUser.child("Working Hours/" + day + "/openTime").getValue()).replace(":", "")) <= time) { //Then checks if it is after or equal to the opening time
                             branchArrayList.add(String.valueOf(branchUser.getKey())); //Finally it adds the branchId to branchArrayList
+                            isAlreadyAdded = true;
                         }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
