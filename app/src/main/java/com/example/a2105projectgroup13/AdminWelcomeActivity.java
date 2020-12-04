@@ -53,7 +53,7 @@ public class AdminWelcomeActivity extends AppCompatActivity {
         manageServicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(AdminWelcomeActivity.this, AdminManageServices.class));
+                startActivity(new Intent(AdminWelcomeActivity.this, AdminViewServiceList.class));
             }
         });
 

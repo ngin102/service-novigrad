@@ -55,7 +55,7 @@ public class AdminViewServiceList extends AppCompatActivity {
         returnToManageServicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                startActivity(new Intent(AdminViewServiceList.this, AdminManageServices.class));
+                startActivity(new Intent(AdminViewServiceList.this, AdminWelcomeActivity.class));
             }
         });
 
