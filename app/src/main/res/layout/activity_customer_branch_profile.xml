@@ -312,9 +312,16 @@
 
             <Button
                 android:id="@+id/backToBranchListButton1"
-                android:layout_width="match_parent"
+                android:layout_width="204dp"
                 android:layout_height="wrap_content"
-                android:text="@string/back_to_branch_list" />
+                android:text="@string/go_to_branch_list" />
+
+            <Button
+                android:id="@+id/goToBranchSearchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/go_to_branch_search" />
         </LinearLayout>
 
     </LinearLayout>
