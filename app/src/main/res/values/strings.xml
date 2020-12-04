@@ -236,4 +236,5 @@
     <string name="friday2">Friday</string>
     <string name="saturday2">Saturday</string>
     <string name="sunday2">Sunday</string>
+    <string name="add_view_edit_and_delete_services">Add, View, Edit and Delete Services</string>
 </resources>

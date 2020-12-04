@@ -14,7 +14,7 @@ import android.widget.Button;
 
 public class AdminManageServices extends AppCompatActivity {
 
-    private Button addServiceButton;
+    //private Button addServiceButton;
     private Button viewServicesButton;
     private Button returnToAdminWelcomeButton;
 
@@ -29,12 +29,13 @@ public class AdminManageServices extends AppCompatActivity {
         initializeInstanceVariables();
 
         // launch the NewService activity
-        addServiceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                startActivity(new Intent(AdminManageServices.this, AdminNewService.class));
-            }
-        });
+        //addServiceButton.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //   public void onClick(View view){
+        //       startActivity(new Intent(AdminManageServices.this, AdminNewService.class));
+        //   }
+        //});
+
 
         // launch the ServiceList activity
         viewServicesButton.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +58,7 @@ public class AdminManageServices extends AppCompatActivity {
      */
     private void initializeInstanceVariables() {
         //Initialize each instance variable by finding the first view that corresponds with its id.
-        addServiceButton = findViewById(R.id.addServiceButton);
+        //addServiceButton = findViewById(R.id.addServiceButton);
         viewServicesButton = findViewById(R.id.viewServicesButton);
         returnToAdminWelcomeButton = findViewById(R.id.returnToAdminWelcomeButton);
     }

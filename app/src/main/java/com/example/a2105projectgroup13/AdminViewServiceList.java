@@ -36,6 +36,7 @@ public class AdminViewServiceList extends AppCompatActivity {
     private ArrayList<String> serviceArrayList = new ArrayList<String>();
 
     private Button returnToManageServicesButton;
+    private Button addServiceButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +49,20 @@ public class AdminViewServiceList extends AppCompatActivity {
 
         returnToManageServicesButton = (Button) findViewById(R.id.returnToManageServicesButton);
 
+        addServiceButton = (Button) findViewById(R.id.addServiceButton);
+
 
         returnToManageServicesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 startActivity(new Intent(AdminViewServiceList.this, AdminManageServices.class));
+            }
+        });
+
+        addServiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(AdminViewServiceList.this, AdminNewService.class));
             }
         });
 

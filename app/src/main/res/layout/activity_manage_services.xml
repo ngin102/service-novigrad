@@ -21,16 +21,10 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/addServiceButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add_service" />
-
-        <Button
             android:id="@+id/viewServicesButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/view_edit_and_delete_services" />
+            android:text="@string/add_view_edit_and_delete_services" />
 
         <Button
             android:id="@+id/returnToAdminWelcomeButton"
