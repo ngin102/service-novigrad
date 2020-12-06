@@ -220,7 +220,7 @@
     <string name="enter_the_name_of_your_city_there_must_be_no_spelling_mistakes">Enter the name of your city. There must be no spelling mistakes.</string>
     <string name="oxenfurt">Oxenfurt</string>
     <string name="_221b_baker_street">221B Baker Street</string>
-    <string name="select_a_date_and_time_24_00">Select a date and time (24:00).</string>
+    <string name="select_a_date_and_time_24_00">Select a date and time (using the 24 clock).</string>
     <string name="time_you_wish_to_visit">Time you wish to visit:</string>
     <string name="_13_00_or_15">13:00 OR 15</string>
     <string name="select_the_type_of_search_and_fill_in_the_requisite_information">Select the type of search and fill in the requisite information.</string>
