@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="sans-serif-black"
-            android:text="@string/service_novigrad"
+            android:text="@string/servicenovigrad"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="30sp"
             android:typeface="normal" />

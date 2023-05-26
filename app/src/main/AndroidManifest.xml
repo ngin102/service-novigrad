@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.a2105projectgroup13">
+    package="com.example.servicenovigrad">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="ServiceNovigrad"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CustomerViewStatusServiceRequests"></activity>
-        <activity android:name=".CustomerReviewBranch" />
-        <activity android:name=".CustomerApplyServiceRequests" />
-        <activity android:name=".CustomerBranchProfile" />
-        <activity android:name=".CustomerViewBranchList" />
-        <activity android:name=".CustomerBranchSearch" />
-        <activity android:name=".BranchOpenDocument" />
-        <activity android:name=".BranchViewServiceRequests" />
-        <activity android:name=".BranchAddWorkingHours" />
-        <activity android:name=".BranchSetProfile" />
-        <activity android:name=".BranchViewFields" />
-        <activity android:name=".BranchViewServiceRequirements" />
-        <activity android:name=".BranchViewOfferedServiceList" />
-        <activity android:name=".BranchViewAdminServiceList" />
-        <activity android:name=".BranchWelcomeActivity" />
-        <activity android:name=".BranchApproveDenyServiceRequests" />
-        <activity android:name=".AdminEditDocument" />
-        <activity android:name=".AdminAddField" />
-        <activity android:name=".AdminViewFields" />
-        <activity android:name=".AdminViewServiceRequirements" />
-        <activity android:name=".AdminViewServiceList" />
-        <activity android:name=".AdminAddFormsAndDocuments" />
-        <activity android:name=".AdminNewService" />
-        <activity android:name=".AdminManageServices" />
-        <activity android:name=".AdminNewDocument" />
-        <activity android:name=".AdminNewForm" />
-        <activity android:name=".AdminViewUserList" />
-        <activity android:name=".AdminWelcomeActivity" />
-        <activity android:name=".UserLogin" />
-        <activity android:name=".UserRegister">
+        <activity android:name="com.example.servicenovigrad.CustomerViewStatusServiceRequests"></activity>
+        <activity android:name="com.example.servicenovigrad.CustomerReviewBranch" />
+        <activity android:name="com.example.servicenovigrad.CustomerApplyServiceRequests" />
+        <activity android:name="com.example.servicenovigrad.CustomerBranchProfile" />
+        <activity android:name="com.example.servicenovigrad.CustomerViewBranchList" />
+        <activity android:name="com.example.servicenovigrad.CustomerBranchSearch" />
+        <activity android:name="com.example.servicenovigrad.BranchOpenDocument" />
+        <activity android:name="com.example.servicenovigrad.BranchViewServiceRequests" />
+        <activity android:name="com.example.servicenovigrad.BranchAddWorkingHours" />
+        <activity android:name="com.example.servicenovigrad.BranchSetProfile" />
+        <activity android:name="com.example.servicenovigrad.BranchViewFields" />
+        <activity android:name="com.example.servicenovigrad.BranchViewServiceRequirements" />
+        <activity android:name="com.example.servicenovigrad.BranchViewOfferedServiceList" />
+        <activity android:name="com.example.servicenovigrad.BranchViewAdminServiceList" />
+        <activity android:name="com.example.servicenovigrad.BranchWelcomeActivity" />
+        <activity android:name="com.example.servicenovigrad.BranchApproveDenyServiceRequests" />
+        <activity android:name="com.example.servicenovigrad.AdminEditDocument" />
+        <activity android:name="com.example.servicenovigrad.AdminAddField" />
+        <activity android:name="com.example.servicenovigrad.AdminViewFields" />
+        <activity android:name="com.example.servicenovigrad.AdminViewServiceRequirements" />
+        <activity android:name="com.example.servicenovigrad.AdminViewServiceList" />
+        <activity android:name="com.example.servicenovigrad.AdminAddFormsAndDocuments" />
+        <activity android:name="com.example.servicenovigrad.AdminNewService" />
+        <activity android:name="com.example.servicenovigrad.AdminManageServices" />
+        <activity android:name="com.example.servicenovigrad.AdminNewDocument" />
+        <activity android:name="com.example.servicenovigrad.AdminNewForm" />
+        <activity android:name="com.example.servicenovigrad.AdminViewUserList" />
+        <activity android:name="com.example.servicenovigrad.AdminWelcomeActivity" />
+        <activity android:name="com.example.servicenovigrad.UserLogin" />
+        <activity android:name="com.example.servicenovigrad.UserRegister">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CustomerWelcomeActivity" />
+        <activity android:name="com.example.servicenovigrad.CustomerWelcomeActivity" />
     </application>
 
 </manifest>

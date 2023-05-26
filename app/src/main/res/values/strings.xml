@@ -239,4 +239,5 @@
     <string name="add_view_edit_and_delete_services">Add, View, Edit and Delete Services</string>
     <string name="go_to_branch_list">Go to Branch List</string>
     <string name="go_to_branch_search">Go to Branch Search</string>
+    <string name="servicenovigrad">ServiceNovigrad</string>
 </resources>
